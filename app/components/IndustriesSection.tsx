@@ -5,7 +5,7 @@ import Link from "next/link";
 const industries = [
   {
     name: "Custom Cosmetic Packaging",
-    href: "#",
+    href: "/industries/custom-cosmetics",
     icon: (
       <svg viewBox="0 0 24 24" fill="none" className="w-7 h-7" stroke="currentColor" strokeWidth={1.6} strokeLinecap="round" strokeLinejoin="round">
         <circle cx="12" cy="8" r="4" />
@@ -17,7 +17,7 @@ const industries = [
   },
   {
     name: "Custom CBD Packaging",
-    href: "#",
+    href: "/industries/custom-cbd-cannabis",
     icon: (
       <svg viewBox="0 0 24 24" fill="none" className="w-7 h-7" stroke="currentColor" strokeWidth={1.6} strokeLinecap="round" strokeLinejoin="round">
         <path d="M12 2C8 6 6 10 7 14c1 4 5 6 5 6s4-2 5-6c1-4-1-8-5-12z" />
@@ -27,7 +27,7 @@ const industries = [
   },
   {
     name: "Custom Food & Beverage",
-    href: "#",
+    href: "/industries/custom-food-beverage",
     icon: (
       <svg viewBox="0 0 24 24" fill="none" className="w-7 h-7" stroke="currentColor" strokeWidth={1.6} strokeLinecap="round" strokeLinejoin="round">
         <path d="M3 11l19-9-9 19-2-8-8-2z" />
@@ -36,7 +36,7 @@ const industries = [
   },
   {
     name: "Custom Retail Packaging",
-    href: "#",
+    href: "/industries/custom-retail-packaging",
     icon: (
       <svg viewBox="0 0 24 24" fill="none" className="w-7 h-7" stroke="currentColor" strokeWidth={1.6} strokeLinecap="round" strokeLinejoin="round">
         <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z" />
@@ -47,7 +47,7 @@ const industries = [
   },
   {
     name: "Custom Pharmaceutical",
-    href: "#",
+    href: "/industries/custom-pharmaceutical",
     icon: (
       <svg viewBox="0 0 24 24" fill="none" className="w-7 h-7" stroke="currentColor" strokeWidth={1.6} strokeLinecap="round" strokeLinejoin="round">
         <rect x="3" y="3" width="18" height="18" rx="3" />
@@ -58,7 +58,7 @@ const industries = [
   },
   {
     name: "Custom Jewelry Packaging",
-    href: "#",
+    href: "/industries/custom-jewelry-packaging",
     icon: (
       <svg viewBox="0 0 24 24" fill="none" className="w-7 h-7" stroke="currentColor" strokeWidth={1.6} strokeLinecap="round" strokeLinejoin="round">
         <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
@@ -67,7 +67,7 @@ const industries = [
   },
   {
     name: "Custom Apparel Packaging",
-    href: "#",
+    href: "/industries/custom-apparel-packaging",
     icon: (
       <svg viewBox="0 0 24 24" fill="none" className="w-7 h-7" stroke="currentColor" strokeWidth={1.6} strokeLinecap="round" strokeLinejoin="round">
         <path d="M20.38 3.46L16 2a4 4 0 01-8 0L3.62 3.46a2 2 0 00-1.34 2.23l.58 3.57a1 1 0 00.99.84H6v10c0 1.1.9 2 2 2h8a2 2 0 002-2V10h2.15a1 1 0 00.99-.84l.58-3.57a2 2 0 00-1.34-2.23z" />
@@ -76,7 +76,7 @@ const industries = [
   },
   {
     name: "Custom Gift Packaging",
-    href: "#",
+    href: "/industries/custom-gift-packaging",
     icon: (
       <svg viewBox="0 0 24 24" fill="none" className="w-7 h-7" stroke="currentColor" strokeWidth={1.6} strokeLinecap="round" strokeLinejoin="round">
         <rect x="3" y="8" width="18" height="4" rx="1" />
@@ -88,7 +88,7 @@ const industries = [
   },
   {
     name: "Custom Bakery Packaging",
-    href: "#",
+    href: "/industries/custom-bakery-packaging",
     icon: (
       <svg viewBox="0 0 24 24" fill="none" className="w-7 h-7" stroke="currentColor" strokeWidth={1.6} strokeLinecap="round" strokeLinejoin="round">
         <path d="M18 8h1a4 4 0 010 8h-1" />
@@ -101,7 +101,7 @@ const industries = [
   },
   {
     name: "Custom Candle Packaging",
-    href: "#",
+    href: "/industries/custom-candle-packaging",
     icon: (
       <svg viewBox="0 0 24 24" fill="none" className="w-7 h-7" stroke="currentColor" strokeWidth={1.6} strokeLinecap="round" strokeLinejoin="round">
         <line x1="12" y1="2" x2="12" y2="4" />
@@ -112,7 +112,7 @@ const industries = [
   },
   {
     name: "Custom Soap Packaging",
-    href: "#",
+    href: "/industries/custom-soap-packaging",
     icon: (
       <svg viewBox="0 0 24 24" fill="none" className="w-7 h-7" stroke="currentColor" strokeWidth={1.6} strokeLinecap="round" strokeLinejoin="round">
         <path d="M9 12h.01M12 12h.01M15 12h.01" />
@@ -124,7 +124,7 @@ const industries = [
   },
   {
     name: "Custom Electronics & Tech",
-    href: "#",
+    href: "/industries/custom-electronics-tech",
     icon: (
       <svg viewBox="0 0 24 24" fill="none" className="w-7 h-7" stroke="currentColor" strokeWidth={1.6} strokeLinecap="round" strokeLinejoin="round">
         <rect x="2" y="3" width="20" height="14" rx="2" />

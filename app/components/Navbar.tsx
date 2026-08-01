@@ -6,7 +6,7 @@ import Image from "next/image";
 const bottomIndustries = [
   {
     label: "Cosmetic Packaging",
-    href: "#",
+    href: "/industries/custom-cosmetics",
     icon: (
       <svg className="w-4 h-4 text-gray-500 group-hover:text-[#02c074] transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}>
         <circle cx="12" cy="8" r="4" />
@@ -16,7 +16,7 @@ const bottomIndustries = [
   },
   {
     label: "Restaurant Packaging",
-    href: "#",
+    href: "/industries/custom-restaurant-packaging",
     icon: (
       <svg className="w-4 h-4 text-gray-500 group-hover:text-[#02c074] transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}>
         <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
@@ -26,7 +26,7 @@ const bottomIndustries = [
   },
   {
     label: "Bakery Packaging",
-    href: "#",
+    href: "/industries/custom-bakery-packaging",
     icon: (
       <svg className="w-4 h-4 text-gray-500 group-hover:text-[#02c074] transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}>
         <path strokeLinecap="round" strokeLinejoin="round" d="M18 8h1a4 4 0 010 8h-1" />
@@ -36,7 +36,7 @@ const bottomIndustries = [
   },
   {
     label: "Candle Packaging",
-    href: "#",
+    href: "/industries/custom-candle-packaging",
     icon: (
       <svg className="w-4 h-4 text-gray-500 group-hover:text-[#02c074] transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}>
         <line x1="12" y1="2" x2="12" y2="4" />
@@ -47,7 +47,7 @@ const bottomIndustries = [
   },
   {
     label: "Food & Beverage",
-    href: "#",
+    href: "/industries/custom-food-beverage",
     icon: (
       <svg className="w-4 h-4 text-gray-500 group-hover:text-[#02c074] transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}>
         <path strokeLinecap="round" strokeLinejoin="round" d="M3 11l19-9-9 19-2-8-8-2z" />
@@ -56,7 +56,7 @@ const bottomIndustries = [
   },
   {
     label: "Retail Packaging",
-    href: "#",
+    href: "/industries/custom-retail-packaging",
     icon: (
       <svg className="w-4 h-4 text-gray-500 group-hover:text-[#02c074] transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}>
         <path strokeLinecap="round" strokeLinejoin="round" d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z" />
@@ -67,7 +67,7 @@ const bottomIndustries = [
   },
   {
     label: "Jewelry Packaging",
-    href: "#",
+    href: "/industries/custom-jewelry-packaging",
     icon: (
       <svg className="w-4 h-4 text-gray-500 group-hover:text-[#02c074] transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}>
         <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
@@ -76,7 +76,7 @@ const bottomIndustries = [
   },
   {
     label: "Gift Packaging",
-    href: "#",
+    href: "/industries/custom-gift-packaging",
     icon: (
       <svg className="w-4 h-4 text-gray-500 group-hover:text-[#02c074] transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}>
         <rect x="3" y="8" width="18" height="4" rx="1" />

@@ -14,7 +14,7 @@ const allIndustriesData: IndustryItem[] = [
   {
     id: "cosmetics",
     name: "Custom Cosmetics",
-    href: "/catalog?industry=cosmetics",
+    href: "/industries/custom-cosmetics",
     icon: (
       <svg viewBox="0 0 24 24" fill="none" className="w-7 h-7" stroke="currentColor" strokeWidth={1.6} strokeLinecap="round" strokeLinejoin="round">
         <circle cx="12" cy="8" r="4" />
@@ -27,7 +27,7 @@ const allIndustriesData: IndustryItem[] = [
   {
     id: "cannabis",
     name: "Custom CBD & Cannabis",
-    href: "/catalog?industry=cannabis",
+    href: "/industries/custom-cbd-cannabis",
     icon: (
       <svg viewBox="0 0 24 24" fill="none" className="w-7 h-7" stroke="currentColor" strokeWidth={1.6} strokeLinecap="round" strokeLinejoin="round">
         <path d="M12 2C8 6 6 10 7 14c1 4 5 6 5 6s4-2 5-6c1-4-1-8-5-12z" />
@@ -38,7 +38,7 @@ const allIndustriesData: IndustryItem[] = [
   {
     id: "food-beverage",
     name: "Custom Food & Beverage",
-    href: "/catalog?industry=food-beverage",
+    href: "/industries/custom-food-beverage",
     icon: (
       <svg viewBox="0 0 24 24" fill="none" className="w-7 h-7" stroke="currentColor" strokeWidth={1.6} strokeLinecap="round" strokeLinejoin="round">
         <path d="M3 11l19-9-9 19-2-8-8-2z" />
@@ -48,7 +48,7 @@ const allIndustriesData: IndustryItem[] = [
   {
     id: "retail",
     name: "Custom Retail Packaging",
-    href: "/catalog?industry=retail",
+    href: "/industries/custom-retail-packaging",
     icon: (
       <svg viewBox="0 0 24 24" fill="none" className="w-7 h-7" stroke="currentColor" strokeWidth={1.6} strokeLinecap="round" strokeLinejoin="round">
         <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z" />
@@ -60,7 +60,7 @@ const allIndustriesData: IndustryItem[] = [
   {
     id: "pharmaceutical",
     name: "Custom Pharmaceutical",
-    href: "/catalog?industry=pharmaceutical",
+    href: "/industries/custom-pharmaceutical",
     icon: (
       <svg viewBox="0 0 24 24" fill="none" className="w-7 h-7" stroke="currentColor" strokeWidth={1.6} strokeLinecap="round" strokeLinejoin="round">
         <rect x="3" y="3" width="18" height="18" rx="3" />
@@ -72,7 +72,7 @@ const allIndustriesData: IndustryItem[] = [
   {
     id: "jewelry",
     name: "Custom Jewelry Packaging",
-    href: "/catalog?industry=jewelry",
+    href: "/industries/custom-jewelry-packaging",
     icon: (
       <svg viewBox="0 0 24 24" fill="none" className="w-7 h-7" stroke="currentColor" strokeWidth={1.6} strokeLinecap="round" strokeLinejoin="round">
         <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
@@ -82,7 +82,7 @@ const allIndustriesData: IndustryItem[] = [
   {
     id: "apparel",
     name: "Custom Apparel Packaging",
-    href: "/catalog?industry=apparel",
+    href: "/industries/custom-apparel-packaging",
     icon: (
       <svg viewBox="0 0 24 24" fill="none" className="w-7 h-7" stroke="currentColor" strokeWidth={1.6} strokeLinecap="round" strokeLinejoin="round">
         <path d="M20.38 3.46L16 2a4 4 0 01-8 0L3.62 3.46a2 2 0 00-1.34 2.23l.58 3.57a1 1 0 00.99.84H6v10c0 1.1.9 2 2 2h8a2 2 0 002-2V10h2.15a1 1 0 00.99-.84l.58-3.57a2 2 0 00-1.34-2.23z" />
@@ -92,7 +92,7 @@ const allIndustriesData: IndustryItem[] = [
   {
     id: "gift",
     name: "Custom Gift Packaging",
-    href: "/catalog?industry=gift",
+    href: "/industries/custom-gift-packaging",
     icon: (
       <svg viewBox="0 0 24 24" fill="none" className="w-7 h-7" stroke="currentColor" strokeWidth={1.6} strokeLinecap="round" strokeLinejoin="round">
         <rect x="3" y="8" width="18" height="4" rx="1" />
@@ -105,7 +105,7 @@ const allIndustriesData: IndustryItem[] = [
   {
     id: "bakery",
     name: "Custom Bakery Packaging",
-    href: "/catalog?industry=bakery",
+    href: "/industries/custom-bakery-packaging",
     icon: (
       <svg viewBox="0 0 24 24" fill="none" className="w-7 h-7" stroke="currentColor" strokeWidth={1.6} strokeLinecap="round" strokeLinejoin="round">
         <path d="M18 8h1a4 4 0 010 8h-1" />
@@ -119,7 +119,7 @@ const allIndustriesData: IndustryItem[] = [
   {
     id: "candle",
     name: "Custom Candle Packaging",
-    href: "/catalog?industry=candle",
+    href: "/industries/custom-candle-packaging",
     icon: (
       <svg viewBox="0 0 24 24" fill="none" className="w-7 h-7" stroke="currentColor" strokeWidth={1.6} strokeLinecap="round" strokeLinejoin="round">
         <line x1="12" y1="2" x2="12" y2="4" />
@@ -131,7 +131,7 @@ const allIndustriesData: IndustryItem[] = [
   {
     id: "soap",
     name: "Custom Soap Packaging",
-    href: "/catalog?industry=soap",
+    href: "/industries/custom-soap-packaging",
     icon: (
       <svg viewBox="0 0 24 24" fill="none" className="w-7 h-7" stroke="currentColor" strokeWidth={1.6} strokeLinecap="round" strokeLinejoin="round">
         <path d="M9 12h.01M12 12h.01M15 12h.01" />
@@ -144,7 +144,7 @@ const allIndustriesData: IndustryItem[] = [
   {
     id: "electronics",
     name: "Custom Electronics & Tech",
-    href: "/catalog?industry=electronics",
+    href: "/industries/custom-electronics-tech",
     icon: (
       <svg viewBox="0 0 24 24" fill="none" className="w-7 h-7" stroke="currentColor" strokeWidth={1.6} strokeLinecap="round" strokeLinejoin="round">
         <rect x="2" y="3" width="20" height="14" rx="2" />
@@ -156,7 +156,7 @@ const allIndustriesData: IndustryItem[] = [
   {
     id: "beer-liquor",
     name: "Custom Beer & Liquor",
-    href: "/catalog?industry=beer-liquor",
+    href: "/industries/custom-beer-liquor",
     icon: (
       <svg viewBox="0 0 24 24" fill="none" className="w-7 h-7" stroke="currentColor" strokeWidth={1.6} strokeLinecap="round" strokeLinejoin="round">
         <path d="M9 3h6v4H9V3zM7 7h10l1 14H6L7 7zM10 11h4" />
@@ -166,7 +166,7 @@ const allIndustriesData: IndustryItem[] = [
   {
     id: "beverage",
     name: "Custom Beverage",
-    href: "/catalog?industry=beverage",
+    href: "/industries/custom-beverage",
     icon: (
       <svg viewBox="0 0 24 24" fill="none" className="w-7 h-7" stroke="currentColor" strokeWidth={1.6} strokeLinecap="round" strokeLinejoin="round">
         <path d="M19 11v9a2 2 0 01-2 2H7a2 2 0 01-2-2v-9M5 11h14M12 2v4M10 4h4" />
@@ -177,7 +177,7 @@ const allIndustriesData: IndustryItem[] = [
   {
     id: "candy",
     name: "Custom Candy & Sweets",
-    href: "/catalog?industry=candy",
+    href: "/industries/custom-candy-sweets",
     icon: (
       <svg viewBox="0 0 24 24" fill="none" className="w-7 h-7" stroke="currentColor" strokeWidth={1.6} strokeLinecap="round" strokeLinejoin="round">
         <path d="M12 2a6 6 0 00-6 6c0 4 6 10 6 10s6-6 6-10a6 6 0 00-6-6z" />
@@ -188,7 +188,7 @@ const allIndustriesData: IndustryItem[] = [
   {
     id: "chocolate",
     name: "Custom Chocolate Packaging",
-    href: "/catalog?industry=chocolate",
+    href: "/industries/custom-chocolate-packaging",
     icon: (
       <svg viewBox="0 0 24 24" fill="none" className="w-7 h-7" stroke="currentColor" strokeWidth={1.6} strokeLinecap="round" strokeLinejoin="round">
         <rect x="4" y="4" width="16" height="16" rx="2" />
@@ -200,7 +200,7 @@ const allIndustriesData: IndustryItem[] = [
   {
     id: "coffee",
     name: "Custom Coffee Packaging",
-    href: "/catalog?industry=coffee",
+    href: "/industries/custom-coffee-packaging",
     icon: (
       <svg viewBox="0 0 24 24" fill="none" className="w-7 h-7" stroke="currentColor" strokeWidth={1.6} strokeLinecap="round" strokeLinejoin="round">
         <path d="M18 8h1a4 4 0 010 8h-1M2 8h16v9a4 4 0 01-4 4H6a4 4 0 01-4-4V8z" />
@@ -211,7 +211,7 @@ const allIndustriesData: IndustryItem[] = [
   {
     id: "e-commerce",
     name: "Custom E-Commerce",
-    href: "/catalog?industry=e-commerce",
+    href: "/industries/custom-e-commerce",
     icon: (
       <svg viewBox="0 0 24 24" fill="none" className="w-7 h-7" stroke="currentColor" strokeWidth={1.6} strokeLinecap="round" strokeLinejoin="round">
         <path d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
@@ -221,7 +221,7 @@ const allIndustriesData: IndustryItem[] = [
   {
     id: "food",
     name: "Custom Food Packaging",
-    href: "/catalog?industry=food",
+    href: "/industries/custom-food-packaging",
     icon: (
       <svg viewBox="0 0 24 24" fill="none" className="w-7 h-7" stroke="currentColor" strokeWidth={1.6} strokeLinecap="round" strokeLinejoin="round">
         <path d="M6 3v8M9 3v8M6 7h3M7 11v10M17 3v18M14 3c0 3 3 4 3 7" />
@@ -231,7 +231,7 @@ const allIndustriesData: IndustryItem[] = [
   {
     id: "game",
     name: "Custom Game & Toy",
-    href: "/catalog?industry=game",
+    href: "/industries/custom-game-toy",
     icon: (
       <svg viewBox="0 0 24 24" fill="none" className="w-7 h-7" stroke="currentColor" strokeWidth={1.6} strokeLinecap="round" strokeLinejoin="round">
         <rect x="4" y="4" width="16" height="16" rx="3" />
@@ -246,7 +246,7 @@ const allIndustriesData: IndustryItem[] = [
   {
     id: "presentation",
     name: "Custom Presentation Boxes",
-    href: "/catalog?industry=presentation",
+    href: "/industries/custom-presentation-boxes",
     icon: (
       <svg viewBox="0 0 24 24" fill="none" className="w-7 h-7" stroke="currentColor" strokeWidth={1.6} strokeLinecap="round" strokeLinejoin="round">
         <rect x="3" y="5" width="18" height="14" rx="2" />
@@ -257,7 +257,7 @@ const allIndustriesData: IndustryItem[] = [
   {
     id: "restaurant",
     name: "Custom Restaurant Packaging",
-    href: "/catalog?industry=restaurant",
+    href: "/industries/custom-restaurant-packaging",
     icon: (
       <svg viewBox="0 0 24 24" fill="none" className="w-7 h-7" stroke="currentColor" strokeWidth={1.6} strokeLinecap="round" strokeLinejoin="round">
         <path d="M3 21h18M3 10h18M5 10V6a1 1 0 011-1h12a1 1 0 011 1v4M9 14h6v7H9z" />
@@ -267,7 +267,7 @@ const allIndustriesData: IndustryItem[] = [
   {
     id: "shipping",
     name: "Custom Shipping & Transit",
-    href: "/catalog?industry=shipping",
+    href: "/industries/custom-shipping-transit",
     icon: (
       <svg viewBox="0 0 24 24" fill="none" className="w-7 h-7" stroke="currentColor" strokeWidth={1.6} strokeLinecap="round" strokeLinejoin="round">
         <rect x="1" y="6" width="14" height="10" rx="1" />
@@ -280,7 +280,7 @@ const allIndustriesData: IndustryItem[] = [
   {
     id: "tea",
     name: "Custom Tea Packaging",
-    href: "/catalog?industry=tea",
+    href: "/industries/custom-tea-packaging",
     icon: (
       <svg viewBox="0 0 24 24" fill="none" className="w-7 h-7" stroke="currentColor" strokeWidth={1.6} strokeLinecap="round" strokeLinejoin="round">
         <path d="M18 8h1a4 4 0 010 8h-1M2 8h16v9a4 4 0 01-4 4H6a4 4 0 01-4-4V8z" />
@@ -291,7 +291,7 @@ const allIndustriesData: IndustryItem[] = [
   {
     id: "wine",
     name: "Custom Wine & Spirits",
-    href: "/catalog?industry=wine",
+    href: "/industries/custom-wine-spirits",
     icon: (
       <svg viewBox="0 0 24 24" fill="none" className="w-7 h-7" stroke="currentColor" strokeWidth={1.6} strokeLinecap="round" strokeLinejoin="round">
         <path d="M12 15v6M9 21h6M8 3h8l1 7a5 5 0 01-10 0L8 3z" />
