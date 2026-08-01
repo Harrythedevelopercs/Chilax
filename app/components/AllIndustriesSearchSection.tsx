@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState, useEffect, useMemo } from "react";
 import Link from "next/link";
 
 interface IndustryItem {
@@ -303,13 +303,44 @@ const allIndustriesData: IndustryItem[] = [
 export default function AllIndustriesSearchSection() {
   const [searchTerm, setSearchTerm] = useState("");
   const [hovered, setHovered] = useState<number | null>(null);
+  const [industriesList, setIndustriesList] = useState<IndustryItem[]>(allIndustriesData);
+
+  useEffect(() => {
+    async function loadDynamicIndustries() {
+      try {
+        const res = await fetch("/api/industries");
+        const data = await res.json();
+        if (data.success && data.industries && data.industries.length > 0) {
+          const mapped: IndustryItem[] = data.industries.map((term: { id: number; name: string; slug: string }) => {
+            const matchedFallback = allIndustriesData.find(i => i.id === term.slug || i.name.toLowerCase().includes(term.slug.toLowerCase()));
+            return {
+              id: String(term.id || term.slug),
+              name: term.name.startsWith("Custom") ? term.name : `Custom ${term.name}`,
+              href: `/catalog?industry=${term.slug}`,
+              icon: matchedFallback ? matchedFallback.icon : (
+                <svg viewBox="0 0 24 24" fill="none" className="w-7 h-7" stroke="currentColor" strokeWidth={1.6} strokeLinecap="round" strokeLinejoin="round">
+                  <circle cx="12" cy="8" r="4" />
+                  <path d="M8 8c0-2.21 1.79-4 4-4s4 1.79 4 4" />
+                  <rect x="7" y="12" width="10" height="8" rx="2" />
+                </svg>
+              ),
+            };
+          });
+          setIndustriesList(mapped);
+        }
+      } catch (e) {
+        console.error("Failed to load dynamic industries:", e);
+      }
+    }
+    loadDynamicIndustries();
+  }, []);
 
   const filteredIndustries = useMemo(() => {
-    if (!searchTerm.trim()) return allIndustriesData;
-    return allIndustriesData.filter((item) =>
+    if (!searchTerm.trim()) return industriesList;
+    return industriesList.filter((item) =>
       item.name.toLowerCase().includes(searchTerm.toLowerCase().trim())
     );
-  }, [searchTerm]);
+  }, [searchTerm, industriesList]);
 
   return (
     <section className="bg-white py-16 md:py-20 border-b border-gray-100 w-full font-inter overflow-hidden">

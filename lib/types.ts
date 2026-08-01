@@ -27,6 +27,18 @@ export interface WCCategoryTree extends WCCategory {
   children: WCCategoryTree[];
 }
 
+// ─── WP Industry Taxonomy Term ─────────────────────────────────────────
+
+export interface WPIndustryTerm {
+  id: number;
+  count: number;
+  description: string;
+  link: string;
+  name: string;
+  slug: string;
+  taxonomy: string;
+}
+
 // ─── Product ─────────────────────────────────────────────────────────
 
 export interface WCProductCategory {

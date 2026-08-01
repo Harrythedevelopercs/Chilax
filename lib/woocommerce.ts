@@ -179,3 +179,28 @@ export async function getFeaturedProducts(limit: number = 8): Promise<WCProduct[
 export async function searchProducts(query: string, limit: number = 20): Promise<WCProduct[]> {
   return getProducts({ search: query, per_page: limit });
 }
+
+// ─── Industries Taxonomy ────────────────────────────────────────────────
+
+/**
+ * Fetch all terms from custom WP taxonomy `industry`.
+ */
+export async function getWPIndustries(): Promise<import("./types").WPIndustryTerm[]> {
+  try {
+    const url = `${BASE_URL}/wp-json/wp/v2/industry?per_page=100`;
+    const res = await fetch(url, {
+      next: { revalidate: 300 }, // Cache for 5 minutes
+    });
+
+    if (!res.ok) {
+      console.warn(`getWPIndustries error: ${res.status} ${res.statusText}`);
+      return [];
+    }
+
+    return res.json();
+  } catch (error) {
+    console.error("Failed to fetch industries taxonomy:", error);
+    return [];
+  }
+}
+
