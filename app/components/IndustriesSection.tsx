@@ -4,7 +4,7 @@ import Link from "next/link";
 
 const industries = [
   {
-    name: "Cosmetic Packaging",
+    name: "Custom Cosmetic Packaging",
     href: "#",
     icon: (
       <svg viewBox="0 0 24 24" fill="none" className="w-7 h-7" stroke="currentColor" strokeWidth={1.6} strokeLinecap="round" strokeLinejoin="round">
@@ -16,7 +16,7 @@ const industries = [
     ),
   },
   {
-    name: "CBD Packaging",
+    name: "Custom CBD Packaging",
     href: "#",
     icon: (
       <svg viewBox="0 0 24 24" fill="none" className="w-7 h-7" stroke="currentColor" strokeWidth={1.6} strokeLinecap="round" strokeLinejoin="round">
@@ -26,7 +26,7 @@ const industries = [
     ),
   },
   {
-    name: "Food & Beverage",
+    name: "Custom Food & Beverage",
     href: "#",
     icon: (
       <svg viewBox="0 0 24 24" fill="none" className="w-7 h-7" stroke="currentColor" strokeWidth={1.6} strokeLinecap="round" strokeLinejoin="round">
@@ -35,7 +35,7 @@ const industries = [
     ),
   },
   {
-    name: "Retail Packaging",
+    name: "Custom Retail Packaging",
     href: "#",
     icon: (
       <svg viewBox="0 0 24 24" fill="none" className="w-7 h-7" stroke="currentColor" strokeWidth={1.6} strokeLinecap="round" strokeLinejoin="round">
@@ -46,7 +46,7 @@ const industries = [
     ),
   },
   {
-    name: "Pharmaceutical",
+    name: "Custom Pharmaceutical",
     href: "#",
     icon: (
       <svg viewBox="0 0 24 24" fill="none" className="w-7 h-7" stroke="currentColor" strokeWidth={1.6} strokeLinecap="round" strokeLinejoin="round">
@@ -57,7 +57,7 @@ const industries = [
     ),
   },
   {
-    name: "Jewelry Packaging",
+    name: "Custom Jewelry Packaging",
     href: "#",
     icon: (
       <svg viewBox="0 0 24 24" fill="none" className="w-7 h-7" stroke="currentColor" strokeWidth={1.6} strokeLinecap="round" strokeLinejoin="round">
@@ -66,7 +66,7 @@ const industries = [
     ),
   },
   {
-    name: "Apparel Packaging",
+    name: "Custom Apparel Packaging",
     href: "#",
     icon: (
       <svg viewBox="0 0 24 24" fill="none" className="w-7 h-7" stroke="currentColor" strokeWidth={1.6} strokeLinecap="round" strokeLinejoin="round">
@@ -75,7 +75,7 @@ const industries = [
     ),
   },
   {
-    name: "Gift Packaging",
+    name: "Custom Gift Packaging",
     href: "#",
     icon: (
       <svg viewBox="0 0 24 24" fill="none" className="w-7 h-7" stroke="currentColor" strokeWidth={1.6} strokeLinecap="round" strokeLinejoin="round">
@@ -87,7 +87,7 @@ const industries = [
     ),
   },
   {
-    name: "Bakery Packaging",
+    name: "Custom Bakery Packaging",
     href: "#",
     icon: (
       <svg viewBox="0 0 24 24" fill="none" className="w-7 h-7" stroke="currentColor" strokeWidth={1.6} strokeLinecap="round" strokeLinejoin="round">
@@ -100,7 +100,7 @@ const industries = [
     ),
   },
   {
-    name: "Candle Packaging",
+    name: "Custom Candle Packaging",
     href: "#",
     icon: (
       <svg viewBox="0 0 24 24" fill="none" className="w-7 h-7" stroke="currentColor" strokeWidth={1.6} strokeLinecap="round" strokeLinejoin="round">
@@ -111,7 +111,7 @@ const industries = [
     ),
   },
   {
-    name: "Soap Packaging",
+    name: "Custom Soap Packaging",
     href: "#",
     icon: (
       <svg viewBox="0 0 24 24" fill="none" className="w-7 h-7" stroke="currentColor" strokeWidth={1.6} strokeLinecap="round" strokeLinejoin="round">
@@ -123,7 +123,7 @@ const industries = [
     ),
   },
   {
-    name: "Electronics & Tech",
+    name: "Custom Electronics & Tech",
     href: "#",
     icon: (
       <svg viewBox="0 0 24 24" fill="none" className="w-7 h-7" stroke="currentColor" strokeWidth={1.6} strokeLinecap="round" strokeLinejoin="round">
@@ -148,7 +148,7 @@ export default function IndustriesSection() {
             Industries We Serve
           </span>
           <h2 className="font-poppins text-2xl sm:text-3xl font-extrabold text-[#111827] tracking-tight mb-3">
-            Packaging Solutions by Industry
+            Custom Packaging Solutions by Industry
           </h2>
           <p className="text-gray-500 text-sm max-w-md mx-auto leading-relaxed">
             We provide specialized packaging expertise tailored to the unique
