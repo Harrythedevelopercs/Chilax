@@ -316,7 +316,7 @@ export default function AllIndustriesSearchSection() {
             return {
               id: String(term.id || term.slug),
               name: term.name.startsWith("Custom") ? term.name : `Custom ${term.name}`,
-              href: `/catalog?industry=${term.slug}`,
+              href: `/industries/${term.slug}`,
               icon: matchedFallback ? matchedFallback.icon : (
                 <svg viewBox="0 0 24 24" fill="none" className="w-7 h-7" stroke="currentColor" strokeWidth={1.6} strokeLinecap="round" strokeLinejoin="round">
                   <circle cx="12" cy="8" r="4" />
