@@ -64,19 +64,19 @@ export default function Hero() {
             </div>
           </form>
 
-          {/* CTA Buttons */}
-          <div className="flex flex-wrap items-center gap-3.5">
+          {/* CTA Buttons - Side by Side in 1 line on mobile */}
+          <div className="flex flex-row items-center gap-2 sm:gap-3.5 w-full max-w-md">
             <Link
               href="#quote"
-              className="bg-[#007a48] hover:bg-[#00643b] text-white px-6 py-3 rounded-md text-sm sm:text-base font-semibold shadow-sm transition-colors"
+              className="flex-1 text-center whitespace-nowrap bg-[#007a48] hover:bg-[#00643b] text-white px-3.5 sm:px-6 py-2.5 sm:py-3 rounded-lg text-xs sm:text-base font-bold shadow-sm transition-colors"
             >
               Request a Quote
             </Link>
             <Link
               href="#styles"
-              className="bg-transparent hover:bg-white/10 text-white border border-white/80 px-6 py-3 rounded-md text-sm sm:text-base font-semibold transition-colors"
+              className="flex-1 text-center whitespace-nowrap bg-transparent hover:bg-white/10 text-white border border-white/80 px-3.5 sm:px-6 py-2.5 sm:py-3 rounded-lg text-xs sm:text-base font-bold transition-colors"
             >
-              Choose Packaging Style
+              Choose Style
             </Link>
           </div>
         </div>
