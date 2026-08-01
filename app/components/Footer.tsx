@@ -45,7 +45,7 @@ export default function Footer() {
           {/* Col 1: Brand Info */}
           <div className="col-span-2 lg:col-span-2 space-y-4 pr-4">
             <Link href="/" className="inline-block">
-              <div className="relative h-10 w-44">
+              <div className="relative h-14 sm:h-16 w-56 sm:w-64">
                 <Image
                   src="/site_logo.png"
                   alt="Parcela Logo"

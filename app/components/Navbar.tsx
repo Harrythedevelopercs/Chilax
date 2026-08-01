@@ -262,7 +262,7 @@ export default function Navbar() {
 
           {/* CRITICAL REQUIREMENT: View All / View All Industries Link at the far right */}
           <Link
-            href="#"
+            href="/industries"
             className="flex items-center gap-1.5 font-poppins text-xs font-bold text-[#02c074] hover:text-[#019a5c] transition-colors whitespace-nowrap pl-4 border-l border-gray-100 flex-shrink-0 group"
           >
             <span>View All</span>
@@ -308,7 +308,7 @@ export default function Navbar() {
           </div>
 
           <Link
-            href="#"
+            href="/industries"
             className="flex items-center justify-center gap-2 font-poppins text-xs font-bold text-white bg-[#02c074] py-3 rounded-xl shadow-xs"
           >
             <span>View All Industries</span>

@@ -202,7 +202,7 @@ export default function IndustriesSection() {
                     hovered === idx ? "text-white/80" : "text-[#02c074]"
                   }`}
                 >
-                  Explore Solutions
+                  Explore Products
                   <svg
                     className={`w-3 h-3 transition-transform duration-200 ${
                       hovered === idx ? "translate-x-0.5" : ""
@@ -223,7 +223,7 @@ export default function IndustriesSection() {
         {/* View All CTA */}
         <div className="mt-10 text-center">
           <Link
-            href="#"
+            href="/industries"
             className="inline-flex items-center gap-2 font-poppins text-sm font-bold text-[#02c074] hover:text-[#019a5c] transition-colors duration-200 group"
           >
             View all 20+ industries
