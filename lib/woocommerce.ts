@@ -192,15 +192,33 @@ export async function getWPIndustries(): Promise<import("./types").WPIndustryTer
       next: { revalidate: 300 }, // Cache for 5 minutes
     });
 
-    if (!res.ok) {
-      console.warn(`getWPIndustries error: ${res.status} ${res.statusText}`);
-      return [];
-    }
-
     return res.json();
   } catch (error) {
     console.error("Failed to fetch industries taxonomy:", error);
     return [];
   }
 }
+
+/**
+ * Helper to parse WooCommerce product meta_data (moq, lead_time).
+ */
+export function parseWCProductMeta(product: WCProduct): WCProduct {
+  let moq = "100 Units";
+  let lead_time = "7-9 Days";
+
+  if (Array.isArray(product.meta_data)) {
+    const moqMeta = product.meta_data.find((m) => m.key === "moq" || m.key === "_moq");
+    if (moqMeta && moqMeta.value) moq = String(moqMeta.value);
+
+    const leadMeta = product.meta_data.find((m) => m.key === "lead_time" || m.key === "_lead_time");
+    if (leadMeta && leadMeta.value) lead_time = String(leadMeta.value);
+  }
+
+  return {
+    ...product,
+    moq,
+    lead_time,
+  };
+}
+
 

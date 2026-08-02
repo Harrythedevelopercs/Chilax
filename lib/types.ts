@@ -83,6 +83,9 @@ export interface WCProduct {
   attributes: WCProductAttribute[];
   dimensions: WCProductDimensions;
   weight: string;
+  meta_data: Array<{ id?: number; key: string; value: unknown }>;
+  moq?: string;
+  lead_time?: string;
   date_created: string;
   date_modified: string;
 }

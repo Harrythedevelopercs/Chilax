@@ -5,7 +5,7 @@ interface CatalogItem {
   title: string;
   desc: string;
   img: string;
-  href?: string;
+  href: string;
 }
 
 interface CatalogGroup {
@@ -21,21 +21,25 @@ const catalogGroups: CatalogGroup[] = [
         title: "Rigid Boxes",
         desc: "Luxurious packaging made from thick, durable chipboard for premium products.",
         img: "/rigid_boxes.png",
+        href: "/products/rigid-boxes",
       },
       {
         title: "Magnetic Closure Boxes",
         desc: "High-end presentation boxes featuring a satisfying snap closure.",
         img: "/magnetic_boxes.png",
+        href: "/products/custom-magnetic-rigid-box",
       },
       {
         title: "Drawer Boxes",
         desc: "Elegant slide-out style rigid boxes perfect for jewelry and cosmetics.",
         img: "/drawer_boxes.png",
+        href: "/products/drawer-boxes",
       },
       {
         title: "Tin Containers",
         desc: "Durable and reusable custom printed tin packaging for specialty goods.",
         img: "/tin_containers.png",
+        href: "/products/tin-containers",
       },
     ],
   },
@@ -46,21 +50,25 @@ const catalogGroups: CatalogGroup[] = [
         title: "Product Packaging",
         desc: "Standard cardstock boxes made from thin, flexible paperboard.",
         img: "/product_packaging.png",
+        href: "/products/custom-branded-packaging-box",
       },
       {
         title: "Flexible Pouches",
         desc: "Keep food and products fresh with custom printed stand-up pouches.",
         img: "/flexible_pouches.png",
+        href: "/products/flexible-pouches",
       },
       {
         title: "POP Displays",
         desc: "Point of purchase retail display boxes to catch customer attention.",
         img: "/pop_displays.png",
+        href: "/products/pop-displays",
       },
       {
         title: "Paper Shopping Bags",
         desc: "Custom branded paper bags for retail stores and boutiques.",
         img: "/paper_bags.png",
+        href: "/products/paper-shopping-bags",
       },
     ],
   },
@@ -71,21 +79,25 @@ const catalogGroups: CatalogGroup[] = [
         title: "Corrugated Boxes",
         desc: "Durable 3-layer corrugated cardboard boxes for shipping and storage.",
         img: "/corrugated_boxes.png",
+        href: "/products/custom-corrugated-mailer-box",
       },
       {
         title: "Mailer Boxes",
         desc: "Sturdy e-commerce packaging that provides a premium unboxing experience.",
         img: "/mailer_boxes.png",
+        href: "/products/mailer-boxes",
       },
       {
         title: "Poly Mailers",
         desc: "Lightweight, weather-resistant shipping bags for apparel and soft goods.",
         img: "/poly_mailers.png",
+        href: "/products/poly-mailers",
       },
       {
         title: "Kraft Boxes",
         desc: "Eco-friendly, natural looking boxes for a rustic or sustainable brand image.",
         img: "/kraft_boxes.png",
+        href: "/products/kraft-boxes",
       },
     ],
   },
@@ -96,21 +108,25 @@ const catalogGroups: CatalogGroup[] = [
         title: "Box Inserts",
         desc: "Keep your loose products nicely tucked, presented, and protected.",
         img: "/box_inserts.png",
+        href: "/products/box-inserts",
       },
       {
         title: "Stickers & Labels",
         desc: "Custom printed rolls or die-cut stickers to brand your plain packaging.",
         img: "/stickers_labels.png",
+        href: "/products/stickers-labels",
       },
       {
         title: "Tissue Paper",
         desc: "Custom printed wrapping tissue for that extra unboxing touch.",
         img: "/tissue_paper.png",
+        href: "/products/tissue-paper",
       },
       {
         title: "Packing Tape",
         desc: "Secure your shipments with branded water-activated or poly tape.",
         img: "/packing_tape.png",
+        href: "/products/packing-tape",
       },
     ],
   },
@@ -131,7 +147,7 @@ export default function ProductsCatalog() {
             </p>
           </div>
           <Link
-            href="#"
+            href="/industries"
             className="font-poppins flex-shrink-0 border border-[#2b303a] text-[#111827] px-5 py-2.5 rounded-lg text-xs font-bold hover:bg-[#111827] hover:text-white transition-all duration-200 self-start sm:self-auto shadow-xs"
           >
             View All Products
@@ -153,7 +169,7 @@ export default function ProductsCatalog() {
                 {group.items.map((item, itemIdx) => (
                   <Link
                     key={itemIdx}
-                    href={item.href || "#"}
+                    href={item.href}
                     className="bg-white rounded-2xl overflow-hidden border border-gray-100 shadow-sm hover:shadow-2xl hover:-translate-y-1.5 transition-all duration-300 flex flex-col group"
                     style={{ boxShadow: "0 1px 4px 0 rgba(0,0,0,0.06)" }}
                   >
