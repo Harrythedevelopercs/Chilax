@@ -30,11 +30,12 @@ function buildUrl(endpoint: string, params: Record<string, unknown> = {}): strin
   return url.toString();
 }
 
-async function fetchWC<T>(endpoint: string, params: Record<string, unknown> = {}): Promise<T> {
+async function fetchWC<T>(endpoint: string, params: Record<string, unknown> = {}, options?: { noCache?: boolean }): Promise<T> {
   const url = buildUrl(endpoint, params);
 
   const res = await fetch(url, {
-    next: { revalidate: 3600 }, // Cache for 1 hour on server
+    next: options?.noCache ? undefined : { revalidate: 3600 },
+    cache: options?.noCache ? "no-store" : undefined,
   });
 
   if (!res.ok) {
@@ -152,17 +153,17 @@ export async function getProductsByCategory(
 }
 
 /**
- * Fetch a single product by ID.
+ * Fetch a single product by ID — always fresh, no cache.
  */
 export async function getProductById(id: number): Promise<WCProduct> {
-  return fetchWC<WCProduct>(`products/${id}`);
+  return fetchWC<WCProduct>(`products/${id}`, {}, { noCache: true });
 }
 
 /**
- * Fetch a single product by slug.
+ * Fetch a single product by slug — always fresh, no cache.
  */
 export async function getProductBySlug(slug: string): Promise<WCProduct | null> {
-  const results = await fetchWC<WCProduct[]>("products", { slug } as Record<string, unknown>);
+  const results = await fetchWC<WCProduct[]>("products", { slug } as Record<string, unknown>, { noCache: true });
   return results.length > 0 ? results[0] : null;
 }
 
@@ -202,9 +203,11 @@ export async function getWPIndustries(): Promise<import("./types").WPIndustryTer
 /**
  * Helper to parse WooCommerce product meta_data (moq, lead_time).
  */
-export function parseWCProductMeta(product: WCProduct): WCProduct {
+export function parseWCProductMeta(product: WCProduct): WCProduct & { additionalOptions?: string[]; addons?: string[] } {
   let moq = "100 Units";
   let lead_time = "7-9 Days";
+  let additionalOptions: string[] = [];
+  let addons: string[] = [];
 
   if (Array.isArray(product.meta_data)) {
     const moqMeta = product.meta_data.find((m) => m.key === "moq" || m.key === "_moq");
@@ -212,12 +215,38 @@ export function parseWCProductMeta(product: WCProduct): WCProduct {
 
     const leadMeta = product.meta_data.find((m) => m.key === "lead_time" || m.key === "_lead_time");
     if (leadMeta && leadMeta.value) lead_time = String(leadMeta.value);
+
+    const addOptMeta = product.meta_data.find((m) => m.key === "additional_options" || m.key === "_additional_options");
+    if (addOptMeta && addOptMeta.value) {
+      if (Array.isArray(addOptMeta.value)) additionalOptions = addOptMeta.value.map(String);
+      else if (typeof addOptMeta.value === "string") additionalOptions = addOptMeta.value.split(",").map((s) => s.trim());
+    }
+
+    const addonMeta = product.meta_data.find((m) => m.key === "addons" || m.key === "_addons" || m.key === "add_ons");
+    if (addonMeta && addonMeta.value) {
+      if (Array.isArray(addonMeta.value)) addons = addonMeta.value.map(String);
+      else if (typeof addonMeta.value === "string") addons = addonMeta.value.split(",").map((s) => s.trim());
+    }
+  }
+
+  if (Array.isArray(product.attributes)) {
+    const addOptAttr = product.attributes.find((a) => a.name.toLowerCase().includes("additional option"));
+    if (addOptAttr && Array.isArray(addOptAttr.options) && addOptAttr.options.length > 0) {
+      additionalOptions = addOptAttr.options;
+    }
+
+    const addonAttr = product.attributes.find((a) => a.name.toLowerCase().includes("add-on") || a.name.toLowerCase().includes("addon"));
+    if (addonAttr && Array.isArray(addonAttr.options) && addonAttr.options.length > 0) {
+      addons = addonAttr.options;
+    }
   }
 
   return {
     ...product,
     moq,
     lead_time,
+    additionalOptions,
+    addons,
   };
 }
 

@@ -5,6 +5,10 @@ import Footer from "../../components/Footer";
 import { getProductById, getProductBySlug, parseWCProductMeta } from "@/lib/woocommerce";
 import type { WCProduct } from "@/lib/types";
 
+// Force dynamic rendering — no static generation, always fetch fresh data
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
+
 interface PageProps {
   params: Promise<{ slug: string }>;
 }
@@ -104,6 +108,8 @@ export default async function SingleProductPage({ params }: PageProps) {
         leadTime: parsed.lead_time || "7-9 Days",
         material: "Custom Cardstock / Board",
         printing: "Full CMYK / Foil Stamping",
+        additionalOptions: parsed.additionalOptions,
+        addons: parsed.addons,
       };
     }
   } catch (error) {

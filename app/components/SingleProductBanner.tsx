@@ -1,20 +1,24 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 
 export interface SingleProductBannerData {
   id?: number | string;
+  slug?: string;
   name: string;
   categoryName: string;
   categorySlug: string;
+  industrySlug?: string;
   image: string;
   shortDescription: string;
   moq: string;
   leadTime: string;
   material?: string;
   printing?: string;
+  additionalOptions?: string[];
+  addons?: string[];
 }
 
 interface SingleProductBannerProps {
@@ -212,7 +216,7 @@ export default function SingleProductBanner({ product }: SingleProductBannerProp
             </p>
 
             {/* Specs Quick Grid */}
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 py-4 border-y border-gray-200/80 mb-8">
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 py-4 border-y border-gray-200/80 mb-6">
               <div className="bg-white/80 backdrop-blur-xs p-3 rounded-xl border border-gray-100">
                 <span className="text-[10px] font-bold text-gray-400 uppercase tracking-wider block mb-0.5">
                   Min. Order
@@ -236,7 +240,7 @@ export default function SingleProductBanner({ product }: SingleProductBannerProp
                   Material
                 </span>
                 <span className="text-xs sm:text-sm font-extrabold text-[#0f172a] truncate block">
-                  {product.material || "Premium Cardboard"}
+                  {product.material || "Custom Cardstock / Board"}
                 </span>
               </div>
 
@@ -245,15 +249,21 @@ export default function SingleProductBanner({ product }: SingleProductBannerProp
                   Printing
                 </span>
                 <span className="text-xs sm:text-sm font-extrabold text-[#0f172a] truncate block">
-                  {product.printing || "Full CMYK / Foil"}
+                  {product.printing || "Full CMYK / Foil Stamping"}
                 </span>
               </div>
             </div>
 
+            {/* Product Specification Customization Form */}
+            <ProductSpecificationForm
+              additionalOptions={product.additionalOptions}
+              addons={product.addons}
+            />
+
             {/* CTA Buttons */}
-            <div className="flex flex-wrap items-center gap-4">
+            <div className="flex flex-wrap items-center gap-4 mt-8 pt-6 border-t border-gray-200/80">
               <Link
-                href={`/industries#custom-packaging-form`}
+                href={`/contact?product=${encodeURIComponent(product.name)}`}
                 className="inline-flex items-center justify-center px-7 py-4 bg-[#00684a] hover:bg-[#00543c] text-white text-sm font-bold rounded-xl transition-all shadow-md shadow-[#00684a]/20 group"
               >
                 Get Instant Quote
@@ -278,5 +288,195 @@ export default function SingleProductBanner({ product }: SingleProductBannerProp
         </div>
       </div>
     </section>
+  );
+}
+
+function ProductSpecificationForm({
+  additionalOptions = [],
+  addons = [],
+}: {
+  additionalOptions?: string[];
+  addons?: string[];
+}) {
+  const [dimensions, setDimensions] = useState({ length: "", width: "", depth: "" });
+  const [material, setMaterial] = useState("Need Consultation");
+  const [print, setPrint] = useState("Need Consultation");
+  const [finishing, setFinishing] = useState("Need Consultation");
+
+  const [selectedAdditional, setSelectedAdditional] = useState<string[]>([]);
+  const [selectedAddons, setSelectedAddons] = useState<string[]>([]);
+
+  const toggleAdditional = (option: string) => {
+    setSelectedAdditional((prev: string[]) =>
+      prev.includes(option) ? prev.filter((item: string) => item !== option) : [...prev, option]
+    );
+  };
+
+  const toggleAddon = (option: string) => {
+    setSelectedAddons((prev: string[]) =>
+      prev.includes(option) ? prev.filter((item: string) => item !== option) : [...prev, option]
+    );
+  };
+
+  const hasAdditional = Array.isArray(additionalOptions) && additionalOptions.length > 0;
+  const hasAddons = Array.isArray(addons) && addons.length > 0;
+
+  return (
+    <div className="space-y-6 pt-2 pb-2 font-inter">
+      {/* Dimensions Inputs (Row 1) */}
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+        <div>
+          <label className="block text-xs font-semibold text-[#1e293b] mb-1.5">
+            Length (inch) <span className="text-red-500">*</span>
+          </label>
+          <input
+            type="text"
+            placeholder=""
+            value={dimensions.length}
+            onChange={(e) => setDimensions({ ...dimensions, length: e.target.value })}
+            className="w-full px-3.5 py-2.5 bg-white border border-gray-300 rounded-lg text-sm text-[#0f172a] focus:outline-none focus:border-[#02c074] focus:ring-2 focus:ring-[#02c074]/20 transition-all shadow-2xs"
+          />
+        </div>
+
+        <div>
+          <label className="block text-xs font-semibold text-[#1e293b] mb-1.5">
+            Width (inch) <span className="text-red-500">*</span>
+          </label>
+          <input
+            type="text"
+            placeholder=""
+            value={dimensions.width}
+            onChange={(e) => setDimensions({ ...dimensions, width: e.target.value })}
+            className="w-full px-3.5 py-2.5 bg-white border border-gray-300 rounded-lg text-sm text-[#0f172a] focus:outline-none focus:border-[#02c074] focus:ring-2 focus:ring-[#02c074]/20 transition-all shadow-2xs"
+          />
+        </div>
+
+        <div>
+          <label className="block text-xs font-semibold text-[#1e293b] mb-1.5">
+            Depth (inch) <span className="text-red-500">*</span>
+          </label>
+          <input
+            type="text"
+            placeholder=""
+            value={dimensions.depth}
+            onChange={(e) => setDimensions({ ...dimensions, depth: e.target.value })}
+            className="w-full px-3.5 py-2.5 bg-white border border-gray-300 rounded-lg text-sm text-[#0f172a] focus:outline-none focus:border-[#02c074] focus:ring-2 focus:ring-[#02c074]/20 transition-all shadow-2xs"
+          />
+        </div>
+      </div>
+
+      {/* Select Dropdowns (Row 2) */}
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+        <div>
+          <label className="block text-xs font-semibold text-[#1e293b] mb-1.5">
+            Material <span className="text-red-500">*</span>
+          </label>
+          <select
+            value={material}
+            onChange={(e) => setMaterial(e.target.value)}
+            className="w-full px-3.5 py-2.5 bg-white border border-gray-300 rounded-lg text-sm text-[#0f172a] focus:outline-none focus:border-[#02c074] focus:ring-2 focus:ring-[#02c074]/20 transition-all shadow-2xs cursor-pointer appearance-none bg-[url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22%23475569%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%3Cpolyline%20points%3D%226%209%2012%2015%2018%209%22%3E%3C%2Fpolyline%3E%3C%2Fsvg%3E')] bg-[length:16px_16px] bg-[right_12px_center] bg-no-repeat pr-10"
+          >
+            <option value="Need Consultation">Need Consultation</option>
+            <option value="14pt Cardstock">14pt Cardstock</option>
+            <option value="18pt Cardstock">18pt Cardstock</option>
+            <option value="24pt Cardstock">24pt Cardstock</option>
+            <option value="Kraft Paper">Kraft Paper</option>
+            <option value="Rigid Board">Rigid Board</option>
+            <option value="Corrugated E-Flute">Corrugated E-Flute</option>
+          </select>
+        </div>
+
+        <div>
+          <label className="block text-xs font-semibold text-[#1e293b] mb-1.5">
+            Print <span className="text-red-500">*</span>
+          </label>
+          <select
+            value={print}
+            onChange={(e) => setPrint(e.target.value)}
+            className="w-full px-3.5 py-2.5 bg-white border border-gray-300 rounded-lg text-sm text-[#0f172a] focus:outline-none focus:border-[#02c074] focus:ring-2 focus:ring-[#02c074]/20 transition-all shadow-2xs cursor-pointer appearance-none bg-[url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22%23475569%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%3Cpolyline%20points%3D%226%209%2012%2015%2018%209%22%3E%3C%2Fpolyline%3E%3C%2Fsvg%3E')] bg-[length:16px_16px] bg-[right_12px_center] bg-no-repeat pr-10"
+          >
+            <option value="Need Consultation">Need Consultation</option>
+            <option value="No Printing (Plain)">No Printing (Plain)</option>
+            <option value="1 Color Printing">1 Color Printing</option>
+            <option value="Full Color CMYK">Full Color CMYK</option>
+            <option value="CMYK + PMS Spot Color">CMYK + PMS Spot Color</option>
+          </select>
+        </div>
+
+        <div>
+          <label className="block text-xs font-semibold text-[#1e293b] mb-1.5">
+            Finishing <span className="text-red-500">*</span>
+          </label>
+          <select
+            value={finishing}
+            onChange={(e) => setFinishing(e.target.value)}
+            className="w-full px-3.5 py-2.5 bg-white border border-gray-300 rounded-lg text-sm text-[#0f172a] focus:outline-none focus:border-[#02c074] focus:ring-2 focus:ring-[#02c074]/20 transition-all shadow-2xs cursor-pointer appearance-none bg-[url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22%23475569%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%3Cpolyline%20points%3D%226%209%2012%2015%2018%209%22%3E%3C%2Fpolyline%3E%3C%2Fsvg%3E')] bg-[length:16px_16px] bg-[right_12px_center] bg-no-repeat pr-10"
+          >
+            <option value="Need Consultation">Need Consultation</option>
+            <option value="Matte Lamination">Matte Lamination</option>
+            <option value="Gloss Lamination">Gloss Lamination</option>
+            <option value="Soft Touch / Velvet">Soft Touch / Velvet</option>
+            <option value="Aqueous Coating">Aqueous Coating</option>
+            <option value="Spot UV">Spot UV</option>
+          </select>
+        </div>
+      </div>
+
+      {/* Additional Options Chips - Only shown if product has additional options */}
+      {hasAdditional && (
+        <div>
+          <label className="block text-xs font-semibold text-[#1e293b] mb-2.5">
+            Additional Options
+          </label>
+          <div className="flex flex-wrap gap-2.5">
+            {additionalOptions.map((opt) => {
+              const isSelected = selectedAdditional.includes(opt);
+              return (
+                <button
+                  key={opt}
+                  type="button"
+                  onClick={() => toggleAdditional(opt)}
+                  className={`px-4 py-2 rounded-md text-xs sm:text-sm font-medium transition-all duration-200 cursor-pointer ${
+                    isSelected
+                      ? "bg-[#00684a] text-white shadow-xs"
+                      : "bg-[#eaeaea] text-[#334155] hover:bg-[#dfdfdf]"
+                  }`}
+                >
+                  {opt}
+                </button>
+              );
+            })}
+          </div>
+        </div>
+      )}
+
+      {/* Add-on Chips - Only shown if product has add-ons */}
+      {hasAddons && (
+        <div>
+          <label className="block text-xs font-semibold text-[#1e293b] mb-2.5">
+            Add-on
+          </label>
+          <div className="flex flex-wrap gap-2.5">
+            {addons.map((opt) => {
+              const isSelected = selectedAddons.includes(opt);
+              return (
+                <button
+                  key={opt}
+                  type="button"
+                  onClick={() => toggleAddon(opt)}
+                  className={`px-4 py-2 rounded-md text-xs sm:text-sm font-medium transition-all duration-200 cursor-pointer ${
+                    isSelected
+                      ? "bg-[#00684a] text-white shadow-xs"
+                      : "bg-[#eaeaea] text-[#334155] hover:bg-[#dfdfdf]"
+                  }`}
+                >
+                  {opt}
+                </button>
+              );
+            })}
+          </div>
+        </div>
+      )}
+    </div>
   );
 }

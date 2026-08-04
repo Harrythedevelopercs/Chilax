@@ -7,9 +7,12 @@ import { IndustryCategory } from "./SingleIndustryCategoriesSection";
 
 export interface IndustryProduct {
   id: number | string;
+  slug?: string;
   name: string;
   categorySlug: string;
   categoryName: string;
+  categorySlugs?: string[];
+  categoryIds?: (number | string)[];
   image: string;
   moq: string;
   leadTime: string;
@@ -193,6 +196,32 @@ const sampleProductsMap: Record<string, IndustryProduct[]> = {
   ],
 };
 
+function normalizeCategorySlug(slug: string = ""): string {
+  // Soft normalization: only strip separators and special chars, don't strip word endings
+  return slug
+    .toLowerCase()
+    .replace(/[^a-z0-9]/g, "");
+}
+
+function productMatchesCategory(product: IndustryProduct, cat: IndustryCategory): boolean {
+  // 1. Direct slug match
+  if (product.categorySlug === cat.slug) return true;
+
+  // 2. Normalized slug match (soft)
+  if (normalizeCategorySlug(product.categorySlug) === normalizeCategorySlug(cat.slug)) return true;
+
+  // 3. Category ID match (if product has categoryIds array)
+  if (product.categoryIds && product.categoryIds.includes(cat.id)) return true;
+
+  // 4. Category slug array match
+  if (product.categorySlugs && product.categorySlugs.includes(cat.slug)) return true;
+
+  // 5. Normalized name match
+  if (normalizeCategorySlug(product.categoryName) === normalizeCategorySlug(cat.name)) return true;
+
+  return false;
+}
+
 export default function SingleIndustryProductsSection({
   industryName,
   categories,
@@ -213,7 +242,10 @@ export default function SingleIndustryProductsSection({
     return allProducts.filter((product) => {
       const matchesCategory =
         selectedCategory === "all" ||
-        product.categorySlug.toLowerCase() === selectedCategory.toLowerCase();
+        categories.some(
+          (cat) => cat.slug === selectedCategory && productMatchesCategory(product, cat)
+        );
+
       const matchesSearch =
         !searchTerm.trim() ||
         product.name.toLowerCase().includes(searchTerm.toLowerCase().trim()) ||
@@ -221,7 +253,7 @@ export default function SingleIndustryProductsSection({
 
       return matchesCategory && matchesSearch;
     });
-  }, [allProducts, selectedCategory, searchTerm]);
+  }, [allProducts, selectedCategory, searchTerm, categories]);
 
   return (
     <section className="bg-[#f8f9fb] py-16 sm:py-20 border-b border-gray-100 w-full font-inter overflow-hidden">
@@ -280,9 +312,9 @@ export default function SingleIndustryProductsSection({
           </button>
 
           {categories.map((cat) => {
-            const count = allProducts.filter(
-              (p) => p.categorySlug.toLowerCase() === cat.slug.toLowerCase()
-            ).length;
+            const count = allProducts.filter((p) => productMatchesCategory(p, cat)).length;
+
+            const displayCount = count;
 
             return (
               <button
@@ -295,17 +327,15 @@ export default function SingleIndustryProductsSection({
                 }`}
               >
                 {cat.name}
-                {count > 0 && (
-                  <span
-                    className={`text-[10px] px-1.5 py-0.5 rounded-full font-bold ${
-                      selectedCategory === cat.slug
-                        ? "bg-white/20 text-white"
-                        : "bg-gray-100 text-gray-500"
-                    }`}
-                  >
-                    {count}
-                  </span>
-                )}
+                <span
+                  className={`text-[10px] px-1.5 py-0.5 rounded-full font-bold ${
+                    selectedCategory === cat.slug
+                      ? "bg-white/20 text-white"
+                      : "bg-gray-100 text-gray-500"
+                  }`}
+                >
+                  {displayCount}
+                </span>
               </button>
             );
           })}
@@ -320,7 +350,7 @@ export default function SingleIndustryProductsSection({
                 className="group relative flex flex-col bg-white border border-gray-200/80 hover:border-[#02c074] rounded-2xl overflow-hidden shadow-2xs hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1.5"
               >
                 {/* Product Image */}
-                <Link href={`/products/${product.id}`} className="relative w-full h-52 bg-gray-50 overflow-hidden block">
+                <Link href={`/products/${product.slug || product.id}`} className="relative w-full h-52 bg-gray-50 overflow-hidden block">
                   <Image
                     src={product.image}
                     alt={product.name}
@@ -346,7 +376,7 @@ export default function SingleIndustryProductsSection({
                 {/* Content */}
                 <div className="p-5 flex flex-col flex-grow justify-between">
                   <div>
-                    <Link href={`/products/${product.id}`}>
+                    <Link href={`/products/${product.slug || product.id}`}>
                       <h3 className="font-poppins text-base font-bold text-[#0f172a] group-hover:text-[#00684a] transition-colors leading-snug mb-2 line-clamp-2">
                         {product.name}
                       </h3>
@@ -378,7 +408,7 @@ export default function SingleIndustryProductsSection({
                         Request Quote
                       </Link>
                       <Link
-                        href={`/products/${product.id}`}
+                        href={`/products/${product.slug || product.id}`}
                         className="py-2.5 px-3 bg-gray-50 hover:bg-gray-100 text-[#0f172a] border border-gray-200 text-xs font-bold rounded-xl text-center transition-colors"
                       >
                         View Details

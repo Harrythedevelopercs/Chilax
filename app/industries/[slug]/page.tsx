@@ -1,10 +1,11 @@
 import type { Metadata } from "next";
 import Navbar from "../../components/Navbar";
 import SingleIndustryBanner from "../../components/SingleIndustryBanner";
-import SingleIndustryCategoriesSection, { IndustryCategory } from "../../components/SingleIndustryCategoriesSection";
+import type { IndustryCategory } from "../../components/SingleIndustryCategoriesSection";
 import SingleIndustryProductsSection, { IndustryProduct } from "../../components/SingleIndustryProductsSection";
 import Footer from "../../components/Footer";
 import { getWPIndustries, getCategories, getProducts, parseWCProductMeta } from "@/lib/woocommerce";
+import type { WCProduct } from "@/lib/types";
 
 interface PageProps {
   params: Promise<{ slug: string }>;
@@ -44,6 +45,19 @@ function formatSlugToTitle(slug: string): string {
     return `Custom ${formatted} Packaging`;
   }
   return formatted.toLowerCase().includes("packaging") ? formatted : `${formatted} Packaging`;
+}
+
+function normalizeSlug(slug: string = ""): string {
+  return slug
+    .toLowerCase()
+    .replace(/^custom-/, "")
+    .replace(/-and-/g, "-")
+    .replace(/&/g, "")
+    .replace(/\band\b/g, "")
+    .replace(/ies$/g, "y")
+    .replace(/es$/g, "")
+    .replace(/s$/g, "")
+    .replace(/[^a-z0-9]/g, "");
 }
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
@@ -100,36 +114,65 @@ export default async function SingleIndustryPage({ params }: PageProps) {
       }
     }
 
-    // Fetch real WooCommerce products for the linked categories
+    // Fetch real WooCommerce products for ALL linked categories
     const numericCatIds = categories
       .map((c) => c.id)
       .filter((id) => typeof id === "number") as number[];
 
     if (numericCatIds.length > 0) {
-      const rawProducts = await getProducts({
-        category: numericCatIds[0],
-        per_page: 12,
-      }).catch(() => []);
+      const productBatches = await Promise.all(
+        numericCatIds.map(async (catId) => {
+          const catObj = categories.find((c) => c.id === catId);
+          // WooCommerce already returns child-category products when querying by parent catId.
+          // We include all of them — the tab component uses stored categoryIds for accurate filtering.
+          const rawProds = await getProducts({ category: catId, per_page: 50 }).catch(() => []);
+          return rawProds.map((p) => ({ p, catObj }));
+        })
+      );
 
-      if (rawProducts.length > 0) {
-        dynamicProducts = rawProducts.map((p) => {
+      const flatList = productBatches.flat();
+
+      // Deduplicate by product ID — first occurrence wins for primary category label
+      const productMap = new Map<number | string, IndustryProduct>();
+
+      flatList.forEach(({ p, catObj }) => {
+        if (!p || !p.id) return;
+        if (!productMap.has(p.id)) {
           const parsed = parseWCProductMeta(p);
-          return {
+
+          // Check if this product directly belongs to any of the tab categories (exact ID or slug match)
+          const directTabMatch = categories.find((c) =>
+            parsed.categories?.some(
+              (pc) => pc.id === c.id || pc.slug === c.slug
+            )
+          );
+
+          // Use direct tab match for label; fall back to the batch's parent category
+          const matchedCat = directTabMatch || catObj;
+
+          productMap.set(p.id, {
             id: parsed.id,
+            slug: parsed.slug,
             name: parsed.name,
-            categorySlug: parsed.categories[0]?.slug || "packaging",
-            categoryName: parsed.categories[0]?.name || "Packaging",
-            image: parsed.images[0]?.src || "/product_packaging.png",
+            categorySlug: matchedCat?.slug || parsed.categories?.[0]?.slug || "packaging",
+            categoryName: matchedCat?.name || parsed.categories?.[0]?.name || "Packaging",
+            // Store ALL WC category IDs + slugs — used by tab component for accurate counting & filtering
+            categoryIds: parsed.categories?.map((c) => c.id) ?? [],
+            categorySlugs: parsed.categories?.map((c) => c.slug) ?? [],
+            image: parsed.images?.[0]?.src || "/product_packaging.png",
             moq: parsed.moq || "100 Units",
             leadTime: parsed.lead_time || "7-9 Days",
             description:
               parsed.short_description?.replace(/<[^>]*>?/gm, "").trim() ||
               parsed.description?.replace(/<[^>]*>?/gm, "").trim() ||
               `Custom ${parsed.name} for ${title}`,
-          };
-        });
-      }
+          });
+        }
+      });
+
+      dynamicProducts = Array.from(productMap.values());
     }
+
   } catch (error) {
     console.error("Error fetching industry term/categories/products in page:", error);
   }
@@ -145,13 +188,7 @@ export default async function SingleIndustryPage({ params }: PageProps) {
           description={description}
         />
 
-        {/* Section 2: Industry Linked Categories (5 Per Row) */}
-        <SingleIndustryCategoriesSection
-          industryName={title}
-          categories={categories}
-        />
-
-        {/* Section 3: Dynamic WooCommerce Products with Category Filter Tabs */}
+        {/* Section 2: Dynamic WooCommerce Products with Category Filter Tabs */}
         <SingleIndustryProductsSection
           industryName={title}
           categories={categories}
