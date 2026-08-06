@@ -263,7 +263,7 @@ export default function Navbar() {
           {/* CRITICAL REQUIREMENT: View All / View All Industries Link at the far right */}
           <Link
             href="/industries"
-            className="flex items-center gap-1.5 font-poppins text-xs font-bold text-[#02c074] hover:text-[#019a5c] transition-colors whitespace-nowrap pl-4 border-l border-gray-100 flex-shrink-0 group"
+            className="flex items-center gap-1.5 font-poppins text-xs font-bold text-white bg-[#02c074] hover:bg-[#019a5c] px-3.5 py-1.5 rounded-lg shadow-sm hover:shadow transition-all whitespace-nowrap flex-shrink-0 group ml-4"
           >
             <span>View All</span>
             <svg

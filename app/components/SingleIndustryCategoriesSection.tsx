@@ -67,7 +67,7 @@ export default function SingleIndustryCategoriesSection({
             return (
               <Link
                 key={cat.id}
-                href={`/catalog?category=${cat.slug}`}
+                href={`/categories/${cat.slug}`}
                 className="group relative flex flex-col bg-[#f8f9fb] hover:bg-white border border-gray-200/80 hover:border-[#02c074] rounded-2xl overflow-hidden shadow-2xs hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1.5"
               >
                 {/* Image Container */}

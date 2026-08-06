@@ -17,7 +17,7 @@ export default function Hero() {
       {/* Full-width Edge-to-Edge Background Image */}
       <div className="absolute inset-0 z-0">
         <Image
-          src="/hero_banner_custom.png"
+          src="/bannerNew.png"
           alt="Custom packaging and box collection"
           fill
           sizes="100vw"

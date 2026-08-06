@@ -8,6 +8,26 @@ const nextConfig: NextConfig = {
         hostname: "purple-manatee-256891.hostingersite.com",
         pathname: "/**",
       },
+      {
+        protocol: "http",
+        hostname: "purple-manatee-256891.hostingersite.com",
+        pathname: "/**",
+      },
+      {
+        protocol: "https",
+        hostname: "*.hostingersite.com",
+        pathname: "/**",
+      },
+      {
+        protocol: "https",
+        hostname: "*.wp.com",
+        pathname: "/**",
+      },
+      {
+        protocol: "https",
+        hostname: "*.wordpress.com",
+        pathname: "/**",
+      },
     ],
   },
 };
