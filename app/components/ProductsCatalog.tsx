@@ -1,76 +1,100 @@
 import Image from "next/image";
 import Link from "next/link";
-import { getCategories, getProducts, decodeHTMLEntities } from "@/lib/woocommerce";
 
-export const revalidate = 60; // Revalidate data every minute
-
-interface DynamicCategoryItem {
-  id: number;
+interface StaticCategoryItem {
+  id: string;
   slug: string;
   name: string;
   count: number;
   description: string;
   image: string;
-  parent: number;
+  href: string;
 }
 
-export default async function ProductsCatalog() {
-  let categories: DynamicCategoryItem[] = [];
-
-  try {
-    const rawCategories = await getCategories({ per_page: 100 }).catch(() => []);
-
-    if (rawCategories && rawCategories.length > 0) {
-      categories = await Promise.all(
-        rawCategories
-          .filter((cat) => cat.name.toLowerCase() !== "uncategorized")
-          .map(async (cat) => {
-            let img = cat.image?.src || "";
-
-            // If category does not have a set featured image, fetch first product image
-            if (!img && cat.id) {
-              const prods = await getProducts({ category: cat.id, per_page: 1 }).catch(() => []);
-              if (prods.length > 0 && prods[0].images?.[0]?.src) {
-                img = prods[0].images[0].src;
-              }
-            }
-
-            return {
-              id: cat.id,
-              slug: cat.slug,
-              name: decodeHTMLEntities(cat.name),
-              count: cat.count || 0,
-              description: decodeHTMLEntities(
-                cat.description?.replace(/<[^>]*>?/gm, "").trim() ||
-                `Custom engineered ${cat.name} packaging tailored to your brand specifications.`
-              ),
-              image: img || "/product_packaging.png",
-              parent: cat.parent || 0,
-            };
-          })
-      );
-    }
-  } catch (error) {
-    console.error("Error loading dynamic WooCommerce catalog categories:", error);
-  }
-
-  // Separate parent categories vs subcategories
-  const mainCategories = categories.filter((c) => c.parent === 0);
-  const subCategories = categories.filter((c) => c.parent !== 0);
-
+export default function ProductsCatalog() {
   const displayGroups = [
     {
       title: "Featured Packaging Categories",
-      items: mainCategories.length > 0 ? mainCategories : categories.slice(0, 4),
+      items: [
+        {
+          id: "cosmetic-packaging",
+          slug: "custom-cosmetic-packaging",
+          name: "Custom Cosmetic Packaging",
+          count: 43,
+          description: "Premium engineered cosmetic boxes, skincare cartons & beauty containers tailored to your brand.",
+          image: "/cat_cosmetic_packaging.png",
+          href: "/custom-cosmetic-packaging",
+        },
+        {
+          id: "tuck-end-boxes",
+          slug: "tuck-end-boxes",
+          name: "Tuck End Boxes",
+          count: 18,
+          description: "Versatile retail folding cartons with straight & reverse tuck closures for products.",
+          image: "/cat_tuck_end_boxes.png",
+          href: "/custom-cosmetic-packaging",
+        },
+        {
+          id: "woven-bags",
+          slug: "woven-bags",
+          name: "Woven & Non-Woven Bags",
+          count: 12,
+          description: "Eco-friendly custom printed tote bags and reusable non-woven retail carriers.",
+          image: "/cat_woven_bags.png",
+          href: "/custom-cosmetic-packaging",
+        },
+        {
+          id: "mailer-boxes",
+          slug: "mailer-boxes",
+          name: "Shipping Mailer Boxes",
+          count: 15,
+          description: "Heavy-duty corrugated e-commerce mailers engineered for safe unboxing experience.",
+          image: "/cat_mailer_boxes.png",
+          href: "/custom-cosmetic-packaging",
+        },
+      ] as StaticCategoryItem[],
     },
-    ...(subCategories.length > 0
-      ? [
-          {
-            title: "Subcategories & Specialized Styles",
-            items: subCategories,
-          },
-        ]
-      : []),
+    {
+      title: "Subcategories & Specialized Styles",
+      items: [
+        {
+          id: "best-sellers",
+          slug: "best-sellers",
+          name: "Best Sellers",
+          count: 9,
+          description: "Top-performing custom boxes & packaging solutions chosen by leading brands.",
+          image: "/cat_best_sellers.png",
+          href: "/custom-cosmetic-packaging",
+        },
+        {
+          id: "luxury-boxes",
+          slug: "luxury-boxes",
+          name: "Luxury Boxes",
+          count: 14,
+          description: "Premium velvet-lined rigid chipboard boxes with magnetic closures & foil stamping.",
+          image: "/cat_luxury_rigid_boxes.png",
+          href: "/custom-cosmetic-packaging",
+        },
+        {
+          id: "box-inserts",
+          slug: "box-inserts",
+          name: "Box Inserts",
+          count: 14,
+          description: "Precision-cut EVA foam, corrugated dielines & molded pulp protective inserts.",
+          image: "/cat_box_inserts.png",
+          href: "/custom-cosmetic-packaging",
+        },
+        {
+          id: "labels",
+          slug: "labels",
+          name: "Labels & Stickers",
+          count: 8,
+          description: "Custom die-cut stickers, waterproof jar labels & metallic foil sheet labels.",
+          image: "/cat_labels_stickers.png",
+          href: "/custom-cosmetic-packaging",
+        },
+      ] as StaticCategoryItem[],
+    },
   ];
 
   return (
@@ -80,13 +104,13 @@ export default async function ProductsCatalog() {
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-12">
           <div>
             <span className="inline-block font-poppins text-[11px] font-extrabold tracking-[0.2em] uppercase text-[#277a4e] mb-2">
-              WOOCOMMERCE CATALOG
+              PACKAGING CATALOG
             </span>
             <h2 className="font-poppins text-2xl sm:text-3xl font-extrabold text-[#111827] tracking-tight mb-1">
-              Explore Dynamic Packaging Categories
+              Explore Custom Packaging Categories
             </h2>
             <p className="font-inter text-gray-500 text-sm font-normal">
-              Browse live WooCommerce categories and product lines for your B2B packaging needs.
+              Browse custom categories and specialized product lines for your B2B packaging needs.
             </p>
           </div>
           <Link
@@ -112,7 +136,7 @@ export default async function ProductsCatalog() {
                 {group.items.map((item) => (
                   <Link
                     key={item.id}
-                    href={`/categories/${item.slug}`}
+                    href={item.href}
                     className="bg-white rounded-2xl overflow-hidden border border-gray-100 shadow-xs hover:shadow-2xl hover:-translate-y-1.5 transition-all duration-300 flex flex-col group"
                     style={{ boxShadow: "0 1px 4px 0 rgba(0,0,0,0.06)" }}
                   >
@@ -171,3 +195,4 @@ export default async function ProductsCatalog() {
     </section>
   );
 }
+
