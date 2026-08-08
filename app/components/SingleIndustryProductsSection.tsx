@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { IndustryCategory } from "./SingleIndustryCategoriesSection";
@@ -53,14 +53,22 @@ export default function SingleIndustryProductsSection({
   categories,
   initialProducts,
 }: SingleIndustryProductsSectionProps) {
+  const sectionRef = useRef<HTMLDivElement>(null);
   const initialCatSlug = categories && categories.length > 0 ? categories[0].slug : "";
   const [selectedCategory, setSelectedCategory] = useState<string>(initialCatSlug);
   const [searchTerm, setSearchTerm] = useState<string>("");
+  const [currentPage, setCurrentPage] = useState<number>(1);
+  const ITEMS_PER_PAGE = 8; // 8 items per page for clean 2x4 grid
 
   // Purely dynamic products from WooCommerce API
   const allProducts = useMemo(() => {
     return initialProducts || [];
   }, [initialProducts]);
+
+  // Reset to page 1 whenever category tab or search changes
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [selectedCategory, searchTerm]);
 
   // Filter products by selected category tab and search input
   const filteredProducts = useMemo(() => {
@@ -80,8 +88,22 @@ export default function SingleIndustryProductsSection({
     });
   }, [allProducts, selectedCategory, searchTerm, categories]);
 
+  const totalPages = Math.ceil(filteredProducts.length / ITEMS_PER_PAGE);
+
+  const paginatedProducts = useMemo(() => {
+    const start = (currentPage - 1) * ITEMS_PER_PAGE;
+    return filteredProducts.slice(start, start + ITEMS_PER_PAGE);
+  }, [filteredProducts, currentPage]);
+
+  const handlePageChange = (page: number) => {
+    if (page >= 1 && page <= totalPages) {
+      setCurrentPage(page);
+      sectionRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  };
+
   return (
-    <section className="bg-[#f8f9fb] py-16 sm:py-20 border-b border-gray-100 w-full font-inter overflow-hidden">
+    <section ref={sectionRef} className="bg-[#f8f9fb] py-16 sm:py-20 border-b border-gray-100 w-full font-inter overflow-hidden">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 w-full">
         {/* Section Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-10">
@@ -128,8 +150,6 @@ export default function SingleIndustryProductsSection({
           {categories.map((cat) => {
             const count = allProducts.filter((p) => productMatchesCategory(p, cat)).length;
 
-            const displayCount = count;
-
             return (
               <button
                 key={cat.id}
@@ -148,7 +168,7 @@ export default function SingleIndustryProductsSection({
                       : "bg-gray-100 text-gray-500"
                   }`}
                 >
-                  {displayCount}
+                  {count}
                 </span>
               </button>
             );
@@ -157,87 +177,149 @@ export default function SingleIndustryProductsSection({
 
         {/* Products 4-Column Grid */}
         {filteredProducts.length > 0 ? (
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-            {filteredProducts.map((product) => (
-              <div
-                key={product.id}
-                className="group relative flex flex-col bg-white border border-gray-200/80 hover:border-[#277a4e] rounded-2xl overflow-hidden shadow-2xs hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1.5"
-              >
-                {/* Product Image */}
-                <Link href={`/products/${product.slug || product.id}`} className="relative w-full h-52 bg-gray-50 overflow-hidden block">
-                  <Image
-                    src={product.image}
-                    alt={product.name}
-                    fill
-                    className="object-cover group-hover:scale-108 transition-transform duration-500 ease-out"
-                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 33vw, 25vw"
-                  />
+          <>
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+              {paginatedProducts.map((product) => (
+                <div
+                  key={product.id}
+                  className="group relative flex flex-col bg-white border border-gray-200/80 hover:border-[#277a4e] rounded-2xl overflow-hidden shadow-2xs hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1.5"
+                >
+                  {/* Product Image */}
+                  <Link href={`/products/${product.slug || product.id}`} className="relative w-full h-52 bg-gray-50 overflow-hidden block">
+                    <Image
+                      src={product.image}
+                      alt={product.name}
+                      fill
+                      className="object-cover group-hover:scale-108 transition-transform duration-500 ease-out"
+                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 33vw, 25vw"
+                    />
 
-                  {/* Badges */}
-                  <div className="absolute top-3 left-3 flex flex-col gap-1 z-10">
-                    <span className="px-2.5 py-1 rounded-md text-[10px] font-bold bg-[#1e293b]/90 text-white backdrop-blur-xs shadow-xs">
-                      MOQ: {product.moq}
-                    </span>
-                  </div>
-
-                  <div className="absolute top-3 right-3 z-10">
-                    <span className="px-2.5 py-1 rounded-md text-[10px] font-bold bg-[#eaf6f0] text-[#1d5338] border border-[#c3f0da] shadow-xs">
-                      {product.categoryName}
-                    </span>
-                  </div>
-                </Link>
-
-                {/* Content */}
-                <div className="p-5 flex flex-col flex-grow justify-between">
-                  <div>
-                    {product.sku && (
-                      <span className="text-[11px] font-mono font-bold text-[#277a4e] tracking-wide block mb-1">
-                        {product.sku}
-                      </span>
-                    )}
-                    <Link href={`/products/${product.slug || product.id}`}>
-                      <h3 className="font-poppins text-base font-bold text-[#0f172a] group-hover:text-[#1d5338] transition-colors leading-snug mb-2 line-clamp-2">
-                        {product.name.replace(/&amp;/g, "&")}
-                      </h3>
-                    </Link>
-                    <p className="text-xs text-gray-500 leading-relaxed line-clamp-2 mb-4">
-                      {product.description.replace(/&amp;/g, "&")}
-                    </p>
-                  </div>
-
-                  {/* Specifications & CTA */}
-                  <div>
-                    <div className="flex items-center justify-between text-[11px] text-gray-500 pt-3 border-t border-gray-100 mb-4">
-                      <span className="flex items-center gap-1 font-medium">
-                        <svg className="w-3.5 h-3.5 text-[#277a4e]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                          <path strokeLinecap="round" strokeLinejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                        </svg>
-                        {product.leadTime}
-                      </span>
-                      <span className="text-[#1d5338] font-bold uppercase tracking-wider text-[10px]">
-                        Customizable
+                    {/* Badges */}
+                    <div className="absolute top-3 left-3 flex flex-col gap-1 z-10">
+                      <span className="px-2.5 py-1 rounded-md text-[10px] font-bold bg-[#1e293b]/90 text-white backdrop-blur-xs shadow-xs">
+                        MOQ: {product.moq}
                       </span>
                     </div>
 
-                    <div className="grid grid-cols-2 gap-2">
-                      <Link
-                        href="/contact"
-                        className="py-2.5 px-3 bg-[#277a4e] hover:bg-[#1d5338] text-white text-xs font-bold rounded-xl text-center transition-colors shadow-xs"
-                      >
-                        Request Quote
+                    <div className="absolute top-3 right-3 z-10">
+                      <span className="px-2.5 py-1 rounded-md text-[10px] font-bold bg-[#eaf6f0] text-[#1d5338] border border-[#c3f0da] shadow-xs">
+                        {product.categoryName}
+                      </span>
+                    </div>
+                  </Link>
+
+                  {/* Content */}
+                  <div className="p-5 flex flex-col flex-grow justify-between">
+                    <div>
+                      {product.sku && (
+                        <span className="text-[11px] font-mono font-bold text-[#277a4e] tracking-wide block mb-1">
+                          {product.sku}
+                        </span>
+                      )}
+                      <Link href={`/products/${product.slug || product.id}`}>
+                        <h3 className="font-poppins text-base font-bold text-[#0f172a] group-hover:text-[#1d5338] transition-colors leading-snug mb-2 line-clamp-2">
+                          {product.name.replace(/&amp;/g, "&")}
+                        </h3>
                       </Link>
-                      <Link
-                        href={`/products/${product.slug || product.id}`}
-                        className="py-2.5 px-3 bg-gray-50 hover:bg-gray-100 text-[#0f172a] border border-gray-200 text-xs font-bold rounded-xl text-center transition-colors"
-                      >
-                        View Details
-                      </Link>
+                      <p className="text-xs text-gray-500 leading-relaxed line-clamp-2 mb-4">
+                        {product.description.replace(/&amp;/g, "&")}
+                      </p>
+                    </div>
+
+                    {/* Specifications & CTA */}
+                    <div>
+                      <div className="flex items-center justify-between text-[11px] text-gray-500 pt-3 border-t border-gray-100 mb-4">
+                        <span className="flex items-center gap-1 font-medium">
+                          <svg className="w-3.5 h-3.5 text-[#277a4e]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                          </svg>
+                          {product.leadTime}
+                        </span>
+                        <span className="text-[#1d5338] font-bold uppercase tracking-wider text-[10px]">
+                          Customizable
+                        </span>
+                      </div>
+
+                      <div className="grid grid-cols-2 gap-2">
+                        <Link
+                          href="/contact"
+                          className="py-2.5 px-3 bg-[#277a4e] hover:bg-[#1d5338] text-white text-xs font-bold rounded-xl text-center transition-colors shadow-xs"
+                        >
+                          Request Quote
+                        </Link>
+                        <Link
+                          href={`/products/${product.slug || product.id}`}
+                          className="py-2.5 px-3 bg-gray-50 hover:bg-gray-100 text-[#0f172a] border border-gray-200 text-xs font-bold rounded-xl text-center transition-colors"
+                        >
+                          View Details
+                        </Link>
+                      </div>
                     </div>
                   </div>
                 </div>
+              ))}
+            </div>
+
+            {/* Pagination Controls Bar */}
+            {totalPages > 1 && (
+              <div className="mt-12 pt-6 border-t border-gray-200/80 flex flex-col sm:flex-row items-center justify-between gap-4">
+                <div className="text-xs text-gray-500 font-medium">
+                  Showing{" "}
+                  <span className="font-bold text-[#0f172a]">
+                    {(currentPage - 1) * ITEMS_PER_PAGE + 1}
+                  </span>{" "}
+                  to{" "}
+                  <span className="font-bold text-[#0f172a]">
+                    {Math.min(currentPage * ITEMS_PER_PAGE, filteredProducts.length)}
+                  </span>{" "}
+                  of <span className="font-bold text-[#0f172a]">{filteredProducts.length}</span> products
+                </div>
+
+                <div className="flex items-center gap-1.5">
+                  {/* Prev Button */}
+                  <button
+                    onClick={() => handlePageChange(currentPage - 1)}
+                    disabled={currentPage === 1}
+                    className={`px-3 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-1 cursor-pointer ${
+                      currentPage === 1
+                        ? "bg-gray-100 text-gray-400 cursor-not-allowed border border-gray-200/60"
+                        : "bg-white text-gray-700 hover:bg-[#277a4e] hover:text-white border border-gray-200 shadow-xs"
+                    }`}
+                  >
+                    ‹ Prev
+                  </button>
+
+                  {/* Page Numbers */}
+                  {Array.from({ length: totalPages }, (_, i) => i + 1).map((pageNum) => (
+                    <button
+                      key={pageNum}
+                      onClick={() => handlePageChange(pageNum)}
+                      className={`w-9 h-9 rounded-xl text-xs font-bold transition-all cursor-pointer flex items-center justify-center ${
+                        currentPage === pageNum
+                          ? "bg-[#277a4e] text-white shadow-md shadow-[#277a4e]/20"
+                          : "bg-white text-gray-600 hover:bg-gray-100 border border-gray-200"
+                      }`}
+                    >
+                      {pageNum}
+                    </button>
+                  ))}
+
+                  {/* Next Button */}
+                  <button
+                    onClick={() => handlePageChange(currentPage + 1)}
+                    disabled={currentPage === totalPages}
+                    className={`px-3 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-1 cursor-pointer ${
+                      currentPage === totalPages
+                        ? "bg-gray-100 text-gray-400 cursor-not-allowed border border-gray-200/60"
+                        : "bg-white text-gray-700 hover:bg-[#277a4e] hover:text-white border border-gray-200 shadow-xs"
+                    }`}
+                  >
+                    Next ›
+                  </button>
+                </div>
               </div>
-            ))}
-          </div>
+            )}
+          </>
         ) : (
           /* Empty State */
           <div className="text-center py-16 bg-white rounded-2xl border border-gray-200 p-8">
@@ -263,3 +345,4 @@ export default function SingleIndustryProductsSection({
     </section>
   );
 }
+

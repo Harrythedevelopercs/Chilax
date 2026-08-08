@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -25,8 +25,16 @@ export default function SingleCategoryProductsSection({
   categoryTitle,
   products = [],
 }: SingleCategoryProductsSectionProps) {
+  const sectionRef = useRef<HTMLDivElement>(null);
   const [searchQuery, setSearchQuery] = useState("");
   const [sortBy, setSortBy] = useState<"featured" | "name" | "moq">("featured");
+  const [currentPage, setCurrentPage] = useState<number>(1);
+  const ITEMS_PER_PAGE = 8;
+
+  // Reset page when searchQuery or sortBy changes
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [searchQuery, sortBy]);
 
   const filteredProducts = useMemo(() => {
     let result = [...products];
@@ -51,8 +59,22 @@ export default function SingleCategoryProductsSection({
     return result;
   }, [products, searchQuery, sortBy]);
 
+  const totalPages = Math.ceil(filteredProducts.length / ITEMS_PER_PAGE);
+
+  const paginatedProducts = useMemo(() => {
+    const start = (currentPage - 1) * ITEMS_PER_PAGE;
+    return filteredProducts.slice(start, start + ITEMS_PER_PAGE);
+  }, [filteredProducts, currentPage]);
+
+  const handlePageChange = (page: number) => {
+    if (page >= 1 && page <= totalPages) {
+      setCurrentPage(page);
+      sectionRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  };
+
   return (
-    <section className="py-12 sm:py-16 bg-[#f8fafc] w-full min-h-[500px]">
+    <section ref={sectionRef} className="py-12 sm:py-16 bg-[#f8fafc] w-full min-h-[500px]">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header & Filters Bar */}
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8 bg-white p-4 sm:p-6 rounded-2xl border border-gray-200/80 shadow-2xs">
@@ -68,9 +90,16 @@ export default function SingleCategoryProductsSection({
           {/* Search & Sort Controls */}
           <div className="flex flex-wrap items-center gap-3">
             {/* Search Input */}
-            <div className="relative flex-1 sm:w-64">
+            <div className="relative">
+              <input
+                type="text"
+                placeholder="Search styles..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="pl-9 pr-4 py-2 bg-gray-50 border border-gray-200 rounded-xl text-xs text-[#0f172a] focus:bg-white focus:outline-none focus:border-[#277a4e] focus:ring-2 focus:ring-[#277a4e]/20 transition-all w-48 sm:w-60"
+              />
               <svg
-                className="w-4 h-4 text-gray-400 absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none"
+                className="w-4 h-4 text-gray-400 absolute left-3 top-1/2 -translate-y-1/2"
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"
@@ -82,100 +111,157 @@ export default function SingleCategoryProductsSection({
                   d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
                 />
               </svg>
-              <input
-                type="text"
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                placeholder="Search style or name..."
-                className="w-full pl-9 pr-3 py-2 bg-gray-50 border border-gray-200 rounded-lg text-xs sm:text-sm text-[#0f172a] focus:outline-none focus:border-[#277a4e] focus:bg-white transition-all"
-              />
             </div>
 
             {/* Sort Select */}
-            <select
-              value={sortBy}
-              onChange={(e) => setSortBy(e.target.value as "featured" | "name" | "moq")}
-              className="px-3 py-2 bg-gray-50 border border-gray-200 rounded-lg text-xs sm:text-sm text-[#0f172a] focus:outline-none focus:border-[#277a4e] cursor-pointer"
-            >
-              <option value="featured">Sort by: Featured</option>
-              <option value="name">Sort by: Name (A-Z)</option>
-              <option value="moq">Sort by: Lowest MOQ</option>
-            </select>
+            <div className="flex items-center gap-2">
+              <span className="text-xs font-bold text-gray-500 hidden sm:inline">Sort:</span>
+              <select
+                value={sortBy}
+                onChange={(e) => setSortBy(e.target.value as "featured" | "name" | "moq")}
+                className="py-2 px-3 bg-gray-50 border border-gray-200 rounded-xl text-xs font-bold text-[#0f172a] focus:outline-none focus:border-[#277a4e] cursor-pointer"
+              >
+                <option value="featured">Featured First</option>
+                <option value="name">Product Name (A-Z)</option>
+                <option value="moq">Lowest MOQ</option>
+              </select>
+            </div>
           </div>
         </div>
 
-        {/* Products Grid */}
+        {/* Product Cards Grid */}
         {filteredProducts.length > 0 ? (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 sm:gap-8">
-            {filteredProducts.map((product) => (
-              <div
-                key={product.id}
-                className="group relative flex flex-col bg-white border border-gray-200/80 hover:border-[#277a4e] rounded-2xl overflow-hidden shadow-2xs hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1.5"
-              >
-                {/* Product Image Container */}
-                <div className="relative w-full h-56 sm:h-60 bg-gray-50 overflow-hidden">
-                  <Image
-                    src={product.image}
-                    alt={product.name}
-                    fill
-                    className="object-cover group-hover:scale-105 transition-transform duration-500 ease-out"
-                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
-                  />
+          <>
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+              {paginatedProducts.map((product) => (
+                <div
+                  key={product.id}
+                  className="group bg-white border border-gray-200/80 hover:border-[#277a4e] rounded-2xl overflow-hidden shadow-2xs hover:shadow-xl transition-all duration-300 flex flex-col transform hover:-translate-y-1"
+                >
+                  {/* Image & Badges */}
+                  <div className="relative w-full h-48 bg-gray-50 overflow-hidden">
+                    <Image
+                      src={product.image}
+                      alt={product.name}
+                      fill
+                      className="object-cover group-hover:scale-105 transition-transform duration-500"
+                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+                    />
 
-                  {/* Top Badges */}
-                  <div className="absolute top-3 left-3 flex flex-col gap-1.5 z-10">
-                    <span className="px-2.5 py-1 rounded-md text-[10px] font-extrabold bg-[#0f172a]/90 text-white backdrop-blur-xs shadow-xs">
-                      MOQ: {product.moq}
-                    </span>
+                    <div className="absolute top-3 left-3 z-10 flex flex-col gap-1">
+                      <span className="px-2 py-0.5 rounded-md text-[10px] font-bold bg-[#0f172a]/90 text-white backdrop-blur-xs shadow-xs">
+                        MOQ: {product.moq}
+                      </span>
+                    </div>
+
+                    <div className="absolute top-3 right-3 z-10">
+                      <span className="px-2 py-0.5 rounded-md text-[10px] font-bold bg-white/90 text-[#277a4e] backdrop-blur-xs border border-gray-100 shadow-xs">
+                        {product.leadTime}
+                      </span>
+                    </div>
                   </div>
 
-                  <div className="absolute top-3 right-3 z-10">
-                    <span className="px-2.5 py-1 rounded-md text-[10px] font-extrabold bg-[#eaf6f0] text-[#1d5338] border border-[#c3f0da]">
-                      {product.leadTime}
-                    </span>
+                  {/* Card Content */}
+                  <div className="p-5 flex-1 flex flex-col justify-between">
+                    <div>
+                      <h3 className="text-base font-bold text-[#0f172a] group-hover:text-[#277a4e] transition-colors line-clamp-1 mb-2 font-poppins">
+                        {product.name}
+                      </h3>
+                      <p className="text-xs text-gray-500 font-normal leading-relaxed line-clamp-2 mb-4">
+                        {product.description}
+                      </p>
+                    </div>
+
+                    {/* Card Footer CTA */}
+                    <div className="pt-4 border-t border-gray-100 flex items-center justify-between gap-2">
+                      <Link
+                        href={`/products/${product.slug}`}
+                        className="inline-flex items-center text-xs font-bold text-[#277a4e] hover:text-[#1d5338] group/link"
+                      >
+                        View Product Details
+                        <svg
+                          className="w-3.5 h-3.5 ml-1 group-hover/link:translate-x-1 transition-transform"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          stroke="currentColor"
+                          strokeWidth={2.5}
+                        >
+                          <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+                        </svg>
+                      </Link>
+
+                      <Link
+                        href={`/products/${product.slug}#quote`}
+                        className="px-3 py-1.5 bg-[#277a4e] hover:bg-[#1d5338] text-white text-xs font-bold rounded-lg transition-colors shadow-2xs"
+                      >
+                        Get Quote
+                      </Link>
+                    </div>
                   </div>
                 </div>
+              ))}
+            </div>
 
-                {/* Card Content */}
-                <div className="p-5 flex-1 flex flex-col justify-between">
-                  <div>
-                    <h3 className="text-base font-bold text-[#0f172a] group-hover:text-[#277a4e] transition-colors line-clamp-1 mb-2 font-poppins">
-                      {product.name}
-                    </h3>
-                    <p className="text-xs text-gray-500 font-normal leading-relaxed line-clamp-2 mb-4">
-                      {product.description}
-                    </p>
-                  </div>
+            {/* Pagination Controls Bar */}
+            {totalPages > 1 && (
+              <div className="mt-12 pt-6 border-t border-gray-200/80 flex flex-col sm:flex-row items-center justify-between gap-4">
+                <div className="text-xs text-gray-500 font-medium">
+                  Showing{" "}
+                  <span className="font-bold text-[#0f172a]">
+                    {(currentPage - 1) * ITEMS_PER_PAGE + 1}
+                  </span>{" "}
+                  to{" "}
+                  <span className="font-bold text-[#0f172a]">
+                    {Math.min(currentPage * ITEMS_PER_PAGE, filteredProducts.length)}
+                  </span>{" "}
+                  of <span className="font-bold text-[#0f172a]">{filteredProducts.length}</span> products
+                </div>
 
-                  {/* Card Footer CTA */}
-                  <div className="pt-4 border-t border-gray-100 flex items-center justify-between gap-2">
-                    <Link
-                      href={`/products/${product.slug}`}
-                      className="inline-flex items-center text-xs font-bold text-[#277a4e] hover:text-[#1d5338] group/link"
+                <div className="flex items-center gap-1.5">
+                  {/* Prev Button */}
+                  <button
+                    onClick={() => handlePageChange(currentPage - 1)}
+                    disabled={currentPage === 1}
+                    className={`px-3 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-1 cursor-pointer ${
+                      currentPage === 1
+                        ? "bg-gray-100 text-gray-400 cursor-not-allowed border border-gray-200/60"
+                        : "bg-white text-gray-700 hover:bg-[#277a4e] hover:text-white border border-gray-200 shadow-xs"
+                    }`}
+                  >
+                    ‹ Prev
+                  </button>
+
+                  {/* Page Numbers */}
+                  {Array.from({ length: totalPages }, (_, i) => i + 1).map((pageNum) => (
+                    <button
+                      key={pageNum}
+                      onClick={() => handlePageChange(pageNum)}
+                      className={`w-9 h-9 rounded-xl text-xs font-bold transition-all cursor-pointer flex items-center justify-center ${
+                        currentPage === pageNum
+                          ? "bg-[#277a4e] text-white shadow-md shadow-[#277a4e]/20"
+                          : "bg-white text-gray-600 hover:bg-gray-100 border border-gray-200"
+                      }`}
                     >
-                      View Product Details
-                      <svg
-                        className="w-3.5 h-3.5 ml-1 group-hover/link:translate-x-1 transition-transform"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor"
-                        strokeWidth={2.5}
-                      >
-                        <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
-                      </svg>
-                    </Link>
+                      {pageNum}
+                    </button>
+                  ))}
 
-                    <Link
-                      href={`/products/${product.slug}#quote`}
-                      className="px-3 py-1.5 bg-[#277a4e] hover:bg-[#1d5338] text-white text-xs font-bold rounded-lg transition-colors shadow-2xs"
-                    >
-                      Get Quote
-                    </Link>
-                  </div>
+                  {/* Next Button */}
+                  <button
+                    onClick={() => handlePageChange(currentPage + 1)}
+                    disabled={currentPage === totalPages}
+                    className={`px-3 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-1 cursor-pointer ${
+                      currentPage === totalPages
+                        ? "bg-gray-100 text-gray-400 cursor-not-allowed border border-gray-200/60"
+                        : "bg-white text-gray-700 hover:bg-[#277a4e] hover:text-white border border-gray-200 shadow-xs"
+                    }`}
+                  >
+                    Next ›
+                  </button>
                 </div>
               </div>
-            ))}
-          </div>
+            )}
+          </>
         ) : (
           <div className="bg-white rounded-2xl border border-gray-200 p-12 text-center max-w-lg mx-auto">
             <svg
