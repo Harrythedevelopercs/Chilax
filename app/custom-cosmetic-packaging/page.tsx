@@ -88,10 +88,13 @@ export default async function CustomCosmeticPackagingPage() {
       }
     }
 
-    // 2. Fetch products for all category IDs (parent & subcategories) in parallel
-    const catIdsToFetch = categories
-      .map((c) => c.id)
-      .filter((id) => typeof id === "number") as number[];
+    // 2. Fetch products for all category IDs (parent 644 & subcategories) in parallel
+    const catIdsToFetch = Array.from(
+      new Set([
+        644,
+        ...categories.map((c) => c.id).filter((id) => typeof id === "number") as number[],
+      ])
+    );
 
     const productBatches = await Promise.all(
       catIdsToFetch.map((catId) => getProducts({ category: catId, per_page: 100 }).catch(() => []))
