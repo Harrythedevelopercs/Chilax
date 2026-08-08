@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Navbar from "../../components/Navbar";
 import SingleProductBanner, { SingleProductBannerData } from "../../components/SingleProductBanner";
 import Footer from "../../components/Footer";
-import { getProductById, getProductBySlug, parseWCProductMeta } from "@/lib/woocommerce";
+import { getProductById, getProductBySlug, parseWCProductMeta, decodeHTMLEntities } from "@/lib/woocommerce";
 import type { WCProduct } from "@/lib/types";
 
 // Force dynamic rendering — no static generation, always fetch fresh data
@@ -94,16 +94,22 @@ export default async function SingleProductPage({ params }: PageProps) {
 
     if (rawProduct) {
       const parsed = parseWCProductMeta(rawProduct);
+      const allImages = Array.isArray(parsed.images) && parsed.images.length > 0
+        ? parsed.images.map((i) => i.src)
+        : [parsed.images?.[0]?.src || "/product_packaging.png"];
+
       productData = {
         id: parsed.id,
-        name: parsed.name,
+        name: decodeHTMLEntities(parsed.name),
         categoryName: parsed.categories[0]?.name || "Custom Packaging",
         categorySlug: parsed.categories[0]?.slug || "packaging",
-        image: parsed.images[0]?.src || "/product_packaging.png",
-        shortDescription:
+        image: allImages[0] || "/product_packaging.png",
+        images: allImages,
+        shortDescription: decodeHTMLEntities(
           parsed.short_description?.replace(/<[^>]*>?/gm, "").trim() ||
           parsed.description?.replace(/<[^>]*>?/gm, "").trim() ||
-          productData.shortDescription,
+          productData.shortDescription
+        ),
         moq: parsed.moq || "100 Units",
         leadTime: parsed.lead_time || "7-9 Days",
         material: "Custom Cardstock / Board",

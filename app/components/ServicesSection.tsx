@@ -134,7 +134,7 @@ const services = [
 const benefits = [
   {
     icon: (
-      <svg className="w-5 h-5 text-[#02c074]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <svg className="w-5 h-5 text-[#277a4e]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
       </svg>
     ),
@@ -143,7 +143,7 @@ const benefits = [
   },
   {
     icon: (
-      <svg className="w-5 h-5 text-[#02c074]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <svg className="w-5 h-5 text-[#277a4e]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8} d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" />
       </svg>
     ),
@@ -152,7 +152,7 @@ const benefits = [
   },
   {
     icon: (
-      <svg className="w-5 h-5 text-[#02c074]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <svg className="w-5 h-5 text-[#277a4e]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8} d="M7 11.5V14m0-2.5v-6a1.5 1.5 0 113 0m-3 6a1.5 1.5 0 00-3 0v2a7.5 7.5 0 0015 0v-5a1.5 1.5 0 00-3 0m-6-3V11m0-5.5v-1a1.5 1.5 0 013 0v1m0 0V11m0-5.5a1.5 1.5 0 013 0v3m0 0V11" />
       </svg>
     ),
@@ -161,7 +161,7 @@ const benefits = [
   },
   {
     icon: (
-      <svg className="w-5 h-5 text-[#02c074]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <svg className="w-5 h-5 text-[#277a4e]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8} d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064" />
       </svg>
     ),
@@ -180,7 +180,7 @@ export default function ServicesSection() {
 
         {/* ── Header ── */}
         <div className="text-center mb-14 max-w-2xl mx-auto">
-          <span className="inline-block font-poppins text-[11px] font-bold tracking-[0.2em] uppercase text-[#02c074] mb-3">
+          <span className="inline-block font-poppins text-[11px] font-bold tracking-[0.2em] uppercase text-[#277a4e] mb-3">
             Our 360° Approach
           </span>
           <h2 className="font-poppins text-2xl sm:text-3xl font-extrabold text-[#111827] mb-4 tracking-tight leading-tight">
@@ -205,20 +205,20 @@ export default function ServicesSection() {
                     key={svc.key}
                     onClick={() => setActiveKey(svc.key)}
                     className={`relative flex items-center gap-3.5 px-7 py-4 text-left transition-all duration-200 group ${
-                      isActive ? "bg-[#f0fdf8]" : "hover:bg-gray-50"
+                      isActive ? "bg-[#eaf6f0]" : "hover:bg-gray-50"
                     }`}
                   >
                     {/* Active left border bar */}
                     <span
                       className={`absolute left-0 top-3 bottom-3 w-0.5 rounded-full transition-all duration-300 ${
-                        isActive ? "bg-[#02c074]" : "bg-transparent"
+                        isActive ? "bg-[#277a4e]" : "bg-transparent"
                       }`}
                     />
 
                     {/* Icon */}
                     <span
                       className={`flex-shrink-0 transition-colors duration-200 ${
-                        isActive ? "text-[#02c074]" : "text-gray-400 group-hover:text-gray-600"
+                        isActive ? "text-[#277a4e]" : "text-gray-400 group-hover:text-gray-600"
                       }`}
                     >
                       {svc.icon}
@@ -227,7 +227,7 @@ export default function ServicesSection() {
                     {/* Label */}
                     <span
                       className={`font-poppins text-sm font-semibold transition-colors duration-200 ${
-                        isActive ? "text-[#02c074]" : "text-gray-600 group-hover:text-gray-800"
+                        isActive ? "text-[#277a4e]" : "text-gray-600 group-hover:text-gray-800"
                       }`}
                     >
                       {svc.label}
@@ -235,7 +235,7 @@ export default function ServicesSection() {
 
                     {/* Step number on active */}
                     {isActive && (
-                      <span className="ml-auto font-poppins text-[10px] font-bold text-[#02c074]/60 tracking-wider">
+                      <span className="ml-auto font-poppins text-[10px] font-bold text-[#277a4e]/60 tracking-wider">
                         {svc.step}
                       </span>
                     )}
@@ -251,7 +251,7 @@ export default function ServicesSection() {
               <div className="flex-1 p-8 lg:p-10 flex flex-col justify-center">
                 {/* Step badge */}
                 <div className="flex items-center gap-2 mb-5">
-                  <span className="inline-flex items-center justify-center w-7 h-7 rounded-full bg-[#02c074] text-white text-[10px] font-bold font-poppins">
+                  <span className="inline-flex items-center justify-center w-7 h-7 rounded-full bg-[#277a4e] text-white text-[10px] font-bold font-poppins">
                     {current.step}
                   </span>
                   <span className="font-inter text-xs text-gray-400 font-medium">{current.subtitle}</span>
@@ -268,8 +268,8 @@ export default function ServicesSection() {
                 <ul className="space-y-3 mb-8">
                   {current.points.map((point, i) => (
                     <li key={i} className="flex items-start gap-3">
-                      <span className="flex-shrink-0 mt-0.5 w-5 h-5 rounded-full bg-[#e8f5ee] flex items-center justify-center">
-                        <svg className="w-3 h-3 text-[#02c074]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <span className="flex-shrink-0 mt-0.5 w-5 h-5 rounded-full bg-[#eaf6f0] flex items-center justify-center">
+                        <svg className="w-3 h-3 text-[#277a4e]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
                         </svg>
                       </span>
@@ -279,8 +279,8 @@ export default function ServicesSection() {
                 </ul>
 
                 {/* Stat pill */}
-                <div className="inline-flex items-center gap-3 bg-[#f0fdf8] border border-[#02c074]/20 rounded-xl px-5 py-3 self-start">
-                  <span className="font-poppins text-2xl font-extrabold text-[#02c074]">
+                <div className="inline-flex items-center gap-3 bg-[#eaf6f0] border border-[#277a4e]/20 rounded-xl px-5 py-3 self-start">
+                  <span className="font-poppins text-2xl font-extrabold text-[#277a4e]">
                     {current.stat.value}
                   </span>
                   <span className="font-inter text-xs text-gray-500 leading-tight max-w-[80px]">
@@ -329,7 +329,7 @@ export default function ServicesSection() {
 
         {/* ── 360° Benefits Row ── */}
         <div className="text-center mb-8">
-          <p className="font-poppins text-[#02c074] font-bold text-xs tracking-widest uppercase mb-1">
+          <p className="font-poppins text-[#277a4e] font-bold text-xs tracking-widest uppercase mb-1">
             Total packaging success
           </p>
           <h3 className="font-poppins text-xl sm:text-2xl font-extrabold text-[#111827] tracking-tight">
@@ -343,7 +343,7 @@ export default function ServicesSection() {
               key={idx}
               className="bg-white rounded-2xl p-6 border border-gray-100 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-200 flex flex-col gap-4"
             >
-              <div className="w-10 h-10 rounded-xl bg-[#e8f5ee] flex items-center justify-center flex-shrink-0">
+              <div className="w-10 h-10 rounded-xl bg-[#eaf6f0] flex items-center justify-center flex-shrink-0">
                 {benefit.icon}
               </div>
               <div>

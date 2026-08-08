@@ -16,7 +16,7 @@ export default function InstagramSection() {
     <section className="bg-white py-16 border-b border-gray-200/60 w-full font-inter">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 w-full">
         <Link href="#" className="block text-center mb-10 max-w-2xl mx-auto group">
-          <h2 className="font-poppins text-xl md:text-2xl font-bold text-[#1a1a2e] group-hover:text-[#02c074] transition-colors underline decoration-gray-300 underline-offset-4">
+          <h2 className="font-poppins text-xl md:text-2xl font-bold text-[#1a1a2e] group-hover:text-[#277a4e] transition-colors underline decoration-gray-300 underline-offset-4">
             Find our works on Instagram or tag us @Parcela to inspire others.
           </h2>
         </Link>

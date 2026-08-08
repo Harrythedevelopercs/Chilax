@@ -7,12 +7,14 @@ interface SingleIndustryBannerProps {
   title: string;
   badge?: string;
   description: string;
+  videoSrc?: string;
 }
 
 export default function SingleIndustryBanner({
   title,
   badge = "PREMIUM B2B MANUFACTURING",
   description,
+  videoSrc,
 }: SingleIndustryBannerProps) {
   const sectionRef = useRef<HTMLElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -124,14 +126,31 @@ export default function SingleIndustryBanner({
       {/* Interactive Dot Canvas Background */}
       <canvas
         ref={canvasRef}
-        className="absolute inset-0 w-full h-full pointer-events-none"
+        className="absolute inset-0 w-full h-full pointer-events-none z-1"
       />
+
+      {/* Video Background on Right with Transparent Left Gradient Overlay */}
+      {videoSrc && (
+        <div className="absolute right-0 top-0 bottom-0 w-full md:w-3/5 lg:w-[58%] h-full pointer-events-none overflow-hidden z-0">
+          <video
+            src={videoSrc}
+            autoPlay
+            loop
+            muted
+            playsInline
+            className="w-full h-full object-cover object-center scale-105"
+          />
+          {/* Gradient Transparent Overlay from Left */}
+          <div className="absolute inset-0 bg-gradient-to-r from-[#f1f4f8] via-[#f1f4f8]/35 to-transparent z-10" />
+          <div className="absolute inset-0 bg-gradient-to-b from-[#f1f4f8]/20 via-transparent to-[#f1f4f8]/20 z-10" />
+        </div>
+      )}
 
       <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="max-w-3xl">
           {/* Badge */}
           <div className="inline-block mb-6">
-            <span className="inline-flex items-center px-3.5 py-1.5 rounded-md text-[11px] sm:text-xs font-bold tracking-wider uppercase bg-[#e4f7ee] text-[#00684a] border border-[#c3f0da] shadow-xs">
+            <span className="inline-flex items-center px-3.5 py-1.5 rounded-md text-[11px] sm:text-xs font-bold tracking-wider uppercase bg-[#eaf6f0] text-[#1d5338] border border-[#c3f0da] shadow-xs">
               {badge}
             </span>
           </div>
@@ -150,7 +169,7 @@ export default function SingleIndustryBanner({
           <div className="flex flex-wrap items-center gap-4">
             <Link
               href="/catalog"
-              className="inline-flex items-center justify-center px-6 py-3.5 bg-[#00684a] hover:bg-[#00543c] text-white text-sm font-bold rounded-lg transition-colors shadow-xs"
+              className="inline-flex items-center justify-center px-6 py-3.5 bg-[#277a4e] hover:bg-[#1d5338] text-white text-sm font-bold rounded-lg transition-colors shadow-xs"
             >
               View Full Catalog
             </Link>

@@ -137,11 +137,11 @@ export default function SingleCategoryBanner({
       <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8">
         {/* Breadcrumbs Navigation */}
         <nav className="flex items-center gap-2 text-xs text-gray-500 font-medium mb-6">
-          <Link href="/" className="hover:text-[#02c074] transition-colors">
+          <Link href="/" className="hover:text-[#277a4e] transition-colors">
             Home
           </Link>
           <span>/</span>
-          <Link href="/catalog" className="hover:text-[#02c074] transition-colors">
+          <Link href="/catalog" className="hover:text-[#277a4e] transition-colors">
             Categories
           </Link>
           <span>/</span>
@@ -153,8 +153,8 @@ export default function SingleCategoryBanner({
           <div className="lg:col-span-7">
             {/* Category Badge */}
             <div className="inline-block mb-3">
-              <span className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-md text-[11px] font-extrabold tracking-wider uppercase bg-[#e4f7ee] text-[#00684a] border border-[#c3f0da] shadow-2xs">
-                <span className="w-2 h-2 rounded-full bg-[#02c074] animate-pulse" />
+              <span className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-md text-[11px] font-extrabold tracking-wider uppercase bg-[#eaf6f0] text-[#1d5338] border border-[#c3f0da] shadow-2xs">
+                <span className="w-2 h-2 rounded-full bg-[#277a4e] animate-pulse" />
                 {badge}
               </span>
             </div>
@@ -193,7 +193,7 @@ export default function SingleCategoryBanner({
                 <span className="text-[10px] font-bold text-gray-400 uppercase tracking-wider block mb-0.5">
                   Design Support
                 </span>
-                <span className="text-xs sm:text-sm font-extrabold text-[#02c074]">
+                <span className="text-xs sm:text-sm font-extrabold text-[#277a4e]">
                   100% Free 3D Proof
                 </span>
               </div>
@@ -212,7 +212,7 @@ export default function SingleCategoryBanner({
             <div className="flex flex-wrap items-center gap-3.5">
               <Link
                 href={`#quote`}
-                className="inline-flex items-center justify-center px-6 py-3 bg-[#02c074] hover:bg-[#019a5c] text-white text-xs sm:text-sm font-bold rounded-lg transition-all shadow-md shadow-[#02c074]/20 group"
+                className="inline-flex items-center justify-center px-6 py-3 bg-[#277a4e] hover:bg-[#1d5338] text-white text-xs sm:text-sm font-bold rounded-lg transition-all shadow-md shadow-[#277a4e]/20 group"
               >
                 Get Wholesale Quote
                 <svg
@@ -249,7 +249,7 @@ export default function SingleCategoryBanner({
 
               <div className="absolute bottom-4 left-4 right-4 bg-white/90 backdrop-blur-md p-4 rounded-2xl border border-white/40 shadow-lg flex items-center justify-between">
                 <div>
-                  <span className="text-[11px] font-bold text-[#02c074] uppercase tracking-wider block">
+                  <span className="text-[11px] font-bold text-[#277a4e] uppercase tracking-wider block">
                     Factory Direct Pricing
                   </span>
                   <span className="text-xs text-gray-700 font-medium">

@@ -194,7 +194,7 @@ export default async function ProductsCatalog() {
         {/* Main Section Header */}
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-12">
           <div>
-            <span className="inline-block font-poppins text-[11px] font-extrabold tracking-[0.2em] uppercase text-[#02c074] mb-2">
+            <span className="inline-block font-poppins text-[11px] font-extrabold tracking-[0.2em] uppercase text-[#277a4e] mb-2">
               PACKAGING CATEGORIES
             </span>
             <h2 className="font-poppins text-2xl sm:text-3xl font-extrabold text-[#111827] tracking-tight mb-1">
@@ -206,7 +206,7 @@ export default async function ProductsCatalog() {
           </div>
           <Link
             href="/categories/rigid-boxes"
-            className="font-poppins flex-shrink-0 bg-[#02c074] hover:bg-[#019a5c] text-white px-5 py-2.5 rounded-lg text-xs font-bold transition-all duration-200 self-start sm:self-auto shadow-sm"
+            className="font-poppins flex-shrink-0 bg-[#277a4e] hover:bg-[#1d5338] text-white px-5 py-2.5 rounded-lg text-xs font-bold transition-all duration-200 self-start sm:self-auto shadow-sm"
           >
             Browse All Categories
           </Link>
@@ -218,7 +218,7 @@ export default async function ProductsCatalog() {
             <div key={groupIdx}>
               {/* Group Category Title */}
               <h3 className="font-poppins font-bold text-gray-700 text-xs tracking-widest uppercase mb-5 flex items-center gap-3">
-                <span className="inline-block w-6 h-0.5 bg-[#02c074] rounded-full" />
+                <span className="inline-block w-6 h-0.5 bg-[#277a4e] rounded-full" />
                 {group.categoryTitle}
               </h3>
 
@@ -260,13 +260,13 @@ export default async function ProductsCatalog() {
                         {/* Bottom gradient overlay */}
                         <div className="absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-white/60 to-transparent pointer-events-none" />
                         {/* Green accent top-right corner badge on hover */}
-                        <div className="absolute top-3 right-3 w-2 h-2 rounded-full bg-[#02c074] opacity-0 group-hover:opacity-100 transition-opacity duration-300 shadow-md" />
+                        <div className="absolute top-3 right-3 w-2 h-2 rounded-full bg-[#277a4e] opacity-0 group-hover:opacity-100 transition-opacity duration-300 shadow-md" />
                       </div>
 
                       {/* Content Box */}
                       <div className="px-5 pt-4 pb-5 flex-1 flex flex-col justify-between bg-white border-t border-gray-100/80">
                         <div>
-                          <h4 className="font-poppins font-bold text-[#111827] text-sm mb-1 group-hover:text-[#02c074] transition-colors duration-200 leading-snug">
+                          <h4 className="font-poppins font-bold text-[#111827] text-sm mb-1 group-hover:text-[#277a4e] transition-colors duration-200 leading-snug">
                             {item.title}
                           </h4>
                           <p className="font-inter text-gray-400 text-xs leading-relaxed font-normal">
@@ -275,7 +275,7 @@ export default async function ProductsCatalog() {
                         </div>
 
                         <div className="mt-4 pt-3 border-t border-gray-100 flex items-center justify-between">
-                          <span className="text-[11px] font-bold text-[#02c074] group-hover:text-[#019a5c] flex items-center gap-1 transition-colors">
+                          <span className="text-[11px] font-bold text-[#277a4e] group-hover:text-[#1d5338] flex items-center gap-1 transition-colors">
                             Explore Category
                             <svg
                               className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform"
@@ -290,7 +290,7 @@ export default async function ProductsCatalog() {
                         </div>
                       </div>
                       {/* Green bottom accent line on hover */}
-                      <div className="h-0.5 w-0 group-hover:w-full bg-[#02c074] transition-all duration-300 ease-out" />
+                      <div className="h-0.5 w-0 group-hover:w-full bg-[#277a4e] transition-all duration-300 ease-out" />
                     </Link>
                   );
                 })}

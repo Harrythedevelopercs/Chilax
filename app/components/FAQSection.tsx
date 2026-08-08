@@ -48,8 +48,8 @@ export default function FAQSection() {
             <div>
               {/* Badge */}
               <div className="flex items-center gap-2 mb-3">
-                <span className="w-2 h-2 rounded-full bg-[#02c074] animate-pulse" />
-                <span className="font-poppins text-xs font-bold text-[#02c074] tracking-wider uppercase">
+                <span className="w-2 h-2 rounded-full bg-[#277a4e] animate-pulse" />
+                <span className="font-poppins text-xs font-bold text-[#277a4e] tracking-wider uppercase">
                   FAQs
                 </span>
               </div>
@@ -63,10 +63,10 @@ export default function FAQSection() {
             {/* Book a 15 min call card */}
             <div className="bg-white rounded-3xl p-7 md:p-8 border border-gray-100 shadow-sm relative overflow-hidden group">
               {/* Subtle background glow */}
-              <div className="absolute -top-10 -right-10 w-32 h-32 rounded-full bg-[#02c074]/10 blur-2xl pointer-events-none" />
+              <div className="absolute -top-10 -right-10 w-32 h-32 rounded-full bg-[#277a4e]/10 blur-2xl pointer-events-none" />
 
               {/* Avatar */}
-              <div className="relative w-16 h-16 rounded-full overflow-hidden mb-5 border-2 border-white shadow-md ring-4 ring-[#02c074]/15">
+              <div className="relative w-16 h-16 rounded-full overflow-hidden mb-5 border-2 border-white shadow-md ring-4 ring-[#277a4e]/15">
                 <Image
                   src="/expert_avatar.png"
                   alt="Packaging Consultant"
@@ -85,8 +85,8 @@ export default function FAQSection() {
 
               {/* Call CTA Button */}
               <a
-                href="#"
-                className="inline-block w-full text-center bg-[#02c074] hover:bg-[#00a863] text-white font-poppins font-bold text-sm py-3.5 px-6 rounded-2xl shadow-md hover:shadow-lg transition-all duration-200"
+                href="/contact"
+                className="inline-block w-full text-center bg-[#277a4e] hover:bg-[#1d5338] text-white font-poppins font-bold text-sm py-3.5 px-6 rounded-2xl shadow-md hover:shadow-lg transition-all duration-200"
               >
                 Book a Free Call
               </a>
@@ -117,7 +117,7 @@ export default function FAQSection() {
                     <span
                       className={`w-7 h-7 rounded-full flex items-center justify-center text-lg transition-all flex-shrink-0 ${
                         isOpen
-                          ? "bg-[#e8f5ee] text-[#02c074] font-bold"
+                          ? "bg-[#eaf6f0] text-[#277a4e] font-bold"
                           : "text-gray-400 group-hover:text-gray-700"
                       }`}
                     >

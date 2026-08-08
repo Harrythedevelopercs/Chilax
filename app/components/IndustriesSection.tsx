@@ -144,7 +144,7 @@ export default function IndustriesSection() {
 
         {/* Header */}
         <div className="text-center mb-12">
-          <span className="inline-block font-poppins text-[11px] font-bold tracking-[0.2em] uppercase text-[#02c074] mb-3">
+          <span className="inline-block font-poppins text-[11px] font-bold tracking-[0.2em] uppercase text-[#277a4e] mb-3">
             Industries We Serve
           </span>
           <h2 className="font-poppins text-2xl sm:text-3xl font-extrabold text-[#111827] tracking-tight mb-3">
@@ -166,14 +166,14 @@ export default function IndustriesSection() {
               onMouseLeave={() => setHovered(null)}
               className={`relative flex flex-col items-start justify-between gap-6 p-5 rounded-2xl border transition-all duration-300 overflow-hidden cursor-pointer group ${
                 hovered === idx
-                  ? "bg-[#02c074] border-[#02c074] text-white shadow-xl -translate-y-1"
-                  : "bg-[#f8f9fb] border-gray-100 text-[#111827] hover:border-[#02c074]/40 hover:shadow-md"
+                  ? "bg-[#277a4e] border-[#277a4e] text-white shadow-xl -translate-y-1"
+                  : "bg-[#f8f9fb] border-gray-100 text-[#111827] hover:border-[#277a4e]/40 hover:shadow-md"
               }`}
             >
               {/* Decorative bg circle */}
               <div
                 className={`absolute -top-5 -right-5 w-20 h-20 rounded-full transition-all duration-300 ${
-                  hovered === idx ? "bg-white/10" : "bg-[#02c074]/5"
+                  hovered === idx ? "bg-white/10" : "bg-[#277a4e]/5"
                 }`}
               />
 
@@ -182,7 +182,7 @@ export default function IndustriesSection() {
                 className={`relative z-10 p-2.5 rounded-xl transition-all duration-300 ${
                   hovered === idx
                     ? "bg-white/20 text-white"
-                    : "bg-white text-[#02c074] shadow-sm border border-gray-100"
+                    : "bg-white text-[#277a4e] shadow-sm border border-gray-100"
                 }`}
               >
                 {industry.icon}
@@ -199,7 +199,7 @@ export default function IndustriesSection() {
                 </p>
                 <span
                   className={`inline-flex items-center gap-1 text-[10px] font-semibold font-inter transition-all duration-200 ${
-                    hovered === idx ? "text-white/80" : "text-[#02c074]"
+                    hovered === idx ? "text-white/80" : "text-[#277a4e]"
                   }`}
                 >
                   Explore Products
@@ -224,7 +224,7 @@ export default function IndustriesSection() {
         <div className="mt-10 text-center">
           <Link
             href="/industries"
-            className="inline-flex items-center gap-2 font-poppins text-sm font-bold text-[#02c074] hover:text-[#019a5c] transition-colors duration-200 group"
+            className="inline-flex items-center gap-2 font-poppins text-sm font-bold text-[#277a4e] hover:text-[#1d5338] transition-colors duration-200 group"
           >
             View all 20+ industries
             <svg

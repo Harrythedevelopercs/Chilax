@@ -44,7 +44,7 @@ export default function SingleIndustryCategoriesSection({
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 w-full">
         {/* Section Header */}
         <div className="text-center max-w-2xl mx-auto mb-12 sm:mb-14">
-          <span className="inline-block font-poppins text-[11px] font-bold tracking-[0.2em] uppercase text-[#02c074] mb-3">
+          <span className="inline-block font-poppins text-[11px] font-bold tracking-[0.2em] uppercase text-[#277a4e] mb-3">
             RECOMMENDED PACKAGING STYLES
           </span>
           <h2 className="font-poppins text-2xl sm:text-3xl md:text-4xl font-extrabold text-[#0f172a] tracking-tight mb-3">
@@ -68,7 +68,7 @@ export default function SingleIndustryCategoriesSection({
               <Link
                 key={cat.id}
                 href={`/categories/${cat.slug}`}
-                className="group relative flex flex-col bg-[#f8f9fb] hover:bg-white border border-gray-200/80 hover:border-[#02c074] rounded-2xl overflow-hidden shadow-2xs hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1.5"
+                className="group relative flex flex-col bg-[#f8f9fb] hover:bg-white border border-gray-200/80 hover:border-[#277a4e] rounded-2xl overflow-hidden shadow-2xs hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1.5"
               >
                 {/* Image Container */}
                 <div className="relative w-full h-40 sm:h-44 bg-gray-100 overflow-hidden">
@@ -85,7 +85,7 @@ export default function SingleIndustryCategoriesSection({
                 {/* Category Details */}
                 <div className="p-4 sm:p-5 flex flex-col flex-grow justify-between bg-white">
                   <div>
-                    <h3 className="font-poppins text-sm sm:text-base font-bold text-[#0f172a] group-hover:text-[#00684a] transition-colors leading-snug mb-1">
+                    <h3 className="font-poppins text-sm sm:text-base font-bold text-[#0f172a] group-hover:text-[#1d5338] transition-colors leading-snug mb-1">
                       {cat.name}
                     </h3>
                     <p className="text-xs text-gray-500 line-clamp-1">
@@ -94,7 +94,7 @@ export default function SingleIndustryCategoriesSection({
                   </div>
 
                   <div className="mt-4 pt-3 border-t border-gray-100 flex items-center justify-between">
-                    <span className="text-[11px] sm:text-xs font-bold text-[#02c074] group-hover:text-[#00684a] transition-colors flex items-center gap-1">
+                    <span className="text-[11px] sm:text-xs font-bold text-[#277a4e] group-hover:text-[#1d5338] transition-colors flex items-center gap-1">
                       Explore Products
                       <svg
                         className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform duration-200"

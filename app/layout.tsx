@@ -14,14 +14,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link href="https://fonts.googleapis.com/css2?family=Google+Sans+Flex:wght@100..1000&display=swap" rel="stylesheet" />
         <link href="https://fonts.cdnfonts.com/css/google-sans" rel="stylesheet" />
       </head>
-      <body className="antialiased text-[#1a1a2e] bg-[#f1f5f9]">
+      <body className="antialiased text-[#1a1a2e] bg-[#f1f5f9]" suppressHydrationWarning>
         <div className="w-full bg-white min-h-screen overflow-x-hidden border-x border-gray-200/50 shadow-sm">
           {children}
         </div>

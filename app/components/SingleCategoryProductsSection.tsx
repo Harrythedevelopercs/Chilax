@@ -87,7 +87,7 @@ export default function SingleCategoryProductsSection({
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 placeholder="Search style or name..."
-                className="w-full pl-9 pr-3 py-2 bg-gray-50 border border-gray-200 rounded-lg text-xs sm:text-sm text-[#0f172a] focus:outline-none focus:border-[#02c074] focus:bg-white transition-all"
+                className="w-full pl-9 pr-3 py-2 bg-gray-50 border border-gray-200 rounded-lg text-xs sm:text-sm text-[#0f172a] focus:outline-none focus:border-[#277a4e] focus:bg-white transition-all"
               />
             </div>
 
@@ -95,7 +95,7 @@ export default function SingleCategoryProductsSection({
             <select
               value={sortBy}
               onChange={(e) => setSortBy(e.target.value as "featured" | "name" | "moq")}
-              className="px-3 py-2 bg-gray-50 border border-gray-200 rounded-lg text-xs sm:text-sm text-[#0f172a] focus:outline-none focus:border-[#02c074] cursor-pointer"
+              className="px-3 py-2 bg-gray-50 border border-gray-200 rounded-lg text-xs sm:text-sm text-[#0f172a] focus:outline-none focus:border-[#277a4e] cursor-pointer"
             >
               <option value="featured">Sort by: Featured</option>
               <option value="name">Sort by: Name (A-Z)</option>
@@ -110,7 +110,7 @@ export default function SingleCategoryProductsSection({
             {filteredProducts.map((product) => (
               <div
                 key={product.id}
-                className="group relative flex flex-col bg-white border border-gray-200/80 hover:border-[#02c074] rounded-2xl overflow-hidden shadow-2xs hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1.5"
+                className="group relative flex flex-col bg-white border border-gray-200/80 hover:border-[#277a4e] rounded-2xl overflow-hidden shadow-2xs hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1.5"
               >
                 {/* Product Image Container */}
                 <div className="relative w-full h-56 sm:h-60 bg-gray-50 overflow-hidden">
@@ -130,7 +130,7 @@ export default function SingleCategoryProductsSection({
                   </div>
 
                   <div className="absolute top-3 right-3 z-10">
-                    <span className="px-2.5 py-1 rounded-md text-[10px] font-extrabold bg-[#e4f7ee] text-[#00684a] border border-[#c3f0da]">
+                    <span className="px-2.5 py-1 rounded-md text-[10px] font-extrabold bg-[#eaf6f0] text-[#1d5338] border border-[#c3f0da]">
                       {product.leadTime}
                     </span>
                   </div>
@@ -139,7 +139,7 @@ export default function SingleCategoryProductsSection({
                 {/* Card Content */}
                 <div className="p-5 flex-1 flex flex-col justify-between">
                   <div>
-                    <h3 className="text-base font-bold text-[#0f172a] group-hover:text-[#02c074] transition-colors line-clamp-1 mb-2 font-poppins">
+                    <h3 className="text-base font-bold text-[#0f172a] group-hover:text-[#277a4e] transition-colors line-clamp-1 mb-2 font-poppins">
                       {product.name}
                     </h3>
                     <p className="text-xs text-gray-500 font-normal leading-relaxed line-clamp-2 mb-4">
@@ -151,7 +151,7 @@ export default function SingleCategoryProductsSection({
                   <div className="pt-4 border-t border-gray-100 flex items-center justify-between gap-2">
                     <Link
                       href={`/products/${product.slug}`}
-                      className="inline-flex items-center text-xs font-bold text-[#02c074] hover:text-[#019a5c] group/link"
+                      className="inline-flex items-center text-xs font-bold text-[#277a4e] hover:text-[#1d5338] group/link"
                     >
                       View Product Details
                       <svg
@@ -167,7 +167,7 @@ export default function SingleCategoryProductsSection({
 
                     <Link
                       href={`/products/${product.slug}#quote`}
-                      className="px-3 py-1.5 bg-[#02c074] hover:bg-[#019a5c] text-white text-xs font-bold rounded-lg transition-colors shadow-2xs"
+                      className="px-3 py-1.5 bg-[#277a4e] hover:bg-[#1d5338] text-white text-xs font-bold rounded-lg transition-colors shadow-2xs"
                     >
                       Get Quote
                     </Link>

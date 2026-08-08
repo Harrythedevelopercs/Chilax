@@ -42,7 +42,7 @@ export default function CategorySpecsSection({ categoryTitle }: CategorySpecsSec
     <section className="py-14 sm:py-20 bg-white border-t border-gray-200/80 w-full">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="max-w-3xl mx-auto text-center mb-8 sm:mb-10">
-          <span className="inline-block font-poppins text-[11px] font-extrabold tracking-[0.2em] uppercase text-[#02c074] mb-3">
+          <span className="inline-block font-poppins text-[11px] font-extrabold tracking-[0.2em] uppercase text-[#277a4e] mb-3">
             TECHNICAL SPECIFICATIONS &amp; OPTIONS
           </span>
           <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-[#0f172a] tracking-tight font-poppins">
@@ -102,10 +102,10 @@ export default function CategorySpecsSection({ categoryTitle }: CategorySpecsSec
           {activeTab === "materials" && (
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {materialsList.map((item, idx) => (
-                <div key={idx} className="p-6 rounded-2xl bg-[#f8fafc] border border-gray-200/80 hover:border-[#02c074] transition-colors">
+                <div key={idx} className="p-6 rounded-2xl bg-[#f8fafc] border border-gray-200/80 hover:border-[#277a4e] transition-colors">
                   <div className="flex items-center justify-between mb-2">
                     <h4 className="text-base font-bold text-[#0f172a] font-poppins">{item.title}</h4>
-                    <span className="text-[10px] font-extrabold px-2.5 py-0.5 rounded-full bg-[#e4f7ee] text-[#00684a]">
+                    <span className="text-[10px] font-extrabold px-2.5 py-0.5 rounded-full bg-[#eaf6f0] text-[#1d5338]">
                       {item.tag}
                     </span>
                   </div>
@@ -118,7 +118,7 @@ export default function CategorySpecsSection({ categoryTitle }: CategorySpecsSec
           {activeTab === "finishing" && (
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {finishingList.map((item, idx) => (
-                <div key={idx} className="p-6 rounded-2xl bg-[#f8fafc] border border-gray-200/80 hover:border-[#02c074] transition-colors">
+                <div key={idx} className="p-6 rounded-2xl bg-[#f8fafc] border border-gray-200/80 hover:border-[#277a4e] transition-colors">
                   <h4 className="text-base font-bold text-[#0f172a] font-poppins mb-2">{item.title}</h4>
                   <p className="text-xs sm:text-sm text-gray-500 leading-relaxed">{item.desc}</p>
                 </div>
@@ -129,7 +129,7 @@ export default function CategorySpecsSection({ categoryTitle }: CategorySpecsSec
           {activeTab === "addons" && (
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {addonsList.map((item, idx) => (
-                <div key={idx} className="p-6 rounded-2xl bg-[#f8fafc] border border-gray-200/80 hover:border-[#02c074] transition-colors">
+                <div key={idx} className="p-6 rounded-2xl bg-[#f8fafc] border border-gray-200/80 hover:border-[#277a4e] transition-colors">
                   <h4 className="text-base font-bold text-[#0f172a] font-poppins mb-2">{item.title}</h4>
                   <p className="text-xs sm:text-sm text-gray-500 leading-relaxed">{item.desc}</p>
                 </div>
@@ -141,7 +141,7 @@ export default function CategorySpecsSection({ categoryTitle }: CategorySpecsSec
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
               {steps.map((s, idx) => (
                 <div key={idx} className="p-6 rounded-2xl bg-[#f8fafc] border border-gray-200/80 relative">
-                  <span className="text-3xl font-extrabold text-[#02c074]/30 block mb-3 font-poppins">{s.step}</span>
+                  <span className="text-3xl font-extrabold text-[#277a4e]/30 block mb-3 font-poppins">{s.step}</span>
                   <h4 className="text-base font-bold text-[#0f172a] font-poppins mb-2">{s.title}</h4>
                   <p className="text-xs text-gray-500 leading-relaxed">{s.desc}</p>
                 </div>
@@ -151,9 +151,9 @@ export default function CategorySpecsSection({ categoryTitle }: CategorySpecsSec
         </div>
 
         {/* CTA Quote Banner */}
-        <div className="mt-14 max-w-5xl mx-auto p-8 rounded-3xl bg-[#0f172a] text-white flex flex-col md:flex-row items-center justify-between gap-6 shadow-xl" id="quote">
+        <div className="mt-14 max-w-5xl mx-auto p-8 rounded-3xl bg-[#123524] text-white flex flex-col md:flex-row items-center justify-between gap-6 shadow-xl" id="quote">
           <div>
-            <span className="text-xs font-bold uppercase tracking-wider text-[#02c074] block mb-1">
+            <span className="text-xs font-bold uppercase tracking-wider text-[#4ec388] block mb-1">
               READY TO ORDER CUSTOM PACKAGING?
             </span>
             <h3 className="text-xl sm:text-2xl font-extrabold font-poppins">
@@ -165,7 +165,7 @@ export default function CategorySpecsSection({ categoryTitle }: CategorySpecsSec
           </div>
           <Link
             href="/contact"
-            className="whitespace-nowrap px-7 py-3.5 bg-[#02c074] hover:bg-[#019a5c] text-white text-xs sm:text-sm font-bold rounded-lg transition-all shadow-md shrink-0"
+            className="whitespace-nowrap px-7 py-3.5 bg-[#277a4e] hover:bg-[#1d5338] text-white text-xs sm:text-sm font-bold rounded-lg transition-all shadow-md shrink-0"
           >
             Submit Custom Specifications
           </Link>

@@ -7,6 +7,8 @@ import { IndustryCategory } from "./SingleIndustryCategoriesSection";
 
 export interface IndustryProduct {
   id: number | string;
+  sku?: string;
+  subStyle?: string;
   slug?: string;
   name: string;
   categorySlug: string;
@@ -31,84 +33,126 @@ const sampleProductsMap: Record<string, IndustryProduct[]> = {
   "custom-cosmetics": [
     {
       id: "cos-1",
-      name: "Custom Magnetic Cosmetic Rigid Box",
-      categorySlug: "rigid",
-      categoryName: "Rigid Boxes",
-      image: "/magnetic_boxes.png",
-      moq: "100 Units",
-      leadTime: "8-10 Days",
-      description: "Premium velvet-lined magnetic flap box for skincare & perfume sets.",
-      featured: true,
-    },
-    {
-      id: "cos-2",
-      name: "Custom Lipstick Tuck End Folding Carton",
+      sku: "F001",
+      subStyle: "Lipstick & Gloss",
+      name: "Reverse Tuck End Lipstick Box",
       categorySlug: "folding-carton",
       categoryName: "Folding Cartons",
       image: "/product_packaging.png",
       moq: "250 Units",
       leadTime: "5-7 Days",
-      description: "Eco-friendly printed folding cartons for lipsticks, glosses & serums.",
+      description: "Sleek compact reverse tuck end carton for lipsticks, glosses & mascara.",
+      featured: true,
+    },
+    {
+      id: "cos-2",
+      sku: "F005",
+      subStyle: "Skincare & Serums",
+      name: "Tuck End Auto Bottom Serum Box",
+      categorySlug: "folding-carton",
+      categoryName: "Folding Cartons",
+      image: "/product_packaging.png",
+      moq: "250 Units",
+      leadTime: "5-7 Days",
+      description: "Auto-locking bottom for heavy glass dropper bottles and serum containers.",
+      featured: true,
     },
     {
       id: "cos-3",
-      name: "Custom High-Density Foam Dropper Inserts",
-      categorySlug: "inserts",
-      categoryName: "Custom Inserts",
-      image: "/box_inserts.png",
+      sku: "R001",
+      subStyle: "Perfume & Fragrance",
+      name: "Magnetic Closure Skincare & Perfume Box",
+      categorySlug: "rigid",
+      categoryName: "Rigid Boxes",
+      image: "/magnetic_boxes.png",
       moq: "100 Units",
-      leadTime: "6-8 Days",
-      description: "Precision-cut EVA foam inserts for glass dropper bottles & jars.",
+      leadTime: "8-10 Days",
+      description: "Ultra-luxury velvet-lined magnetic flap box for perfume bottles & premium sets.",
+      featured: true,
     },
     {
       id: "cos-4",
-      name: "Custom Embossed Metallic Jar Labels",
-      categorySlug: "stickers-and-labels",
-      categoryName: "Stickers & Labels",
-      image: "/stickers_labels.png",
-      moq: "500 Units",
-      leadTime: "3-5 Days",
-      description: "Waterproof foil-stamped die-cut labels for cosmetic bottles.",
+      sku: "C001",
+      subStyle: "E-Commerce & Mailers",
+      name: "Tab Lock Roll End Corrugated Mailer",
+      categorySlug: "corrugated",
+      categoryName: "Corrugated Boxes",
+      image: "/corrugated_boxes.png",
+      moq: "100 Units",
+      leadTime: "6-8 Days",
+      description: "Heavy-duty shipping mailer with tab locks for cosmetic subscription kits.",
     },
     {
       id: "cos-5",
-      name: "Custom Printed Logo Tissue Paper",
-      categorySlug: "accessories",
-      categoryName: "Custom Accessories",
-      image: "/tissue_paper.png",
-      moq: "500 Sheets",
-      leadTime: "4-6 Days",
-      description: "Soft acid-free tissue paper with step-and-repeat logo printing.",
+      sku: "F059",
+      subStyle: "Foundation & Creams",
+      name: "Custom Cosmetic Sleeve Packaging",
+      categorySlug: "folding-carton",
+      categoryName: "Folding Cartons",
+      image: "/product_packaging.png",
+      moq: "250 Units",
+      leadTime: "5-7 Days",
+      description: "Custom printed sliding sleeve for jar containers, palettes, and soaps.",
     },
     {
       id: "cos-6",
-      name: "Custom Drawer Slider Skincare Box",
+      sku: "F002",
+      subStyle: "Skincare & Serums",
+      name: "Straight Tuck End Cream Jar Box",
+      categorySlug: "folding-carton",
+      categoryName: "Folding Cartons",
+      image: "/product_packaging.png",
+      moq: "250 Units",
+      leadTime: "5-7 Days",
+      description: "Clean straight tuck end carton for face creams, ointments & lotion bottles.",
+    },
+    {
+      id: "cos-7",
+      sku: "F004",
+      subStyle: "Foundation & Creams",
+      name: "Tuck End Snap Lock Bottom Box",
+      categorySlug: "folding-carton",
+      categoryName: "Folding Cartons",
+      image: "/product_packaging.png",
+      moq: "250 Units",
+      leadTime: "5-7 Days",
+      description: "Interlocking bottom flaps engineered to securely support heavier glass jars.",
+    },
+    {
+      id: "cos-8",
+      sku: "F077",
+      subStyle: "Eye Shadow & Palettes",
+      name: "Double Wall Tray & Sleeve Palette Set",
       categorySlug: "rigid",
       categoryName: "Rigid Boxes",
       image: "/drawer_boxes.png",
       moq: "100 Units",
       leadTime: "8-10 Days",
-      description: "Luxury ribbon-pull drawer box for serum bottles & face oils.",
+      description: "Double wall tray with sliding sleeve for eyeshadow palettes & highlighters.",
     },
     {
-      id: "cos-7",
-      name: "Custom Kraft Cosmetic Outer Packaging",
-      categorySlug: "folding-carton",
-      categoryName: "Folding Cartons",
-      image: "/kraft_boxes.png",
-      moq: "250 Units",
-      leadTime: "5-7 Days",
-      description: "100% recyclable unbleached kraft boxes for organic cosmetics.",
+      id: "cos-9",
+      sku: "INS-01",
+      subStyle: "Inserts & Trays",
+      name: "High-Density Foam Dropper Bottle Inserts",
+      categorySlug: "inserts",
+      categoryName: "Custom Inserts",
+      image: "/box_inserts.png",
+      moq: "100 Units",
+      leadTime: "6-8 Days",
+      description: "Precision die-cut EVA foam inserts for glass serum bottles & jars.",
     },
     {
-      id: "cos-8",
-      name: "Custom Branded Sealing Tape",
-      categorySlug: "accessories",
-      categoryName: "Custom Accessories",
-      image: "/packing_tape.png",
-      moq: "5 Rolls",
+      id: "cos-10",
+      sku: "L002",
+      subStyle: "Labels & Seals",
+      name: "Waterproof Metallic Jar & Bottle Labels",
+      categorySlug: "stickers-and-labels",
+      categoryName: "Stickers & Labels",
+      image: "/stickers_labels.png",
+      moq: "500 Units",
       leadTime: "3-5 Days",
-      description: "Water-activated reinforced gummed paper tape with custom logo.",
+      description: "Foil-stamped oil and moisture-resistant vinyl labels for cosmetic packaging.",
     },
   ],
   default: [
@@ -204,20 +248,21 @@ function normalizeCategorySlug(slug: string = ""): string {
 }
 
 function productMatchesCategory(product: IndustryProduct, cat: IndustryCategory): boolean {
-  // 1. Direct slug match
-  if (product.categorySlug === cat.slug) return true;
+  if (cat.slug === "all" || cat.id === "all") return true;
 
-  // 2. Normalized slug match (soft)
-  if (normalizeCategorySlug(product.categorySlug) === normalizeCategorySlug(cat.slug)) return true;
+  if (cat.id !== undefined && cat.id !== "all" && product.categoryIds) {
+    if (product.categoryIds.includes(cat.id) || product.categoryIds.includes(Number(cat.id))) {
+      return true;
+    }
+  }
 
-  // 3. Category ID match (if product has categoryIds array)
-  if (product.categoryIds && product.categoryIds.includes(cat.id)) return true;
+  if (cat.slug && product.categorySlugs && product.categorySlugs.includes(cat.slug)) {
+    return true;
+  }
 
-  // 4. Category slug array match
-  if (product.categorySlugs && product.categorySlugs.includes(cat.slug)) return true;
-
-  // 5. Normalized name match
-  if (normalizeCategorySlug(product.categoryName) === normalizeCategorySlug(cat.name)) return true;
+  if (cat.slug && product.categorySlug === cat.slug) {
+    return true;
+  }
 
   return false;
 }
@@ -227,12 +272,13 @@ export default function SingleIndustryProductsSection({
   categories,
   initialProducts,
 }: SingleIndustryProductsSectionProps) {
-  const [selectedCategory, setSelectedCategory] = useState<string>("all");
+  const initialCatSlug = categories && categories.length > 0 ? categories[0].slug : "";
+  const [selectedCategory, setSelectedCategory] = useState<string>(initialCatSlug);
   const [searchTerm, setSearchTerm] = useState<string>("");
 
-  // Determine product list
+  // Determine product list - do NOT fallback to sample products if initialProducts is passed
   const allProducts = useMemo(() => {
-    if (initialProducts && initialProducts.length > 0) return initialProducts;
+    if (initialProducts !== undefined) return initialProducts;
     const slugKey = industryName.toLowerCase().replace(/\s+/g, "-");
     return sampleProductsMap[slugKey] || sampleProductsMap.default;
   }, [initialProducts, industryName]);
@@ -240,11 +286,11 @@ export default function SingleIndustryProductsSection({
   // Filter products by selected category tab and search input
   const filteredProducts = useMemo(() => {
     return allProducts.filter((product) => {
+      const activeCat = categories.find((c) => c.slug === selectedCategory);
       const matchesCategory =
-        selectedCategory === "all" ||
-        categories.some(
-          (cat) => cat.slug === selectedCategory && productMatchesCategory(product, cat)
-        );
+        !selectedCategory ||
+        !activeCat ||
+        productMatchesCategory(product, activeCat);
 
       const matchesSearch =
         !searchTerm.trim() ||
@@ -261,7 +307,7 @@ export default function SingleIndustryProductsSection({
         {/* Section Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-10">
           <div>
-            <span className="inline-block font-poppins text-[11px] font-bold tracking-[0.2em] uppercase text-[#02c074] mb-3">
+            <span className="inline-block font-poppins text-[11px] font-bold tracking-[0.2em] uppercase text-[#277a4e] mb-3">
               INDUSTRY CATALOG PRODUCTS
             </span>
             <h2 className="font-poppins text-2xl sm:text-3xl md:text-4xl font-extrabold text-[#0f172a] tracking-tight">
@@ -276,7 +322,7 @@ export default function SingleIndustryProductsSection({
               placeholder="Filter products..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full pl-10 pr-4 py-2.5 bg-white border border-gray-200 rounded-xl text-sm text-[#0f172a] placeholder-gray-400 focus:outline-none focus:border-[#02c074] focus:ring-2 focus:ring-[#02c074]/20 transition-all"
+              className="w-full pl-10 pr-4 py-2.5 bg-white border border-gray-200 rounded-xl text-sm text-[#0f172a] placeholder-gray-400 focus:outline-none focus:border-[#277a4e] focus:ring-2 focus:ring-[#277a4e]/20 transition-all"
             />
             <svg
               className="w-4 h-4 text-gray-400 absolute left-3.5 top-1/2 -translate-y-1/2"
@@ -300,17 +346,6 @@ export default function SingleIndustryProductsSection({
 
         {/* Category Filter Pills (Horizontal Tabs) */}
         <div className="flex items-center gap-2 overflow-x-auto pb-4 mb-8 no-scrollbar">
-          <button
-            onClick={() => setSelectedCategory("all")}
-            className={`px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold whitespace-nowrap transition-all duration-200 cursor-pointer ${
-              selectedCategory === "all"
-                ? "bg-[#02c074] text-white shadow-md shadow-[#02c074]/20"
-                : "bg-white text-gray-600 hover:bg-gray-50 border border-gray-200 hover:border-[#02c074]/50"
-            }`}
-          >
-            All Products ({allProducts.length})
-          </button>
-
           {categories.map((cat) => {
             const count = allProducts.filter((p) => productMatchesCategory(p, cat)).length;
 
@@ -322,8 +357,8 @@ export default function SingleIndustryProductsSection({
                 onClick={() => setSelectedCategory(cat.slug)}
                 className={`px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold whitespace-nowrap transition-all duration-200 cursor-pointer flex items-center gap-2 ${
                   selectedCategory === cat.slug
-                    ? "bg-[#02c074] text-white shadow-md shadow-[#02c074]/20"
-                    : "bg-white text-gray-600 hover:bg-gray-50 border border-gray-200 hover:border-[#02c074]/50"
+                    ? "bg-[#277a4e] text-white shadow-md shadow-[#277a4e]/20"
+                    : "bg-white text-gray-600 hover:bg-gray-50 border border-gray-200 hover:border-[#277a4e]/50"
                 }`}
               >
                 {cat.name}
@@ -347,7 +382,7 @@ export default function SingleIndustryProductsSection({
             {filteredProducts.map((product) => (
               <div
                 key={product.id}
-                className="group relative flex flex-col bg-white border border-gray-200/80 hover:border-[#02c074] rounded-2xl overflow-hidden shadow-2xs hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1.5"
+                className="group relative flex flex-col bg-white border border-gray-200/80 hover:border-[#277a4e] rounded-2xl overflow-hidden shadow-2xs hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1.5"
               >
                 {/* Product Image */}
                 <Link href={`/products/${product.slug || product.id}`} className="relative w-full h-52 bg-gray-50 overflow-hidden block">
@@ -367,7 +402,7 @@ export default function SingleIndustryProductsSection({
                   </div>
 
                   <div className="absolute top-3 right-3 z-10">
-                    <span className="px-2.5 py-1 rounded-md text-[10px] font-bold bg-[#e4f7ee] text-[#00684a] border border-[#c3f0da] shadow-xs">
+                    <span className="px-2.5 py-1 rounded-md text-[10px] font-bold bg-[#eaf6f0] text-[#1d5338] border border-[#c3f0da] shadow-xs">
                       {product.categoryName}
                     </span>
                   </div>
@@ -376,13 +411,18 @@ export default function SingleIndustryProductsSection({
                 {/* Content */}
                 <div className="p-5 flex flex-col flex-grow justify-between">
                   <div>
+                    {product.sku && (
+                      <span className="text-[11px] font-mono font-bold text-[#277a4e] tracking-wide block mb-1">
+                        {product.sku}
+                      </span>
+                    )}
                     <Link href={`/products/${product.slug || product.id}`}>
-                      <h3 className="font-poppins text-base font-bold text-[#0f172a] group-hover:text-[#00684a] transition-colors leading-snug mb-2 line-clamp-2">
-                        {product.name}
+                      <h3 className="font-poppins text-base font-bold text-[#0f172a] group-hover:text-[#1d5338] transition-colors leading-snug mb-2 line-clamp-2">
+                        {product.name.replace(/&amp;/g, "&")}
                       </h3>
                     </Link>
                     <p className="text-xs text-gray-500 leading-relaxed line-clamp-2 mb-4">
-                      {product.description}
+                      {product.description.replace(/&amp;/g, "&")}
                     </p>
                   </div>
 
@@ -390,12 +430,12 @@ export default function SingleIndustryProductsSection({
                   <div>
                     <div className="flex items-center justify-between text-[11px] text-gray-500 pt-3 border-t border-gray-100 mb-4">
                       <span className="flex items-center gap-1 font-medium">
-                        <svg className="w-3.5 h-3.5 text-[#02c074]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                        <svg className="w-3.5 h-3.5 text-[#277a4e]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                           <path strokeLinecap="round" strokeLinejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                         </svg>
                         {product.leadTime}
                       </span>
-                      <span className="text-[#00684a] font-bold uppercase tracking-wider text-[10px]">
+                      <span className="text-[#1d5338] font-bold uppercase tracking-wider text-[10px]">
                         Customizable
                       </span>
                     </div>
@@ -403,7 +443,7 @@ export default function SingleIndustryProductsSection({
                     <div className="grid grid-cols-2 gap-2">
                       <Link
                         href="/contact"
-                        className="py-2.5 px-3 bg-[#00684a] hover:bg-[#00543c] text-white text-xs font-bold rounded-xl text-center transition-colors shadow-xs"
+                        className="py-2.5 px-3 bg-[#277a4e] hover:bg-[#1d5338] text-white text-xs font-bold rounded-xl text-center transition-colors shadow-xs"
                       >
                         Request Quote
                       </Link>
@@ -431,10 +471,10 @@ export default function SingleIndustryProductsSection({
             <p className="text-xs text-gray-500 mb-4">Try selecting another category or clearing your search filter.</p>
             <button
               onClick={() => {
-                setSelectedCategory("all");
+                setSelectedCategory(categories[0]?.slug || "");
                 setSearchTerm("");
               }}
-              className="px-4 py-2 bg-[#02c074] text-white text-xs font-bold rounded-lg hover:bg-[#019a5c] transition-colors"
+              className="px-4 py-2 bg-[#277a4e] text-white text-xs font-bold rounded-lg hover:bg-[#1d5338] transition-colors"
             >
               Reset Filters
             </button>

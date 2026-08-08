@@ -348,7 +348,7 @@ export default function AllIndustriesSearchSection() {
 
         {/* Header - Matches Homepage IndustriesSection Header exactly */}
         <div className="text-center mb-10">
-          <span className="inline-block font-poppins text-[11px] font-bold tracking-[0.2em] uppercase text-[#02c074] mb-3">
+          <span className="inline-block font-poppins text-[11px] font-bold tracking-[0.2em] uppercase text-[#277a4e] mb-3">
             Industries We Serve
           </span>
           <h2 className="font-poppins text-2xl sm:text-3xl font-extrabold text-[#111827] tracking-tight mb-3">
@@ -362,7 +362,7 @@ export default function AllIndustriesSearchSection() {
 
         {/* Search Bar Input */}
         <div className="max-w-md mx-auto mb-10 sm:mb-12">
-          <div className="relative flex items-center bg-[#f8f9fb] border border-gray-200 rounded-2xl shadow-2xs focus-within:bg-white focus-within:border-[#02c074] focus-within:ring-2 focus-within:ring-[#02c074]/20 transition-all overflow-hidden px-4 py-3">
+          <div className="relative flex items-center bg-[#f8f9fb] border border-gray-200 rounded-2xl shadow-2xs focus-within:bg-white focus-within:border-[#277a4e] focus-within:ring-2 focus-within:ring-[#277a4e]/20 transition-all overflow-hidden px-4 py-3">
             {/* Search Icon */}
             <svg
               className="w-5 h-5 text-gray-400 mr-3 flex-shrink-0"
@@ -404,7 +404,7 @@ export default function AllIndustriesSearchSection() {
           {/* Results Counter */}
           {searchTerm && (
             <div className="text-center mt-3 text-xs text-gray-500">
-              Found <span className="font-bold text-[#02c074]">{filteredIndustries.length}</span> {filteredIndustries.length === 1 ? "industry" : "industries"} matching &quot;{searchTerm}&quot;
+              Found <span className="font-bold text-[#277a4e]">{filteredIndustries.length}</span> {filteredIndustries.length === 1 ? "industry" : "industries"} matching &quot;{searchTerm}&quot;
             </div>
           )}
         </div>
@@ -420,14 +420,14 @@ export default function AllIndustriesSearchSection() {
                 onMouseLeave={() => setHovered(null)}
                 className={`relative flex flex-col items-start justify-between gap-6 p-5 rounded-2xl border transition-all duration-300 overflow-hidden cursor-pointer group ${
                   hovered === idx
-                    ? "bg-[#02c074] border-[#02c074] text-white shadow-xl -translate-y-1"
-                    : "bg-[#f8f9fb] border-gray-100 text-[#111827] hover:border-[#02c074]/40 hover:shadow-md"
+                    ? "bg-[#277a4e] border-[#277a4e] text-white shadow-xl -translate-y-1"
+                    : "bg-[#f8f9fb] border-gray-100 text-[#111827] hover:border-[#277a4e]/40 hover:shadow-md"
                 }`}
               >
                 {/* Decorative bg circle */}
                 <div
                   className={`absolute -top-5 -right-5 w-20 h-20 rounded-full transition-all duration-300 ${
-                    hovered === idx ? "bg-white/10" : "bg-[#02c074]/5"
+                    hovered === idx ? "bg-white/10" : "bg-[#277a4e]/5"
                   }`}
                 />
 
@@ -436,7 +436,7 @@ export default function AllIndustriesSearchSection() {
                   className={`relative z-10 p-2.5 rounded-xl transition-all duration-300 ${
                     hovered === idx
                       ? "bg-white/20 text-white"
-                      : "bg-white text-[#02c074] shadow-sm border border-gray-100"
+                      : "bg-white text-[#277a4e] shadow-sm border border-gray-100"
                   }`}
                 >
                   {industry.icon}
@@ -453,7 +453,7 @@ export default function AllIndustriesSearchSection() {
                   </p>
                   <span
                     className={`inline-flex items-center gap-1 text-[10px] font-semibold font-inter transition-all duration-200 ${
-                      hovered === idx ? "text-white/80" : "text-[#02c074]"
+                      hovered === idx ? "text-white/80" : "text-[#277a4e]"
                     }`}
                   >
                     Explore Products
@@ -491,7 +491,7 @@ export default function AllIndustriesSearchSection() {
             </p>
             <button
               onClick={() => setSearchTerm("")}
-              className="inline-flex items-center px-4 py-2 bg-[#02c074] text-white text-xs font-bold rounded-xl hover:bg-[#019a5c] transition-colors font-poppins shadow-xs"
+              className="inline-flex items-center px-4 py-2 bg-[#277a4e] text-white text-xs font-bold rounded-xl hover:bg-[#1d5338] transition-colors font-poppins shadow-xs"
             >
               Show all industries
             </button>

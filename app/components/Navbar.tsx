@@ -6,9 +6,9 @@ import Image from "next/image";
 const bottomIndustries = [
   {
     label: "Cosmetic Packaging",
-    href: "/industries/custom-cosmetics",
+    href: "/custom-cosmetic-packaging",
     icon: (
-      <svg className="w-4 h-4 text-gray-500 group-hover:text-[#02c074] transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}>
+      <svg className="w-4 h-4 text-gray-500 group-hover:text-[#277a4e] transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}>
         <circle cx="12" cy="8" r="4" />
         <rect x="7" y="12" width="10" height="8" rx="2" />
       </svg>
@@ -18,7 +18,7 @@ const bottomIndustries = [
     label: "Restaurant Packaging",
     href: "/industries/custom-restaurant-packaging",
     icon: (
-      <svg className="w-4 h-4 text-gray-500 group-hover:text-[#02c074] transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}>
+      <svg className="w-4 h-4 text-gray-500 group-hover:text-[#277a4e] transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}>
         <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
         <path strokeLinecap="round" strokeLinejoin="round" d="M6 3h12a3 3 0 013 3v12a3 3 0 01-3 3H6a3 3 0 01-3-3V6a3 3 0 013-3z" />
       </svg>
@@ -28,7 +28,7 @@ const bottomIndustries = [
     label: "Bakery Packaging",
     href: "/industries/custom-bakery-packaging",
     icon: (
-      <svg className="w-4 h-4 text-gray-500 group-hover:text-[#02c074] transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}>
+      <svg className="w-4 h-4 text-gray-500 group-hover:text-[#277a4e] transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}>
         <path strokeLinecap="round" strokeLinejoin="round" d="M18 8h1a4 4 0 010 8h-1" />
         <path strokeLinecap="round" strokeLinejoin="round" d="M2 8h16v9a4 4 0 01-4 4H6a4 4 0 01-4-4V8z" />
       </svg>
@@ -38,7 +38,7 @@ const bottomIndustries = [
     label: "Candle Packaging",
     href: "/industries/custom-candle-packaging",
     icon: (
-      <svg className="w-4 h-4 text-gray-500 group-hover:text-[#02c074] transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}>
+      <svg className="w-4 h-4 text-gray-500 group-hover:text-[#277a4e] transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}>
         <line x1="12" y1="2" x2="12" y2="4" />
         <path strokeLinecap="round" strokeLinejoin="round" d="M12 4c0 0-3 3-3 6a3 3 0 006 0c0-3-3-6-3-6z" />
         <rect x="7" y="13" width="10" height="8" rx="1" />
@@ -49,7 +49,7 @@ const bottomIndustries = [
     label: "Food & Beverage",
     href: "/industries/custom-food-beverage",
     icon: (
-      <svg className="w-4 h-4 text-gray-500 group-hover:text-[#02c074] transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}>
+      <svg className="w-4 h-4 text-gray-500 group-hover:text-[#277a4e] transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}>
         <path strokeLinecap="round" strokeLinejoin="round" d="M3 11l19-9-9 19-2-8-8-2z" />
       </svg>
     ),
@@ -58,7 +58,7 @@ const bottomIndustries = [
     label: "Retail Packaging",
     href: "/industries/custom-retail-packaging",
     icon: (
-      <svg className="w-4 h-4 text-gray-500 group-hover:text-[#02c074] transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}>
+      <svg className="w-4 h-4 text-gray-500 group-hover:text-[#277a4e] transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}>
         <path strokeLinecap="round" strokeLinejoin="round" d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z" />
         <line x1="3" y1="6" x2="21" y2="6" />
         <path d="M16 10a4 4 0 01-8 0" />
@@ -69,7 +69,7 @@ const bottomIndustries = [
     label: "Jewelry Packaging",
     href: "/industries/custom-jewelry-packaging",
     icon: (
-      <svg className="w-4 h-4 text-gray-500 group-hover:text-[#02c074] transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}>
+      <svg className="w-4 h-4 text-gray-500 group-hover:text-[#277a4e] transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}>
         <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
       </svg>
     ),
@@ -78,7 +78,7 @@ const bottomIndustries = [
     label: "Gift Packaging",
     href: "/industries/custom-gift-packaging",
     icon: (
-      <svg className="w-4 h-4 text-gray-500 group-hover:text-[#02c074] transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}>
+      <svg className="w-4 h-4 text-gray-500 group-hover:text-[#277a4e] transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}>
         <rect x="3" y="8" width="18" height="4" rx="1" />
         <rect x="5" y="12" width="14" height="9" rx="1" />
         <path d="M12 8v13" />
@@ -128,7 +128,7 @@ export default function Navbar() {
 
           {/* Search Box (Centered) */}
           <div className="flex-1 max-w-2xl hidden md:flex items-center">
-            <div className="relative flex items-center w-full bg-[#f8f9fb] border border-gray-200 rounded-xl focus-within:border-[#02c074] focus-within:bg-white transition-all shadow-2xs overflow-hidden">
+            <div className="relative flex items-center w-full bg-[#f8f9fb] border border-gray-200 rounded-xl focus-within:border-[#277a4e] focus-within:bg-white transition-all shadow-2xs overflow-hidden">
               {/* Search Icon */}
               <div className="pl-3.5 text-gray-400 flex items-center pointer-events-none">
                 <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
@@ -177,9 +177,9 @@ export default function Navbar() {
           <div className="hidden md:flex items-center gap-5 flex-shrink-0">
             {/* Store Icon */}
             <Link
-              href="#"
-              className="p-2 text-gray-600 hover:text-[#02c074] hover:bg-gray-50 rounded-xl transition-all"
-              title="Store"
+              href="/catalog"
+              className="p-2 text-gray-600 hover:text-[#277a4e] hover:bg-gray-50 rounded-xl transition-all"
+              title="Catalog & Store"
             >
               <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}>
                 <path strokeLinecap="round" strokeLinejoin="round" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
@@ -188,35 +188,35 @@ export default function Navbar() {
 
             {/* Wishlist Heart Icon */}
             <Link
-              href="#"
-              className="p-2 text-gray-600 hover:text-[#02c074] hover:bg-gray-50 rounded-xl transition-all relative"
-              title="Wishlist"
+              href="/catalog"
+              className="p-2 text-gray-600 hover:text-[#277a4e] hover:bg-gray-50 rounded-xl transition-all relative"
+              title="Saved Items"
             >
               <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}>
                 <path strokeLinecap="round" strokeLinejoin="round" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
               </svg>
             </Link>
 
-            {/* Cart Icon */}
+            {/* Cart / Request Quote Icon */}
             <Link
-              href="#"
-              className="p-2 text-gray-600 hover:text-[#02c074] hover:bg-gray-50 rounded-xl transition-all relative"
-              title="Cart"
+              href="/contact"
+              className="p-2 text-gray-600 hover:text-[#277a4e] hover:bg-gray-50 rounded-xl transition-all relative"
+              title="Quote & Cart"
             >
               <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}>
                 <path strokeLinecap="round" strokeLinejoin="round" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
               </svg>
-              <span className="absolute top-1 right-1 bg-[#02c074] text-white text-[9px] font-bold rounded-full w-4 h-4 flex items-center justify-center">
+              <span className="absolute top-1 right-1 bg-[#277a4e] text-white text-[9px] font-bold rounded-full w-4 h-4 flex items-center justify-center">
                 0
               </span>
             </Link>
 
-            {/* User Profile Avatar / Sign In */}
+            {/* User Profile Avatar / Contact */}
             <Link
-              href="#"
+              href="/contact"
               className="flex items-center gap-2 p-1.5 hover:bg-gray-50 rounded-xl transition-all border border-gray-100"
             >
-              <div className="w-7 h-7 rounded-full bg-[#111827] text-white font-bold text-xs flex items-center justify-center font-poppins">
+              <div className="w-7 h-7 rounded-full bg-[#123524] text-white font-bold text-xs flex items-center justify-center font-poppins">
                 U
               </div>
               <span className="text-xs font-semibold text-gray-700 font-poppins pr-1">Account</span>
@@ -225,7 +225,7 @@ export default function Navbar() {
 
           {/* Mobile Hamburger */}
           <button
-            className="md:hidden p-2 text-gray-700 hover:text-[#02c074]"
+            className="md:hidden p-2 text-gray-700 hover:text-[#277a4e]"
             onClick={() => setMobileOpen(!mobileOpen)}
             aria-label="Toggle menu"
           >
@@ -252,7 +252,7 @@ export default function Navbar() {
               <Link
                 key={ind.label}
                 href={ind.href}
-                className="flex items-center gap-2 font-poppins text-xs font-semibold text-gray-600 hover:text-[#02c074] transition-colors whitespace-nowrap group"
+                className="flex items-center gap-2 font-poppins text-xs font-semibold text-gray-600 hover:text-[#277a4e] transition-colors whitespace-nowrap group"
               >
                 {ind.icon}
                 <span>{ind.label}</span>
@@ -263,7 +263,7 @@ export default function Navbar() {
           {/* CRITICAL REQUIREMENT: View All / View All Industries Link at the far right */}
           <Link
             href="/industries"
-            className="flex items-center gap-1.5 font-poppins text-xs font-bold text-white bg-[#02c074] hover:bg-[#019a5c] px-3.5 py-1.5 rounded-lg shadow-sm hover:shadow transition-all whitespace-nowrap flex-shrink-0 group ml-4"
+            className="flex items-center gap-1.5 font-poppins text-xs font-bold text-white bg-[#277a4e] hover:bg-[#1d5338] px-3.5 py-1.5 rounded-lg shadow-sm hover:shadow transition-all whitespace-nowrap flex-shrink-0 group ml-4"
           >
             <span>View All</span>
             <svg
@@ -299,7 +299,7 @@ export default function Navbar() {
               <Link
                 key={ind.label}
                 href={ind.href}
-                className="flex items-center gap-2 text-xs font-semibold text-gray-700 bg-gray-50 p-2.5 rounded-xl hover:bg-[#e8f5ee] hover:text-[#02c074]"
+                className="flex items-center gap-2 text-xs font-semibold text-gray-700 bg-gray-50 p-2.5 rounded-xl hover:bg-[#eaf6f0] hover:text-[#277a4e]"
               >
                 {ind.icon}
                 <span>{ind.label}</span>
@@ -309,7 +309,7 @@ export default function Navbar() {
 
           <Link
             href="/industries"
-            className="flex items-center justify-center gap-2 font-poppins text-xs font-bold text-white bg-[#02c074] py-3 rounded-xl shadow-xs"
+            className="flex items-center justify-center gap-2 font-poppins text-xs font-bold text-white bg-[#277a4e] py-3 rounded-xl shadow-xs"
           >
             <span>View All Industries</span>
             <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>

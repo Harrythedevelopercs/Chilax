@@ -201,6 +201,20 @@ export async function getWPIndustries(): Promise<import("./types").WPIndustryTer
 }
 
 /**
+ * Helper to decode HTML entities like &amp;, &#039;, &quot;
+ */
+export function decodeHTMLEntities(str: string = ""): string {
+  if (!str) return "";
+  return str
+    .replace(/&amp;/g, "&")
+    .replace(/&#039;/g, "'")
+    .replace(/&apos;/g, "'")
+    .replace(/&quot;/g, '"')
+    .replace(/&lt;/g, "<")
+    .replace(/&gt;/g, ">");
+}
+
+/**
  * Helper to parse WooCommerce product meta_data (moq, lead_time).
  */
 export function parseWCProductMeta(product: WCProduct): WCProduct & { additionalOptions?: string[]; addons?: string[] } {
@@ -243,6 +257,7 @@ export function parseWCProductMeta(product: WCProduct): WCProduct & { additional
 
   return {
     ...product,
+    name: decodeHTMLEntities(product.name),
     moq,
     lead_time,
     additionalOptions,

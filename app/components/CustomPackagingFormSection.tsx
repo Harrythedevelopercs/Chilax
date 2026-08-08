@@ -58,15 +58,15 @@ export default function CustomPackagingFormSection() {
           <div className="lg:col-span-6 pr-0 lg:pr-4">
             {/* Creative Packaging Icon Badge */}
             <div className="mb-6 inline-flex items-center justify-center">
-              <div className="relative p-4 rounded-2xl bg-gradient-to-br from-[#e4f7ee] to-[#d1fae5] border border-[#bbf7d0] text-[#00684a] shadow-xs group">
+              <div className="relative p-4 rounded-2xl bg-gradient-to-br from-[#eaf6f0] to-[#d1fae5] border border-[#bbf7d0] text-[#277a4e] shadow-xs group">
                 {/* Isometric 3D Box Icon */}
-                <svg className="w-9 h-9 text-[#00684a] group-hover:rotate-6 transition-transform duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}>
+                <svg className="w-9 h-9 text-[#277a4e] group-hover:rotate-6 transition-transform duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}>
                   <path strokeLinecap="round" strokeLinejoin="round" d="M20 7.5L12 3 4 7.5M20 7.5L12 12M20 7.5v9l-8 4.5M12 12L4 7.5M12 12v9M4 7.5v9l8 4.5" />
                   <path strokeLinecap="round" strokeLinejoin="round" d="M12 1.5v2.5M8.5 2.5l1.5 2M15.5 2.5l-1.5 2" />
                 </svg>
                 
                 {/* Small floating idea spark badge */}
-                <div className="absolute -top-1.5 -right-1.5 w-6 h-6 rounded-full bg-[#00684a] text-white flex items-center justify-center shadow-xs">
+                <div className="absolute -top-1.5 -right-1.5 w-6 h-6 rounded-full bg-[#277a4e] text-white flex items-center justify-center shadow-xs">
                   <svg className="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24">
                     <path d="M12 2a7 7 0 00-7 7c0 2.38 1.19 4.47 3 5.74V17a1 1 0 001 1h6a1 1 0 001-1v-2.26c1.81-1.27 3-3.36 3-5.74a7 7 0 00-7-7zm-2 18h4v1h-4v-1z" />
                   </svg>
@@ -86,7 +86,7 @@ export default function CustomPackagingFormSection() {
             <div className="space-y-7">
               {/* Feature 1 */}
               <div className="flex items-start gap-4">
-                <div className="w-11 h-11 rounded-full bg-[#e4f7ee] text-[#00684a] flex items-center justify-center flex-shrink-0 mt-0.5 border border-[#c3f0da]">
+                <div className="w-11 h-11 rounded-full bg-[#eaf6f0] text-[#277a4e] flex items-center justify-center flex-shrink-0 mt-0.5 border border-[#c3f0da]">
                   <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.2}>
                     <path strokeLinecap="round" strokeLinejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
                   </svg>
@@ -103,7 +103,7 @@ export default function CustomPackagingFormSection() {
 
               {/* Feature 2 */}
               <div className="flex items-start gap-4">
-                <div className="w-11 h-11 rounded-full bg-[#e4f7ee] text-[#00684a] flex items-center justify-center flex-shrink-0 mt-0.5 border border-[#c3f0da]">
+                <div className="w-11 h-11 rounded-full bg-[#eaf6f0] text-[#277a4e] flex items-center justify-center flex-shrink-0 mt-0.5 border border-[#c3f0da]">
                   <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.2}>
                     <path strokeLinecap="round" strokeLinejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                   </svg>
@@ -125,7 +125,7 @@ export default function CustomPackagingFormSection() {
             <div className="bg-[#f1f2f6] rounded-3xl p-6 sm:p-10 border border-gray-200/50 shadow-2xs">
               {submitted ? (
                 <div className="text-center py-10">
-                  <div className="w-16 h-16 bg-[#e4f7ee] text-[#00684a] rounded-full flex items-center justify-center mx-auto mb-4 border border-[#c3f0da]">
+                  <div className="w-16 h-16 bg-[#eaf6f0] text-[#277a4e] rounded-full flex items-center justify-center mx-auto mb-4 border border-[#c3f0da]">
                     <svg className="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
                       <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
                     </svg>
@@ -136,7 +136,7 @@ export default function CustomPackagingFormSection() {
                   </p>
                   <button
                     onClick={handleReset}
-                    className="px-6 py-2.5 bg-[#00684a] text-white text-xs font-bold rounded-xl hover:bg-[#00543c] transition-colors"
+                    className="px-6 py-2.5 bg-[#277a4e] text-white text-xs font-bold rounded-xl hover:bg-[#00543c] transition-colors"
                   >
                     Submit Another Idea
                   </button>
@@ -155,7 +155,7 @@ export default function CustomPackagingFormSection() {
                         value={fullName}
                         onChange={(e) => setFullName(e.target.value)}
                         placeholder="John Doe"
-                        className="w-full bg-white border border-gray-200 rounded-xl px-4 py-3 text-sm text-gray-800 placeholder-gray-400 focus:outline-none focus:border-[#00684a] focus:ring-2 focus:ring-[#00684a]/20 transition-all"
+                        className="w-full bg-white border border-gray-200 rounded-xl px-4 py-3 text-sm text-gray-800 placeholder-gray-400 focus:outline-none focus:border-[#277a4e] focus:ring-2 focus:ring-[#277a4e]/20 transition-all"
                       />
                     </div>
 
@@ -169,7 +169,7 @@ export default function CustomPackagingFormSection() {
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
                         placeholder="john@company.com"
-                        className="w-full bg-white border border-gray-200 rounded-xl px-4 py-3 text-sm text-gray-800 placeholder-gray-400 focus:outline-none focus:border-[#00684a] focus:ring-2 focus:ring-[#00684a]/20 transition-all"
+                        className="w-full bg-white border border-gray-200 rounded-xl px-4 py-3 text-sm text-gray-800 placeholder-gray-400 focus:outline-none focus:border-[#277a4e] focus:ring-2 focus:ring-[#277a4e]/20 transition-all"
                       />
                     </div>
                   </div>
@@ -184,7 +184,7 @@ export default function CustomPackagingFormSection() {
                         required
                         value={industry}
                         onChange={(e) => setIndustry(e.target.value)}
-                        className="w-full bg-white border border-gray-200 rounded-xl px-4 py-3 text-sm text-gray-800 focus:outline-none focus:border-[#00684a] focus:ring-2 focus:ring-[#00684a]/20 transition-all appearance-none cursor-pointer"
+                        className="w-full bg-white border border-gray-200 rounded-xl px-4 py-3 text-sm text-gray-800 focus:outline-none focus:border-[#277a4e] focus:ring-2 focus:ring-[#277a4e]/20 transition-all appearance-none cursor-pointer"
                       >
                         <option value="" disabled>Select Industry</option>
                         <option value="Cosmetics">Cosmetics & Beauty</option>
@@ -219,7 +219,7 @@ export default function CustomPackagingFormSection() {
                       value={projectDetails}
                       onChange={(e) => setProjectDetails(e.target.value)}
                       placeholder="Tell us about your packaging needs, quantities, and timelines..."
-                      className="w-full bg-white border border-gray-200 rounded-xl px-4 py-3 text-sm text-gray-800 placeholder-gray-400 focus:outline-none focus:border-[#00684a] focus:ring-2 focus:ring-[#00684a]/20 transition-all resize-none"
+                      className="w-full bg-white border border-gray-200 rounded-xl px-4 py-3 text-sm text-gray-800 placeholder-gray-400 focus:outline-none focus:border-[#277a4e] focus:ring-2 focus:ring-[#277a4e]/20 transition-all resize-none"
                     />
                   </div>
 
@@ -237,7 +237,7 @@ export default function CustomPackagingFormSection() {
                             /* eslint-disable-next-line @next/next/no-img-element */
                             <img src={previewUrl} alt="Artwork preview" className="w-10 h-10 object-cover rounded-lg flex-shrink-0 border border-gray-100" />
                           ) : (
-                            <div className="w-10 h-10 bg-[#e4f7ee] text-[#00684a] rounded-lg flex items-center justify-center flex-shrink-0 border border-[#c3f0da]">
+                            <div className="w-10 h-10 bg-[#eaf6f0] text-[#277a4e] rounded-lg flex items-center justify-center flex-shrink-0 border border-[#c3f0da]">
                               <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                                 <path strokeLinecap="round" strokeLinejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                               </svg>
@@ -260,15 +260,15 @@ export default function CustomPackagingFormSection() {
                         </button>
                       </div>
                     ) : (
-                      <label className="flex flex-col items-center justify-center w-full bg-white border-2 border-dashed border-gray-300 hover:border-[#00684a] rounded-xl p-4 cursor-pointer transition-all group">
+                      <label className="flex flex-col items-center justify-center w-full bg-white border-2 border-dashed border-gray-300 hover:border-[#277a4e] rounded-xl p-4 cursor-pointer transition-all group">
                         <div className="flex items-center gap-3">
-                          <div className="w-9 h-9 rounded-full bg-[#f8f9fb] text-gray-500 group-hover:text-[#00684a] group-hover:bg-[#e4f7ee] flex items-center justify-center transition-colors flex-shrink-0 border border-gray-100">
+                          <div className="w-9 h-9 rounded-full bg-[#f8f9fb] text-gray-500 group-hover:text-[#277a4e] group-hover:bg-[#eaf6f0] flex items-center justify-center transition-colors flex-shrink-0 border border-gray-100">
                             <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                               <path strokeLinecap="round" strokeLinejoin="round" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 002-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
                             </svg>
                           </div>
                           <div>
-                            <p className="text-xs font-semibold text-gray-700 group-hover:text-[#00684a] transition-colors">
+                            <p className="text-xs font-semibold text-gray-700 group-hover:text-[#277a4e] transition-colors">
                               Click to upload reference image or artwork
                             </p>
                             <p className="text-[10px] text-gray-400">PNG, JPG, WEBP, PDF up to 10MB</p>
@@ -288,7 +288,7 @@ export default function CustomPackagingFormSection() {
                   <button
                     type="submit"
                     disabled={loading}
-                    className="w-full py-4 bg-[#00684a] hover:bg-[#00543c] active:bg-[#00422f] text-white font-bold text-base rounded-xl transition-all shadow-sm flex items-center justify-center gap-2 cursor-pointer mt-2"
+                    className="w-full py-4 bg-[#277a4e] hover:bg-[#00543c] active:bg-[#00422f] text-white font-bold text-base rounded-xl transition-all shadow-sm flex items-center justify-center gap-2 cursor-pointer mt-2"
                   >
                     {loading ? (
                       <>

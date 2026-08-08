@@ -37,7 +37,7 @@ export default function ManufacturerSection() {
               ))}
 
               {/* CTA Card — primary color */}
-              <div className="bg-[#02c074] p-5 rounded-xl flex flex-col justify-between gap-4 group">
+              <div className="bg-[#277a4e] p-5 rounded-xl flex flex-col justify-between gap-4 group">
                 <div>
                   <h3 className="font-poppins font-bold text-white text-sm mb-1.5 leading-snug">
                     Ready to start your packaging journey?
@@ -47,8 +47,8 @@ export default function ManufacturerSection() {
                   </p>
                 </div>
                 <a
-                  href="#"
-                  className="inline-flex items-center gap-2 bg-white text-[#02c074] font-poppins font-bold text-xs px-4 py-2.5 rounded-lg self-start hover:bg-white/90 transition-all duration-200 shadow-sm group-hover:gap-3"
+                  href="/contact"
+                  className="inline-flex items-center gap-2 bg-white text-[#277a4e] font-poppins font-bold text-xs px-4 py-2.5 rounded-lg self-start hover:bg-white/90 transition-all duration-200 shadow-sm group-hover:gap-3"
                 >
                   Get a Free Quote
                   <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>

@@ -3,11 +3,14 @@
 @import "tailwindcss";
 
 :root {
-  --primary-green: #02c074;
-  --dark-green: #157a47;
-  --light-green: #e8f5ee;
-  --dark-navy: #1a1a2e;
-  --text-dark: #1a1a2e;
+  --primary-green: #277a4e;
+  --dark-green: #1d5338;
+  --deep-phthalo-green: #123524;
+  --medium-light-green: #389b65;
+  --accent-phthalo-green: #4ec388;
+  --light-green: #eaf6f0;
+  --dark-navy: #123524;
+  --text-dark: #123524;
   --text-medium: #475569;
   --text-light: #64748b;
   --bg-light: #f8fafc;

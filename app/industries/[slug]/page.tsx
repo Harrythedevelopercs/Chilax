@@ -84,11 +84,51 @@ export default async function SingleIndustryPage({ params }: PageProps) {
       getCategories({ per_page: 100 }).catch(() => []),
     ]);
 
-    const matchedTerm = terms.find(
-      (t) => t.slug.toLowerCase() === slug.toLowerCase() || t.id.toString() === slug
-    );
+    const isCosmeticSlug =
+      slug.toLowerCase().includes("cosmetic") ||
+      slug.toLowerCase() === "custom-cosmetics";
 
-    if (matchedTerm) {
+    if (isCosmeticSlug) {
+      const parentCat = wcCategories.find(
+        (c) => c.name.toLowerCase() === "custom cosmetic packaging" || c.id === 644
+      );
+
+      if (parentCat) {
+        title = "Custom Cosmetic Packaging";
+        badge = "PREMIUM COSMETIC MANUFACTURING";
+        const subCats = wcCategories.filter((c) => c.parent === parentCat.id);
+
+        if (subCats.length > 0) {
+          const list: IndustryCategory[] = [
+            { id: "all", name: "All Products", slug: "all", description: "All Custom Cosmetic Packaging" },
+          ];
+
+          const desiredOrder = [
+            "best sellers",
+            "product boxes",
+            "luxury boxes",
+            "shipping mailer boxes",
+            "box inserts",
+            "labels",
+          ];
+
+          desiredOrder.forEach((name) => {
+            const matched = subCats.find((sc) => sc.name.toLowerCase() === name);
+            if (matched) {
+              list.push({
+                id: matched.id,
+                name: matched.name,
+                slug: matched.slug,
+                description: matched.description || `Custom ${matched.name}`,
+                count: matched.count,
+              });
+            }
+          });
+
+          categories = list;
+        }
+      }
+    } else if (matchedTerm) {
       title = matchedTerm.name;
       if (matchedTerm.description && matchedTerm.description.trim()) {
         description = matchedTerm.description;
@@ -192,7 +232,7 @@ export default async function SingleIndustryPage({ params }: PageProps) {
         <SingleIndustryProductsSection
           industryName={title}
           categories={categories}
-          initialProducts={dynamicProducts.length > 0 ? dynamicProducts : undefined}
+          initialProducts={dynamicProducts}
         />
       </main>
       <Footer />

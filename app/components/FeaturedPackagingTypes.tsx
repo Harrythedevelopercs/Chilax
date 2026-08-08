@@ -54,7 +54,7 @@ export default function FeaturedPackagingTypes() {
 
           <Link
             href="/catalog"
-            className="inline-flex items-center gap-1.5 text-sm font-bold text-[#00684a] hover:text-[#00543c] transition-colors group flex-shrink-0"
+            className="inline-flex items-center gap-1.5 text-sm font-bold text-[#277a4e] hover:text-[#1d5338] transition-colors group flex-shrink-0"
           >
             <span>Explore all products</span>
             <svg
@@ -89,7 +89,7 @@ export default function FeaturedPackagingTypes() {
               </div>
 
               {/* Title & Description */}
-              <h3 className="text-base sm:text-lg font-bold text-[#0f172a] group-hover:text-[#00684a] transition-colors leading-snug">
+              <h3 className="text-base sm:text-lg font-bold text-[#0f172a] group-hover:text-[#277a4e] transition-colors leading-snug">
                 {item.title}
               </h3>
               <p className="text-xs sm:text-sm text-[#64748b] mt-1 leading-relaxed">

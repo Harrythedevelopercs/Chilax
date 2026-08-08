@@ -67,10 +67,10 @@ export default function IndustriesBanner() {
             // Smoothstep curve for soft natural glow falloff
             const t = rawT * rawT * (3 - 2 * rawT);
 
-            // Interpolate towards Primary Green (#02c074 -> R:2, G:192, B:116)
-            r = Math.round(148 + (2 - 148) * t);
-            g = Math.round(163 + (192 - 163) * t);
-            b = Math.round(184 + (116 - 184) * t);
+            // Interpolate towards Primary Green (#277a4e -> R:39, G:122, B:78)
+            r = Math.round(148 + (39 - 148) * t);
+            g = Math.round(163 + (122 - 163) * t);
+            b = Math.round(184 + (78 - 184) * t);
             alpha = 0.35 + 0.65 * t;
             radius = 1.3 + 2.2 * t;
           }
@@ -124,7 +124,7 @@ export default function IndustriesBanner() {
         <div className="max-w-3xl">
           {/* Badge */}
           <div className="inline-block mb-6">
-            <span className="inline-flex items-center px-3.5 py-1.5 rounded-md text-[11px] sm:text-xs font-bold tracking-wider uppercase bg-[#e4f7ee] text-[#00684a] border border-[#c3f0da] shadow-xs">
+            <span className="inline-flex items-center px-3.5 py-1.5 rounded-md text-[11px] sm:text-xs font-bold tracking-wider uppercase bg-[#eaf6f0] text-[#1d5338] border border-[#c3f0da] shadow-xs">
               PREMIUM B2B MANUFACTURING
             </span>
           </div>
@@ -144,7 +144,7 @@ export default function IndustriesBanner() {
           <div className="flex flex-wrap items-center gap-4">
             <Link
               href="/catalog"
-              className="inline-flex items-center justify-center px-6 py-3.5 bg-[#00684a] hover:bg-[#00543c] text-white text-sm font-bold rounded-lg transition-colors shadow-xs"
+              className="inline-flex items-center justify-center px-6 py-3.5 bg-[#277a4e] hover:bg-[#1d5338] text-white text-sm font-bold rounded-lg transition-colors shadow-xs"
             >
               View Full Catalog
             </Link>

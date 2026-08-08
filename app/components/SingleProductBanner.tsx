@@ -12,6 +12,7 @@ export interface SingleProductBannerData {
   categorySlug: string;
   industrySlug?: string;
   image: string;
+  images?: string[];
   shortDescription: string;
   moq: string;
   leadTime: string;
@@ -29,6 +30,42 @@ export default function SingleProductBanner({ product }: SingleProductBannerProp
   const sectionRef = useRef<HTMLElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const mouseRef = useRef({ x: -1000, y: -1000, currX: -1000, currY: -1000, isHovered: false });
+
+  const mainImage = product.image || "/product_packaging.png";
+  const rawGallery = Array.isArray(product.images) && product.images.length > 0 ? product.images : [mainImage];
+  const galleryImages = rawGallery.length > 1 ? rawGallery : [
+    mainImage,
+    "/cosmetics/skincare_cartons.png",
+    "/cosmetics/luxury_rigid_box.png",
+    "/cosmetics/beauty_mailer.png",
+  ];
+
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [isPaused, setIsPaused] = useState(false);
+
+  useEffect(() => {
+    setCurrentIndex(0);
+  }, [product.image]);
+
+  useEffect(() => {
+    if (isPaused || galleryImages.length <= 1) return;
+
+    const timer = setInterval(() => {
+      setCurrentIndex((prevIndex) => (prevIndex + 1) % galleryImages.length);
+    }, 3500);
+
+    return () => clearInterval(timer);
+  }, [isPaused, galleryImages.length]);
+
+  const handlePrev = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    setCurrentIndex((prev) => (prev === 0 ? galleryImages.length - 1 : prev - 1));
+  };
+
+  const handleNext = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    setCurrentIndex((prev) => (prev + 1) % galleryImages.length);
+  };
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -142,17 +179,17 @@ export default function SingleProductBanner({ product }: SingleProductBannerProp
       <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8">
         {/* Breadcrumb Navigation */}
         <nav className="flex items-center gap-2 text-xs text-gray-500 font-medium mb-8">
-          <Link href="/" className="hover:text-[#02c074] transition-colors">
+          <Link href="/" className="hover:text-[#277a4e] transition-colors">
             Home
           </Link>
           <span>/</span>
-          <Link href="/catalog" className="hover:text-[#02c074] transition-colors">
+          <Link href="/catalog" className="hover:text-[#277a4e] transition-colors">
             Products
           </Link>
           <span>/</span>
           <Link
             href={`/catalog?category=${product.categorySlug}`}
-            className="hover:text-[#02c074] transition-colors"
+            className="hover:text-[#277a4e] transition-colors"
           >
             {product.categoryName}
           </Link>
@@ -163,26 +200,106 @@ export default function SingleProductBanner({ product }: SingleProductBannerProp
         {/* 2-Column Hero Layout */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
           {/* Left Column: Product Image Showcase */}
-          <div className="lg:col-span-5 relative">
-            <div className="relative w-full h-80 sm:h-96 md:h-[420px] bg-white rounded-3xl overflow-hidden border border-gray-200/80 shadow-lg group">
-              <Image
-                src={product.image}
-                alt={product.name}
-                fill
-                priority
-                className="object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
-                sizes="(max-width: 1024px) 100vw, 40vw"
-              />
+          <div
+            className="lg:col-span-5 relative"
+            onMouseEnter={() => setIsPaused(true)}
+            onMouseLeave={() => setIsPaused(false)}
+          >
+            {/* Main Image Container */}
+            <div className="relative w-full h-80 sm:h-96 md:h-[400px] bg-white rounded-3xl overflow-hidden border border-gray-200/80 shadow-lg group">
+              {galleryImages.map((imgUrl, idx) => (
+                <div
+                  key={idx}
+                  className={`absolute inset-0 transition-opacity duration-700 ease-in-out ${
+                    currentIndex === idx ? "opacity-100 z-10" : "opacity-0 z-0 pointer-events-none"
+                  }`}
+                >
+                  <Image
+                    src={imgUrl}
+                    alt={`${product.name} view ${idx + 1}`}
+                    fill
+                    priority={idx === 0}
+                    className="object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
+                    sizes="(max-width: 1024px) 100vw, 40vw"
+                  />
+                </div>
+              ))}
 
               {/* Badges on Image */}
-              <div className="absolute top-4 left-4 flex flex-col gap-2 z-10">
+              <div className="absolute top-4 left-4 flex flex-col gap-2 z-20 pointer-events-none">
                 <span className="px-3 py-1.5 rounded-lg text-xs font-bold bg-[#1e293b]/90 text-white backdrop-blur-xs shadow-xs">
                   MOQ: {product.moq}
                 </span>
-                <span className="px-3 py-1.5 rounded-lg text-xs font-bold bg-[#02c074] text-white shadow-xs">
+                <span className="px-3 py-1.5 rounded-lg text-xs font-bold bg-[#277a4e] text-white shadow-xs">
                   100% Customisable
                 </span>
               </div>
+
+              {/* Prev / Next Carousel Controls */}
+              {galleryImages.length > 1 && (
+                <>
+                  <button
+                    type="button"
+                    onClick={handlePrev}
+                    aria-label="Previous Image"
+                    className="absolute left-3 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-white/90 hover:bg-white text-gray-800 flex items-center justify-center shadow-md opacity-0 group-hover:opacity-100 transition-opacity z-20 cursor-pointer"
+                  >
+                    <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
+                    </svg>
+                  </button>
+                  <button
+                    type="button"
+                    onClick={handleNext}
+                    aria-label="Next Image"
+                    className="absolute right-3 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-white/90 hover:bg-white text-gray-800 flex items-center justify-center shadow-md opacity-0 group-hover:opacity-100 transition-opacity z-20 cursor-pointer"
+                  >
+                    <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+                    </svg>
+                  </button>
+                </>
+              )}
+
+              {/* Indicator Dots */}
+              {galleryImages.length > 1 && (
+                <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex items-center gap-1.5 z-20">
+                  {galleryImages.map((_, idx) => (
+                    <button
+                      key={idx}
+                      type="button"
+                      onClick={() => setCurrentIndex(idx)}
+                      aria-label={`Go to slide ${idx + 1}`}
+                      className={`h-1.5 rounded-full transition-all duration-300 ${
+                        currentIndex === idx ? "w-6 bg-[#277a4e]" : "w-1.5 bg-white/70 hover:bg-white"
+                      }`}
+                    />
+                  ))}
+                </div>
+              )}
+            </div>
+
+            {/* E-Commerce Multiple Image Gallery Thumbnails */}
+            <div className="mt-4 flex items-center gap-3 overflow-x-auto pb-2 scrollbar-none">
+              {galleryImages.map((imgUrl, idx) => (
+                <button
+                  key={idx}
+                  type="button"
+                  onClick={() => setCurrentIndex(idx)}
+                  className={`relative w-20 h-20 rounded-xl overflow-hidden border-2 transition-all flex-shrink-0 bg-white cursor-pointer ${
+                    currentIndex === idx
+                      ? "border-[#277a4e] ring-2 ring-[#277a4e]/25 scale-105 shadow-sm"
+                      : "border-gray-200 hover:border-gray-400 opacity-70 hover:opacity-100"
+                  }`}
+                >
+                  <Image
+                    src={imgUrl}
+                    alt={`${product.name} thumbnail view ${idx + 1}`}
+                    fill
+                    className="object-cover object-center"
+                  />
+                </button>
+              ))}
             </div>
           </div>
 
@@ -190,7 +307,7 @@ export default function SingleProductBanner({ product }: SingleProductBannerProp
           <div className="lg:col-span-7">
             {/* Category Tag */}
             <div className="inline-block mb-4">
-              <span className="inline-flex items-center px-3 py-1 rounded-md text-[11px] font-bold tracking-wider uppercase bg-[#e4f7ee] text-[#00684a] border border-[#c3f0da] shadow-xs">
+              <span className="inline-flex items-center px-3 py-1 rounded-md text-[11px] font-bold tracking-wider uppercase bg-[#eaf6f0] text-[#1d5338] border border-[#c3f0da] shadow-xs">
                 {product.categoryName}
               </span>
             </div>
@@ -264,7 +381,7 @@ export default function SingleProductBanner({ product }: SingleProductBannerProp
             <div className="flex flex-wrap items-center gap-4 mt-8 pt-6 border-t border-gray-200/80">
               <Link
                 href={`/contact?product=${encodeURIComponent(product.name)}`}
-                className="inline-flex items-center justify-center px-7 py-4 bg-[#00684a] hover:bg-[#00543c] text-white text-sm font-bold rounded-xl transition-all shadow-md shadow-[#00684a]/20 group"
+                className="inline-flex items-center justify-center px-7 py-4 bg-[#277a4e] hover:bg-[#1d5338] text-white text-sm font-bold rounded-xl transition-all shadow-md shadow-[#277a4e]/20 group"
               >
                 Get Instant Quote
                 <svg
@@ -334,7 +451,7 @@ function ProductSpecificationForm({
             placeholder=""
             value={dimensions.length}
             onChange={(e) => setDimensions({ ...dimensions, length: e.target.value })}
-            className="w-full px-3.5 py-2.5 bg-white border border-gray-300 rounded-lg text-sm text-[#0f172a] focus:outline-none focus:border-[#02c074] focus:ring-2 focus:ring-[#02c074]/20 transition-all shadow-2xs"
+            className="w-full px-3.5 py-2.5 bg-white border border-gray-300 rounded-lg text-sm text-[#0f172a] focus:outline-none focus:border-[#277a4e] focus:ring-2 focus:ring-[#277a4e]/20 transition-all shadow-2xs"
           />
         </div>
 
@@ -347,7 +464,7 @@ function ProductSpecificationForm({
             placeholder=""
             value={dimensions.width}
             onChange={(e) => setDimensions({ ...dimensions, width: e.target.value })}
-            className="w-full px-3.5 py-2.5 bg-white border border-gray-300 rounded-lg text-sm text-[#0f172a] focus:outline-none focus:border-[#02c074] focus:ring-2 focus:ring-[#02c074]/20 transition-all shadow-2xs"
+            className="w-full px-3.5 py-2.5 bg-white border border-gray-300 rounded-lg text-sm text-[#0f172a] focus:outline-none focus:border-[#277a4e] focus:ring-2 focus:ring-[#277a4e]/20 transition-all shadow-2xs"
           />
         </div>
 
@@ -360,7 +477,7 @@ function ProductSpecificationForm({
             placeholder=""
             value={dimensions.depth}
             onChange={(e) => setDimensions({ ...dimensions, depth: e.target.value })}
-            className="w-full px-3.5 py-2.5 bg-white border border-gray-300 rounded-lg text-sm text-[#0f172a] focus:outline-none focus:border-[#02c074] focus:ring-2 focus:ring-[#02c074]/20 transition-all shadow-2xs"
+            className="w-full px-3.5 py-2.5 bg-white border border-gray-300 rounded-lg text-sm text-[#0f172a] focus:outline-none focus:border-[#277a4e] focus:ring-2 focus:ring-[#277a4e]/20 transition-all shadow-2xs"
           />
         </div>
       </div>
@@ -374,7 +491,7 @@ function ProductSpecificationForm({
           <select
             value={material}
             onChange={(e) => setMaterial(e.target.value)}
-            className="w-full px-3.5 py-2.5 bg-white border border-gray-300 rounded-lg text-sm text-[#0f172a] focus:outline-none focus:border-[#02c074] focus:ring-2 focus:ring-[#02c074]/20 transition-all shadow-2xs cursor-pointer appearance-none bg-[url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22%23475569%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%3Cpolyline%20points%3D%226%209%2012%2015%2018%209%22%3E%3C%2Fpolyline%3E%3C%2Fsvg%3E')] bg-[length:16px_16px] bg-[right_12px_center] bg-no-repeat pr-10"
+            className="w-full px-3.5 py-2.5 bg-white border border-gray-300 rounded-lg text-sm text-[#0f172a] focus:outline-none focus:border-[#277a4e] focus:ring-2 focus:ring-[#277a4e]/20 transition-all shadow-2xs cursor-pointer appearance-none bg-[url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22%23475569%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%3Cpolyline%20points%3D%226%209%2012%2015%2018%209%22%3E%3C%2Fpolyline%3E%3C%2Fsvg%3E')] bg-[length:16px_16px] bg-[right_12px_center] bg-no-repeat pr-10"
           >
             <option value="Need Consultation">Need Consultation</option>
             <option value="14pt Cardstock">14pt Cardstock</option>
@@ -393,7 +510,7 @@ function ProductSpecificationForm({
           <select
             value={print}
             onChange={(e) => setPrint(e.target.value)}
-            className="w-full px-3.5 py-2.5 bg-white border border-gray-300 rounded-lg text-sm text-[#0f172a] focus:outline-none focus:border-[#02c074] focus:ring-2 focus:ring-[#02c074]/20 transition-all shadow-2xs cursor-pointer appearance-none bg-[url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22%23475569%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%3Cpolyline%20points%3D%226%209%2012%2015%2018%209%22%3E%3C%2Fpolyline%3E%3C%2Fsvg%3E')] bg-[length:16px_16px] bg-[right_12px_center] bg-no-repeat pr-10"
+            className="w-full px-3.5 py-2.5 bg-white border border-gray-300 rounded-lg text-sm text-[#0f172a] focus:outline-none focus:border-[#277a4e] focus:ring-2 focus:ring-[#277a4e]/20 transition-all shadow-2xs cursor-pointer appearance-none bg-[url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22%23475569%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%3Cpolyline%20points%3D%226%209%2012%2015%2018%209%22%3E%3C%2Fpolyline%3E%3C%2Fsvg%3E')] bg-[length:16px_16px] bg-[right_12px_center] bg-no-repeat pr-10"
           >
             <option value="Need Consultation">Need Consultation</option>
             <option value="No Printing (Plain)">No Printing (Plain)</option>
@@ -410,7 +527,7 @@ function ProductSpecificationForm({
           <select
             value={finishing}
             onChange={(e) => setFinishing(e.target.value)}
-            className="w-full px-3.5 py-2.5 bg-white border border-gray-300 rounded-lg text-sm text-[#0f172a] focus:outline-none focus:border-[#02c074] focus:ring-2 focus:ring-[#02c074]/20 transition-all shadow-2xs cursor-pointer appearance-none bg-[url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22%23475569%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%3Cpolyline%20points%3D%226%209%2012%2015%2018%209%22%3E%3C%2Fpolyline%3E%3C%2Fsvg%3E')] bg-[length:16px_16px] bg-[right_12px_center] bg-no-repeat pr-10"
+            className="w-full px-3.5 py-2.5 bg-white border border-gray-300 rounded-lg text-sm text-[#0f172a] focus:outline-none focus:border-[#277a4e] focus:ring-2 focus:ring-[#277a4e]/20 transition-all shadow-2xs cursor-pointer appearance-none bg-[url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22%23475569%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%3Cpolyline%20points%3D%226%209%2012%2015%2018%209%22%3E%3C%2Fpolyline%3E%3C%2Fsvg%3E')] bg-[length:16px_16px] bg-[right_12px_center] bg-no-repeat pr-10"
           >
             <option value="Need Consultation">Need Consultation</option>
             <option value="Matte Lamination">Matte Lamination</option>
@@ -438,7 +555,7 @@ function ProductSpecificationForm({
                   onClick={() => toggleAdditional(opt)}
                   className={`px-4 py-2 rounded-md text-xs sm:text-sm font-medium transition-all duration-200 cursor-pointer ${
                     isSelected
-                      ? "bg-[#00684a] text-white shadow-xs"
+                      ? "bg-[#277a4e] text-white shadow-xs"
                       : "bg-[#eaeaea] text-[#334155] hover:bg-[#dfdfdf]"
                   }`}
                 >
@@ -466,7 +583,7 @@ function ProductSpecificationForm({
                   onClick={() => toggleAddon(opt)}
                   className={`px-4 py-2 rounded-md text-xs sm:text-sm font-medium transition-all duration-200 cursor-pointer ${
                     isSelected
-                      ? "bg-[#00684a] text-white shadow-xs"
+                      ? "bg-[#277a4e] text-white shadow-xs"
                       : "bg-[#eaeaea] text-[#334155] hover:bg-[#dfdfdf]"
                   }`}
                 >
