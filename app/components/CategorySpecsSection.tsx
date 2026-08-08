@@ -4,10 +4,10 @@ import { useState } from "react";
 import Link from "next/link";
 
 interface CategorySpecsSectionProps {
-  categoryTitle: string;
+  categoryTitle?: string;
 }
 
-export default function CategorySpecsSection({ categoryTitle }: CategorySpecsSectionProps) {
+export default function CategorySpecsSection({ categoryTitle = "Custom Packaging" }: CategorySpecsSectionProps) {
   const [activeTab, setActiveTab] = useState<"materials" | "finishing" | "addons" | "process">("materials");
 
   const materialsList = [

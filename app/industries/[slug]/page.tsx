@@ -12,30 +12,6 @@ interface PageProps {
 }
 
 // Default fallback categories if WP/WC data is loading or empty
-const defaultCategoriesMap: Record<string, IndustryCategory[]> = {
-  "custom-cosmetics": [
-    { id: 547, name: "Folding Cartons", slug: "folding-carton", image: "/product_packaging.png", description: "Lipstick, cream, serum boxes" },
-    { id: 549, name: "Rigid Boxes", slug: "rigid", image: "/rigid_boxes.png", description: "Luxury perfume & skincare sets" },
-    { id: 550, name: "Custom Inserts", slug: "inserts", image: "/box_inserts.png", description: "Foam & cardboard protection" },
-    { id: 557, name: "Stickers & Labels", slug: "stickers-and-labels", image: "/stickers_labels.png", description: "Bottle & jar branding" },
-    { id: 558, name: "Custom Accessories", slug: "accessories", image: "/packing_tape.png", description: "Printed tape & tissue paper" },
-  ],
-  "custom-cbd-cannabis": [
-    { id: 554, name: "Flexible Pouches", slug: "flexible-pouches", image: "/flexible_pouches.png", description: "Mylar gummies & flower pouches" },
-    { id: 547, name: "Folding Cartons", slug: "folding-carton", image: "/product_packaging.png", description: "Child-resistant boxes & cartons" },
-    { id: 555, name: "Tin Containers", slug: "tin-containers", image: "/tin_containers.png", description: "Pre-roll tins & metal boxes" },
-    { id: 549, name: "Rigid Boxes", slug: "rigid", image: "/rigid_boxes.png", description: "Luxury vape & tincture kits" },
-    { id: 550, name: "Custom Inserts", slug: "inserts", image: "/box_inserts.png", description: "Dropper bottle inserts" },
-  ],
-  default: [
-    { id: 547, name: "Folding Cartons", slug: "folding-carton", image: "/product_packaging.png", description: "Custom retail & product boxes" },
-    { id: 549, name: "Rigid Boxes", slug: "rigid", image: "/rigid_boxes.png", description: "Luxury gift & presentation boxes" },
-    { id: 548, name: "Corrugated Boxes", slug: "corrugated", image: "/corrugated_boxes.png", description: "Durable shipping mailer boxes" },
-    { id: 553, name: "Mailer Shipping Bags", slug: "mailer-shipping-bags", image: "/mailer_bags.png", description: "Poly & kraft shipping mailers" },
-    { id: 554, name: "Flexible Pouches", slug: "flexible-pouches", image: "/flexible_pouches.png", description: "Stand-up & flat pouches" },
-  ],
-};
-
 function formatSlugToTitle(slug: string): string {
   const formatted = slug
     .replace(/-/g, " ")
@@ -75,7 +51,7 @@ export default async function SingleIndustryPage({ params }: PageProps) {
   let title = formatSlugToTitle(slug);
   let description = `Engineered precision meets industrial reliability. We design and manufacture ${title.toLowerCase()} solutions that protect your product and elevate your brand's presence in the global supply chain.`;
   let badge = `${title.toUpperCase()}`;
-  let categories: IndustryCategory[] = defaultCategoriesMap[slug] || defaultCategoriesMap.default;
+  let categories: IndustryCategory[] = [];
   let dynamicProducts: IndustryProduct[] = [];
 
   try {
@@ -83,6 +59,8 @@ export default async function SingleIndustryPage({ params }: PageProps) {
       getWPIndustries(),
       getCategories({ per_page: 100 }).catch(() => []),
     ]);
+
+    const matchedTerm = terms.find((t) => t.slug === slug || t.slug.includes(slug) || slug.includes(t.slug));
 
     const isCosmeticSlug =
       slug.toLowerCase().includes("cosmetic") ||
