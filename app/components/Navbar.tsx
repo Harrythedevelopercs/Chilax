@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import Image from "next/image";
 
@@ -92,6 +92,30 @@ export default function Navbar() {
   const [searchCategory, setSearchCategory] = useState("All");
   const [categories, setCategories] = useState<{ id: number; name: string; slug: string }[]>([]);
 
+  // Live search states
+  const [query, setQuery] = useState("");
+  const [searchResults, setSearchResults] = useState<{
+    products: {
+      id: number | string;
+      sku?: string;
+      slug: string;
+      name: string;
+      categoryName: string;
+      categorySlug: string;
+      image: string;
+      moq: string;
+    }[];
+    categories: {
+      id: number;
+      name: string;
+      slug: string;
+      count: number;
+    }[];
+  }>({ products: [], categories: [] });
+  const [isSearching, setIsSearching] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
+  const searchContainerRef = useRef<HTMLDivElement>(null);
+
   useEffect(() => {
     async function loadCategories() {
       try {
@@ -105,6 +129,46 @@ export default function Navbar() {
       }
     }
     loadCategories();
+  }, []);
+
+  // Live search effect with debouncing
+  useEffect(() => {
+    if (!query.trim()) {
+      setSearchResults({ products: [], categories: [] });
+      setIsOpen(false);
+      return;
+    }
+
+    setIsOpen(true);
+    setIsSearching(true);
+
+    const timer = setTimeout(async () => {
+      try {
+        const res = await fetch(`/api/search?q=${encodeURIComponent(query)}&category=${encodeURIComponent(searchCategory)}`);
+        const data = await res.json();
+        setSearchResults({
+          products: data.products || [],
+          categories: data.categories || [],
+        });
+      } catch (err) {
+        console.error("Live search fetch error:", err);
+      } finally {
+        setIsSearching(false);
+      }
+    }, 250);
+
+    return () => clearTimeout(timer);
+  }, [query, searchCategory]);
+
+  // Click outside handler to close dropdown
+  useEffect(() => {
+    const handleClickOutside = (e: MouseEvent) => {
+      if (searchContainerRef.current && !searchContainerRef.current.contains(e.target as Node)) {
+        setIsOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
   return (
@@ -127,21 +191,41 @@ export default function Navbar() {
           </Link>
 
           {/* Search Box (Centered) */}
-          <div className="flex-1 max-w-2xl hidden md:flex items-center">
+          <div ref={searchContainerRef} className="flex-1 max-w-2xl hidden md:flex items-center relative">
             <div className="relative flex items-center w-full bg-[#f8f9fb] border border-gray-200 rounded-xl focus-within:border-[#277a4e] focus-within:bg-white transition-all shadow-2xs overflow-hidden">
               {/* Search Icon */}
               <div className="pl-3.5 text-gray-400 flex items-center pointer-events-none">
-                <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                </svg>
+                {isSearching ? (
+                  <div className="w-4 h-4 border-2 border-[#277a4e] border-t-transparent rounded-full animate-spin" />
+                ) : (
+                  <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                  </svg>
+                )}
               </div>
 
               {/* Input */}
               <input
                 type="text"
+                value={query}
+                onChange={(e) => setQuery(e.target.value)}
+                onFocus={() => query.trim() && setIsOpen(true)}
                 placeholder="Search products, packaging styles, or industries..."
                 className="w-full py-2.5 px-3 text-xs sm:text-sm text-gray-800 placeholder-gray-400 bg-transparent focus:outline-none font-normal"
               />
+
+              {query && (
+                <button
+                  type="button"
+                  onClick={() => {
+                    setQuery("");
+                    setIsOpen(false);
+                  }}
+                  className="pr-2 text-gray-400 hover:text-gray-600 text-xs cursor-pointer"
+                >
+                  ✕
+                </button>
+              )}
 
               {/* WordPress / WooCommerce Dynamic Category Select Dropdown */}
               <div className="flex items-center border-l border-gray-200 px-3 flex-shrink-0 bg-transparent">
@@ -164,13 +248,119 @@ export default function Navbar() {
                       <option value="flexible-pouches">Flexible Pouches</option>
                       <option value="corrugated-boxes">Corrugated Boxes</option>
                       <option value="cosmetic-packaging">Cosmetic Packaging</option>
-                      <option value="food-beverage">Food &amp; Beverage</option>
-                      <option value="retail-packaging">Retail Packaging</option>
                     </>
                   )}
                 </select>
               </div>
             </div>
+
+            {/* Live Search Results Dropdown Overlay */}
+            {isOpen && (
+              <div className="absolute top-full left-0 right-0 mt-2 bg-white rounded-2xl border border-gray-200 shadow-2xl overflow-hidden z-50 animate-fadeIn max-h-[480px] overflow-y-auto">
+                {isSearching && searchResults.products.length === 0 && searchResults.categories.length === 0 ? (
+                  <div className="p-6 text-center text-xs text-gray-400 flex items-center justify-center gap-2">
+                    <div className="w-4 h-4 border-2 border-[#277a4e] border-t-transparent rounded-full animate-spin" />
+                    Searching WooCommerce database...
+                  </div>
+                ) : searchResults.products.length > 0 || searchResults.categories.length > 0 ? (
+                  <div className="p-2 space-y-3">
+                    {/* Matching Categories */}
+                    {searchResults.categories.length > 0 && (
+                      <div>
+                        <div className="px-3 py-1.5 text-[10px] font-extrabold uppercase tracking-wider text-gray-400 font-poppins">
+                          Matching Categories
+                        </div>
+                        <div className="space-y-1">
+                          {searchResults.categories.map((cat) => (
+                            <Link
+                              key={cat.id}
+                              href={`/categories/${cat.slug}`}
+                              onClick={() => setIsOpen(false)}
+                              className="flex items-center justify-between px-3 py-2 rounded-xl hover:bg-emerald-50/80 transition-colors group"
+                            >
+                              <div className="flex items-center gap-2.5">
+                                <div className="w-7 h-7 rounded-lg bg-[#277a4e]/10 text-[#277a4e] flex items-center justify-center">
+                                  <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                                    <path strokeLinecap="round" strokeLinejoin="round" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
+                                  </svg>
+                                </div>
+                                <span className="text-xs font-bold text-[#0f172a] group-hover:text-[#277a4e]">
+                                  {cat.name}
+                                </span>
+                              </div>
+                              <span className="text-[10px] font-bold text-gray-400 bg-gray-100 px-2 py-0.5 rounded-full">
+                                Category
+                              </span>
+                            </Link>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+
+                    {/* Matching Products */}
+                    {searchResults.products.length > 0 && (
+                      <div>
+                        <div className="px-3 py-1.5 text-[10px] font-extrabold uppercase tracking-wider text-gray-400 font-poppins">
+                          Products ({searchResults.products.length})
+                        </div>
+                        <div className="space-y-1">
+                          {searchResults.products.map((prod) => (
+                            <Link
+                              key={prod.id}
+                              href={`/products/${prod.slug || prod.id}`}
+                              onClick={() => setIsOpen(false)}
+                              className="flex items-center justify-between p-2 rounded-xl hover:bg-gray-50 transition-colors group"
+                            >
+                              <div className="flex items-center gap-3">
+                                <div className="relative w-11 h-11 bg-gray-100 rounded-lg overflow-hidden flex-shrink-0 border border-gray-200/80">
+                                  <Image
+                                    src={prod.image}
+                                    alt={prod.name}
+                                    fill
+                                    className="object-cover group-hover:scale-105 transition-transform"
+                                  />
+                                </div>
+                                <div>
+                                  {prod.sku && (
+                                    <span className="text-[10px] font-mono text-[#277a4e] font-bold block">
+                                      {prod.sku}
+                                    </span>
+                                  )}
+                                  <h5 className="text-xs font-bold text-[#0f172a] group-hover:text-[#277a4e] transition-colors line-clamp-1">
+                                    {prod.name}
+                                  </h5>
+                                  <span className="text-[10px] text-gray-400">
+                                    {prod.categoryName} • MOQ: {prod.moq}
+                                  </span>
+                                </div>
+                              </div>
+                              <span className="text-xs font-bold text-[#277a4e] opacity-0 group-hover:opacity-100 transition-opacity">
+                                View →
+                              </span>
+                            </Link>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+
+                    <div className="pt-2 border-t border-gray-100 text-center">
+                      <Link
+                        href={`/custom-cosmetic-packaging`}
+                        onClick={() => setIsOpen(false)}
+                        className="text-xs font-bold text-[#277a4e] hover:underline inline-block py-1"
+                      >
+                        View All Catalog Products →
+                      </Link>
+                    </div>
+                  </div>
+                ) : (
+                  <div className="p-6 text-center">
+                    <p className="text-xs font-bold text-gray-700">No matching products found</p>
+                    <p className="text-[11px] text-gray-400 mt-0.5">Try searching "cosmetic", "box", "label", "mailer", or "insert"</p>
+                  </div>
+                )}
+              </div>
+            )}
           </div>
 
           {/* Right Action Icons */}

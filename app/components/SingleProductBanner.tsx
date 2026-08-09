@@ -203,11 +203,11 @@ export default function SingleProductBanner({ product }: SingleProductBannerProp
             onMouseLeave={() => setIsPaused(false)}
           >
             {/* Main Image Container */}
-            <div className="relative w-full h-80 sm:h-96 md:h-[400px] bg-white rounded-3xl overflow-hidden border border-gray-200/80 shadow-lg group">
+            <div className="relative w-full h-96 sm:h-[480px] lg:h-[540px] bg-white rounded-3xl overflow-hidden border border-gray-200/80 shadow-lg group flex items-center justify-center">
               {galleryImages.map((imgUrl, idx) => (
                 <div
                   key={idx}
-                  className={`absolute inset-0 transition-opacity duration-700 ease-in-out ${
+                  className={`absolute inset-0 p-4 flex items-center justify-center transition-opacity duration-700 ease-in-out ${
                     currentIndex === idx ? "opacity-100 z-10" : "opacity-0 z-0 pointer-events-none"
                   }`}
                 >
@@ -216,7 +216,7 @@ export default function SingleProductBanner({ product }: SingleProductBannerProp
                     alt={`${product.name} view ${idx + 1}`}
                     fill
                     priority={idx === 0}
-                    className="object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
+                    className="object-contain p-2 group-hover:scale-105 transition-transform duration-700 ease-out"
                     sizes="(max-width: 1024px) 100vw, 40vw"
                   />
                 </div>
