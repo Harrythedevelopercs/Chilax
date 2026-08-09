@@ -134,18 +134,78 @@ export default async function SingleCategoryPage({ params }: PageProps) {
     console.error("Error loading single category page dynamic data:", error);
   }
 
+  // If no WooCommerce products exist for this specific category slug yet (Coming Soon category)
+  const isComingSoon = categoryProducts.length === 0;
+
+  if (isComingSoon) {
+    categoryProducts = [
+      {
+        id: "cs-1",
+        slug: "custom-cosmetic-packaging",
+        name: `Custom ${title} Folding Cartons`,
+        image: "/cat_tuck_end_boxes.png",
+        moq: "100 Units",
+        leadTime: "7-9 Days",
+        description: `Precision engineered custom ${title.toLowerCase()} with custom dielines and foil stamping.`,
+      },
+      {
+        id: "cs-2",
+        slug: "custom-cosmetic-packaging",
+        name: `Magnetic Luxury ${title} Box`,
+        image: "/cat_luxury_rigid_boxes.png",
+        moq: "100 Units",
+        leadTime: "10-12 Days",
+        description: `Rigid chipboard presentation box with magnetic lid closure and velvet interior lining.`,
+      },
+      {
+        id: "cs-3",
+        slug: "custom-cosmetic-packaging",
+        name: `E-Commerce ${title} Mailer Box`,
+        image: "/cat_mailer_boxes.png",
+        moq: "100 Units",
+        leadTime: "7-9 Days",
+        description: `Heavy-duty corrugated mailer box designed for safe shipping and unboxing experience.`,
+      },
+      {
+        id: "cs-4",
+        slug: "custom-cosmetic-packaging",
+        name: `Precision ${title} Foam Insert`,
+        image: "/cat_box_inserts.png",
+        moq: "100 Units",
+        leadTime: "5-7 Days",
+        description: `Custom dieline EVA foam and paperboard inserts tailored for product protection.`,
+      },
+    ];
+  }
+
   return (
     <>
       <Navbar />
       <main>
         {/* Category Hero Banner */}
         <SingleCategoryBanner
-          title={title}
-          description={description}
+          title={isComingSoon ? `${title} (Launching Soon)` : title}
+          description={
+            isComingSoon
+              ? `We are finalizing custom dielines and factory production lines for ${title}. Explore our featured sample dielines below or request custom prototyping.`
+              : description
+          }
           image={bannerImage}
           moq={moq}
           turnaround={turnaround}
         />
+
+        {/* Coming Soon Announcement Notice */}
+        {isComingSoon && (
+          <div className="bg-[#277a4e]/10 border-y border-[#277a4e]/20 py-3 text-center px-4">
+            <p className="text-xs sm:text-sm font-bold text-[#1d5338] font-poppins flex items-center justify-center gap-2">
+              <span className="px-2 py-0.5 rounded bg-[#277a4e] text-white text-[10px] uppercase font-extrabold tracking-wider">
+                COMING SOON
+              </span>
+              Full product line for {title} is launching soon! Request a custom quote below for early prototyping.
+            </p>
+          </div>
+        )}
 
         {/* Category Products Showcase */}
         <SingleCategoryProductsSection
@@ -167,3 +227,4 @@ export default async function SingleCategoryPage({ params }: PageProps) {
     </>
   );
 }
+

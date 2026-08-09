@@ -32,13 +32,10 @@ export default function SingleProductBanner({ product }: SingleProductBannerProp
   const mouseRef = useRef({ x: -1000, y: -1000, currX: -1000, currY: -1000, isHovered: false });
 
   const mainImage = product.image || "/product_packaging.png";
-  const rawGallery = Array.isArray(product.images) && product.images.length > 0 ? product.images : [mainImage];
-  const galleryImages = rawGallery.length > 1 ? rawGallery : [
-    mainImage,
-    "/cosmetics/skincare_cartons.png",
-    "/cosmetics/luxury_rigid_box.png",
-    "/cosmetics/beauty_mailer.png",
-  ];
+  const galleryImages =
+    Array.isArray(product.images) && product.images.length > 0
+      ? product.images
+      : [mainImage];
 
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
@@ -280,27 +277,29 @@ export default function SingleProductBanner({ product }: SingleProductBannerProp
             </div>
 
             {/* E-Commerce Multiple Image Gallery Thumbnails */}
-            <div className="mt-4 flex items-center gap-3 overflow-x-auto pb-2 scrollbar-none">
-              {galleryImages.map((imgUrl, idx) => (
-                <button
-                  key={idx}
-                  type="button"
-                  onClick={() => setCurrentIndex(idx)}
-                  className={`relative w-20 h-20 rounded-xl overflow-hidden border-2 transition-all flex-shrink-0 bg-white cursor-pointer ${
-                    currentIndex === idx
-                      ? "border-[#277a4e] ring-2 ring-[#277a4e]/25 scale-105 shadow-sm"
-                      : "border-gray-200 hover:border-gray-400 opacity-70 hover:opacity-100"
-                  }`}
-                >
-                  <Image
-                    src={imgUrl}
-                    alt={`${product.name} thumbnail view ${idx + 1}`}
-                    fill
-                    className="object-cover object-center"
-                  />
-                </button>
-              ))}
-            </div>
+            {galleryImages.length > 1 && (
+              <div className="mt-4 flex items-center gap-3 overflow-x-auto pb-2 scrollbar-none">
+                {galleryImages.map((imgUrl, idx) => (
+                  <button
+                    key={idx}
+                    type="button"
+                    onClick={() => setCurrentIndex(idx)}
+                    className={`relative w-20 h-20 rounded-xl overflow-hidden border-2 transition-all flex-shrink-0 bg-white cursor-pointer ${
+                      currentIndex === idx
+                        ? "border-[#277a4e] ring-2 ring-[#277a4e]/25 scale-105 shadow-sm"
+                        : "border-gray-200 hover:border-gray-400 opacity-70 hover:opacity-100"
+                    }`}
+                  >
+                    <Image
+                      src={imgUrl}
+                      alt={`${product.name} thumbnail view ${idx + 1}`}
+                      fill
+                      className="object-cover object-center"
+                    />
+                  </button>
+                ))}
+              </div>
+            )}
           </div>
 
           {/* Right Column: Hero Product Details */}
