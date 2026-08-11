@@ -2,7 +2,9 @@ import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
 import SolutionSection from "./components/SolutionSection";
 import ProductsCatalog from "./components/ProductsCatalog";
-import IndustriesSection from "./components/IndustriesSection";
+import BakeryShowcaseBanner from "./components/BakeryShowcaseBanner";
+import CandleShowcaseBanner from "./components/CandleShowcaseBanner";
+
 import SustainabilitySection from "./components/SustainabilitySection";
 import ServicesSection from "./components/ServicesSection";
 import ManufacturerSection from "./components/ManufacturerSection";
@@ -19,7 +21,9 @@ export default function Home() {
         <Hero />
         <SolutionSection />
         <ProductsCatalog />
-        <IndustriesSection />
+        <BakeryShowcaseBanner />
+        <CandleShowcaseBanner />
+
         <SustainabilitySection />
         <ServicesSection />
         <ManufacturerSection />

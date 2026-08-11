@@ -58,7 +58,7 @@ export default function SingleIndustryProductsSection({
   const [selectedCategory, setSelectedCategory] = useState<string>(initialCatSlug);
   const [searchTerm, setSearchTerm] = useState<string>("");
   const [currentPage, setCurrentPage] = useState<number>(1);
-  const ITEMS_PER_PAGE = 8; // 8 items per page for clean 2x4 grid
+  const ITEMS_PER_PAGE = 10; // 10 items per page for clean 5-column grid
 
   // Purely dynamic products from WooCommerce API
   const allProducts = useMemo(() => {
@@ -178,14 +178,14 @@ export default function SingleIndustryProductsSection({
         {/* Products 4-Column Grid */}
         {filteredProducts.length > 0 ? (
           <>
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 sm:gap-5">
               {paginatedProducts.map((product) => (
                 <div
                   key={product.id}
                   className="group relative flex flex-col bg-white border border-gray-200/80 hover:border-[#277a4e] rounded-2xl overflow-hidden shadow-2xs hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1.5"
                 >
                   {/* Product Image */}
-                  <Link href={`/products/${product.slug || product.id}`} className="relative w-full h-52 bg-gray-50 overflow-hidden block">
+                  <Link href={`/products/${product.slug || product.id}`} className="relative w-full h-52 bg-[#f6f6f6] overflow-hidden block">
                     <Image
                       src={product.image}
                       alt={product.name}

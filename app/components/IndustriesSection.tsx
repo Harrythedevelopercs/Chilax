@@ -88,7 +88,7 @@ const industries = [
   },
   {
     name: "Custom Bakery Packaging",
-    href: "/industries/custom-bakery-packaging",
+    href: "/custom-bakery-packaging",
     icon: (
       <svg viewBox="0 0 24 24" fill="none" className="w-7 h-7" stroke="currentColor" strokeWidth={1.6} strokeLinecap="round" strokeLinejoin="round">
         <path d="M18 8h1a4 4 0 010 8h-1" />
@@ -101,7 +101,7 @@ const industries = [
   },
   {
     name: "Custom Candle Packaging",
-    href: "/industries/custom-candle-packaging",
+    href: "/custom-candle-packaging",
     icon: (
       <svg viewBox="0 0 24 24" fill="none" className="w-7 h-7" stroke="currentColor" strokeWidth={1.6} strokeLinecap="round" strokeLinejoin="round">
         <line x1="12" y1="2" x2="12" y2="4" />

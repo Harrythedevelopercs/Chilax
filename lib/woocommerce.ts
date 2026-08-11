@@ -34,8 +34,8 @@ async function fetchWC<T>(endpoint: string, params: Record<string, unknown> = {}
   const url = buildUrl(endpoint, params);
 
   const res = await fetch(url, {
-    next: options?.noCache ? undefined : { revalidate: 3600 },
-    cache: options?.noCache ? "no-store" : undefined,
+    cache: "no-store",
+    next: { revalidate: 0 },
   });
 
   if (!res.ok) {
@@ -190,7 +190,8 @@ export async function getWPIndustries(): Promise<import("./types").WPIndustryTer
   try {
     const url = `${BASE_URL}/wp-json/wp/v2/industry?per_page=100`;
     const res = await fetch(url, {
-      next: { revalidate: 300 }, // Cache for 5 minutes
+      cache: "no-store",
+      next: { revalidate: 0 },
     });
 
     return res.json();

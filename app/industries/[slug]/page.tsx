@@ -66,6 +66,10 @@ export default async function SingleIndustryPage({ params }: PageProps) {
       slug.toLowerCase().includes("cosmetic") ||
       slug.toLowerCase() === "custom-cosmetics";
 
+    const isBakerySlug =
+      slug.toLowerCase().includes("bakery") ||
+      slug.toLowerCase().includes("cake");
+
     if (isCosmeticSlug) {
       const parentCat = wcCategories.find(
         (c) => c.name.toLowerCase() === "custom cosmetic packaging" || c.id === 644
@@ -99,6 +103,64 @@ export default async function SingleIndustryPage({ params }: PageProps) {
                 slug: matched.slug,
                 description: matched.description || `Custom ${matched.name}`,
                 count: matched.count,
+              });
+            }
+          });
+
+          categories = list;
+        }
+      }
+    } else if (isBakerySlug) {
+      const parentCat = wcCategories.find(
+        (c) =>
+          c.name.toLowerCase() === "bakery & cake" ||
+          c.name.toLowerCase() === "bakery packaging" ||
+          c.id === 651
+      );
+
+      if (parentCat) {
+        title = "Custom Bakery & Cake Packaging";
+        badge = "PREMIUM BAKERY MANUFACTURING";
+        description = "Elevate your bakery brand with custom cake boxes, pastry carriers, food-safe paper bags, cupcake inserts, and personalized labels.";
+        const subCats = wcCategories.filter((c) => c.parent === parentCat.id);
+
+        if (subCats.length > 0) {
+          const list: IndustryCategory[] = [
+            { id: "all", name: "All Products", slug: "all", description: "All Custom Bakery & Cake Packaging" },
+          ];
+
+          const desiredOrder = [
+            "best sellers",
+            "product boxes",
+            "bags",
+            "labels",
+          ];
+
+          desiredOrder.forEach((name) => {
+            const matched = subCats.find(
+              (sc) =>
+                sc.name.toLowerCase() === name ||
+                sc.slug.toLowerCase().includes(name.replace(/\s+/g, "-"))
+            );
+            if (matched) {
+              list.push({
+                id: matched.id,
+                name: matched.name,
+                slug: matched.slug,
+                description: matched.description || `Custom ${matched.name} for bakery & cake`,
+                count: matched.count,
+              });
+            }
+          });
+
+          subCats.forEach((sc) => {
+            if (!list.some((c) => c.id === sc.id)) {
+              list.push({
+                id: sc.id,
+                name: sc.name,
+                slug: sc.slug,
+                description: sc.description,
+                count: sc.count,
               });
             }
           });

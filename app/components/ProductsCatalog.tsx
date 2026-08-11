@@ -28,6 +28,26 @@ export default function ProductsCatalog() {
           comingSoon: false,
         },
         {
+          id: "bakery-packaging",
+          slug: "custom-bakery-packaging",
+          name: "Custom Bakery Packaging",
+          count: 38,
+          description: "Food-safe cake boxes, gable carriers, paper bags & custom labels built for bakeries & pastry shops.",
+          image: "/bakery/bakery_cake_boxes.png",
+          href: "/custom-bakery-packaging",
+          comingSoon: false,
+        },
+        {
+          id: "candle-packaging",
+          slug: "custom-candle-packaging",
+          name: "Custom Candle Packaging",
+          count: 24,
+          description: "Sturdy jar boxes, rigid gift boxes, protective foam inserts, tissue paper & heat resistant labels.",
+          image: "/candle/candle_boxes.png",
+          href: "/custom-candle-packaging",
+          comingSoon: false,
+        },
+        {
           id: "tuck-end-boxes",
           slug: "tuck-end-boxes",
           name: "Tuck End Boxes",
@@ -141,7 +161,7 @@ export default function ProductsCatalog() {
               </h3>
 
               {/* Grid of Cards */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5">
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-5">
                 {group.items.map((item) => (
                   <Link
                     key={item.id}

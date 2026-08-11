@@ -207,7 +207,7 @@ export default function SingleProductBanner({ product }: SingleProductBannerProp
             onMouseLeave={() => setIsPaused(false)}
           >
             {/* Main Image Container */}
-            <div className="relative w-full h-96 sm:h-[480px] lg:h-[540px] bg-white rounded-3xl overflow-hidden border border-gray-200/80 shadow-lg group flex items-center justify-center">
+            <div className="relative w-full h-96 sm:h-[480px] lg:h-[540px] bg-[#f6f6f6] rounded-3xl overflow-hidden border border-gray-200/80 shadow-lg group flex items-center justify-center">
               {galleryImages.map((imgUrl, idx) => (
                 <div
                   key={idx}
@@ -288,7 +288,7 @@ export default function SingleProductBanner({ product }: SingleProductBannerProp
                     key={idx}
                     type="button"
                     onClick={() => setCurrentIndex(idx)}
-                    className={`relative w-20 h-20 rounded-xl overflow-hidden border-2 transition-all flex-shrink-0 bg-white cursor-pointer ${
+                    className={`relative w-20 h-20 rounded-xl overflow-hidden border-2 transition-all flex-shrink-0 bg-[#f6f6f6] cursor-pointer ${
                       currentIndex === idx
                         ? "border-[#277a4e] ring-2 ring-[#277a4e]/25 scale-105 shadow-sm"
                         : "border-gray-200 hover:border-gray-400 opacity-70 hover:opacity-100"

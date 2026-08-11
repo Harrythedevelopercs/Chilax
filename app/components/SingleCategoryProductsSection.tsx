@@ -29,7 +29,7 @@ export default function SingleCategoryProductsSection({
   const [searchQuery, setSearchQuery] = useState("");
   const [sortBy, setSortBy] = useState<"featured" | "name" | "moq">("featured");
   const [currentPage, setCurrentPage] = useState<number>(1);
-  const ITEMS_PER_PAGE = 8;
+  const ITEMS_PER_PAGE = 10;
 
   // Reset page when searchQuery or sortBy changes
   useEffect(() => {
@@ -132,14 +132,14 @@ export default function SingleCategoryProductsSection({
         {/* Product Cards Grid */}
         {filteredProducts.length > 0 ? (
           <>
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 sm:gap-5">
               {paginatedProducts.map((product) => (
                 <div
                   key={product.id}
                   className="group bg-white border border-gray-200/80 hover:border-[#277a4e] rounded-2xl overflow-hidden shadow-2xs hover:shadow-xl transition-all duration-300 flex flex-col transform hover:-translate-y-1"
                 >
                   {/* Image & Badges */}
-                  <div className="relative w-full h-48 bg-gray-50 overflow-hidden">
+                  <div className="relative w-full h-48 bg-[#f6f6f6] overflow-hidden">
                     <Image
                       src={product.image}
                       alt={product.name}
