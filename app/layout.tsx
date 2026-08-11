@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
+import Script from "next/script";
 import "./globals.css";
+import { CartProvider } from "./context/CartContext";
 
 export const metadata: Metadata = {
   title: "Parcela® - Custom Packaging & Custom Boxes | Request a Free Quote",
@@ -22,9 +24,24 @@ export default function RootLayout({
         <link href="https://fonts.cdnfonts.com/css/google-sans" rel="stylesheet" />
       </head>
       <body className="antialiased text-[#1a1a2e] bg-[#f1f5f9]" suppressHydrationWarning>
-        <div className="w-full bg-white min-h-screen overflow-x-hidden border-x border-gray-200/50 shadow-sm">
-          {children}
-        </div>
+        {/* Google Analytics (gtag.js) */}
+        <Script
+          src="https://www.googletagmanager.com/gtag/js?id=G-0CY4QFS1VM"
+          strategy="afterInteractive"
+        />
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-0CY4QFS1VM');
+          `}
+        </Script>
+        <CartProvider>
+          <div className="w-full bg-white min-h-screen overflow-x-hidden border-x border-gray-200/50 shadow-sm" suppressHydrationWarning>
+            {children}
+          </div>
+        </CartProvider>
       </body>
     </html>
   );

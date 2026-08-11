@@ -9,6 +9,7 @@ interface StaticCategoryItem {
   description: string;
   image: string;
   href: string;
+  comingSoon?: boolean;
 }
 
 export default function ProductsCatalog() {
@@ -24,6 +25,7 @@ export default function ProductsCatalog() {
           description: "Premium engineered cosmetic boxes, skincare cartons & beauty containers tailored to your brand.",
           image: "/cat_cosmetic_packaging.png",
           href: "/custom-cosmetic-packaging",
+          comingSoon: false,
         },
         {
           id: "tuck-end-boxes",
@@ -32,7 +34,8 @@ export default function ProductsCatalog() {
           count: 18,
           description: "Versatile retail folding cartons with straight & reverse tuck closures for products.",
           image: "/cat_tuck_end_boxes.png",
-          href: "/custom-cosmetic-packaging",
+          href: "/categories/tuck-end-boxes",
+          comingSoon: true,
         },
         {
           id: "woven-bags",
@@ -41,7 +44,8 @@ export default function ProductsCatalog() {
           count: 12,
           description: "Eco-friendly custom printed tote bags and reusable non-woven retail carriers.",
           image: "/cat_woven_bags.png",
-          href: "/custom-cosmetic-packaging",
+          href: "/categories/woven-bags",
+          comingSoon: true,
         },
         {
           id: "mailer-boxes",
@@ -50,7 +54,8 @@ export default function ProductsCatalog() {
           count: 15,
           description: "Heavy-duty corrugated e-commerce mailers engineered for safe unboxing experience.",
           image: "/cat_mailer_boxes.png",
-          href: "/custom-cosmetic-packaging",
+          href: "/categories/mailer-boxes",
+          comingSoon: true,
         },
       ] as StaticCategoryItem[],
     },
@@ -64,7 +69,8 @@ export default function ProductsCatalog() {
           count: 9,
           description: "Top-performing custom boxes & packaging solutions chosen by leading brands.",
           image: "/cat_best_sellers.png",
-          href: "/custom-cosmetic-packaging",
+          href: "/categories/best-sellers",
+          comingSoon: true,
         },
         {
           id: "luxury-boxes",
@@ -73,7 +79,8 @@ export default function ProductsCatalog() {
           count: 14,
           description: "Premium velvet-lined rigid chipboard boxes with magnetic closures & foil stamping.",
           image: "/cat_luxury_rigid_boxes.png",
-          href: "/custom-cosmetic-packaging",
+          href: "/categories/luxury-boxes",
+          comingSoon: true,
         },
         {
           id: "box-inserts",
@@ -82,7 +89,8 @@ export default function ProductsCatalog() {
           count: 14,
           description: "Precision-cut EVA foam, corrugated dielines & molded pulp protective inserts.",
           image: "/cat_box_inserts.png",
-          href: "/custom-cosmetic-packaging",
+          href: "/categories/box-inserts",
+          comingSoon: true,
         },
         {
           id: "labels",
@@ -91,7 +99,8 @@ export default function ProductsCatalog() {
           count: 8,
           description: "Custom die-cut stickers, waterproof jar labels & metallic foil sheet labels.",
           image: "/cat_labels_stickers.png",
-          href: "/custom-cosmetic-packaging",
+          href: "/categories/labels",
+          comingSoon: true,
         },
       ] as StaticCategoryItem[],
     },
@@ -146,7 +155,7 @@ export default function ProductsCatalog() {
                         src={item.image}
                         alt={item.name}
                         fill
-                        className="object-cover object-center group-hover:scale-105 transition-transform duration-500 ease-out"
+                        className={`object-cover object-center group-hover:scale-105 transition-transform duration-500 ease-out${item.comingSoon ? " brightness-90" : ""}`}
                         sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
                       />
                       {/* Count Badge */}
@@ -155,6 +164,18 @@ export default function ProductsCatalog() {
                           {item.count} Products
                         </span>
                       </div>
+                      {/* Coming Soon Badge */}
+                      {item.comingSoon && (
+                        <div className="absolute top-3 right-3 z-10">
+                          <span className="flex items-center gap-1 px-2.5 py-1 rounded-md text-[10px] font-extrabold bg-amber-500 text-white shadow-md uppercase tracking-wider animate-pulse">
+                            <svg className="w-2.5 h-2.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                              <circle cx="12" cy="12" r="10" />
+                              <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v6l4 2" />
+                            </svg>
+                            Coming Soon
+                          </span>
+                        </div>
+                      )}
                       <div className="absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-white/60 to-transparent pointer-events-none" />
                     </div>
 
@@ -170,18 +191,28 @@ export default function ProductsCatalog() {
                       </div>
 
                       <div className="mt-4 pt-3 border-t border-gray-100 flex items-center justify-between">
-                        <span className="text-[11px] font-bold text-[#277a4e] group-hover:text-[#1d5338] flex items-center gap-1 transition-colors">
-                          Explore Category
-                          <svg
-                            className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform"
-                            fill="none"
-                            viewBox="0 0 24 24"
-                            stroke="currentColor"
-                            strokeWidth={2.5}
-                          >
-                            <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
-                          </svg>
-                        </span>
+                        {item.comingSoon ? (
+                          <span className="text-[11px] font-bold text-amber-500 flex items-center gap-1">
+                            <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                              <circle cx="12" cy="12" r="10" />
+                              <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v6l4 2" />
+                            </svg>
+                            Launching Soon
+                          </span>
+                        ) : (
+                          <span className="text-[11px] font-bold text-[#277a4e] group-hover:text-[#1d5338] flex items-center gap-1 transition-colors">
+                            Explore Category
+                            <svg
+                              className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform"
+                              fill="none"
+                              viewBox="0 0 24 24"
+                              stroke="currentColor"
+                              strokeWidth={2.5}
+                            >
+                              <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+                            </svg>
+                          </span>
+                        )}
                       </div>
                     </div>
                     <div className="h-0.5 w-0 group-hover:w-full bg-[#277a4e] transition-all duration-300 ease-out" />

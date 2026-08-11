@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Navbar from "../../components/Navbar";
 import SingleProductBanner, { SingleProductBannerData } from "../../components/SingleProductBanner";
 import CustomPackagingFormSection from "../../components/CustomPackagingFormSection";
-import ProductReviewsSection from "../../components/ProductReviewsSection";
+import TestimonialsSection from "../../components/TestimonialsSection";
 import FAQSection from "../../components/FAQSection";
 import Footer from "../../components/Footer";
 import { getProductById, getProductBySlug, parseWCProductMeta, decodeHTMLEntities } from "@/lib/woocommerce";
@@ -104,8 +104,8 @@ export default async function SingleProductPage({ params }: PageProps) {
         {/* Section 2: Custom Packaging Quote & Sample Form */}
         <CustomPackagingFormSection />
 
-        {/* Section 3: Verified Customer Reviews */}
-        <ProductReviewsSection productName={productData.name} />
+        {/* Section 3: Customer Testimonials */}
+        <TestimonialsSection />
 
         {/* Section 4: Frequently Asked Questions */}
         <FAQSection />

@@ -1,8 +1,10 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { useRouter } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
+import { useCart } from "@/app/context/CartContext";
 
 export interface SingleProductBannerData {
   id?: number | string;
@@ -27,6 +29,8 @@ interface SingleProductBannerProps {
 }
 
 export default function SingleProductBanner({ product }: SingleProductBannerProps) {
+  const router = useRouter();
+  const { addItem } = useCart();
   const sectionRef = useRef<HTMLElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const mouseRef = useRef({ x: -1000, y: -1000, currX: -1000, currY: -1000, isHovered: false });
@@ -378,9 +382,21 @@ export default function SingleProductBanner({ product }: SingleProductBannerProp
 
             {/* CTA Buttons */}
             <div className="flex flex-wrap items-center gap-4 mt-8 pt-6 border-t border-gray-200/80">
-              <Link
-                href={`/contact?product=${encodeURIComponent(product.name)}`}
-                className="inline-flex items-center justify-center px-7 py-4 bg-[#277a4e] hover:bg-[#1d5338] text-white text-sm font-bold rounded-xl transition-all shadow-md shadow-[#277a4e]/20 group"
+              <button
+                type="button"
+                onClick={() => {
+                  addItem({
+                    id: product.id ?? product.slug ?? product.name,
+                    slug: product.slug ?? "",
+                    name: product.name,
+                    image: product.image,
+                    categoryName: product.categoryName,
+                    moq: product.moq,
+                    leadTime: product.leadTime,
+                  });
+                  router.push("/cart");
+                }}
+                className="inline-flex items-center justify-center px-7 py-4 bg-[#277a4e] hover:bg-[#1d5338] text-white text-sm font-bold rounded-xl transition-all shadow-md shadow-[#277a4e]/20 group cursor-pointer"
               >
                 Get Instant Quote
                 <svg
@@ -392,7 +408,7 @@ export default function SingleProductBanner({ product }: SingleProductBannerProp
                 >
                   <path strokeLinecap="round" strokeLinejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3" />
                 </svg>
-              </Link>
+              </button>
               <Link
                 href={`/contact?type=sample&product=${encodeURIComponent(product.name)}`}
                 className="inline-flex items-center justify-center px-6 py-4 bg-transparent border-2 border-[#1e293b] hover:bg-[#1e293b] text-[#1e293b] hover:text-white text-sm font-bold rounded-xl transition-colors"

@@ -2,6 +2,7 @@
 import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { useCart } from "@/app/context/CartContext";
 
 const bottomIndustries = [
   {
@@ -88,6 +89,7 @@ const bottomIndustries = [
 ];
 
 export default function Navbar() {
+  const { count } = useCart();
   const [mobileOpen, setMobileOpen] = useState(false);
   const [searchCategory, setSearchCategory] = useState("All");
   const [categories, setCategories] = useState<{ id: number; name: string; slug: string }[]>([]);
@@ -389,21 +391,23 @@ export default function Navbar() {
 
             {/* Cart / Request Quote Icon */}
             <Link
-              href="/contact"
+              href="/cart"
               className="p-2 text-gray-600 hover:text-[#277a4e] hover:bg-gray-50 rounded-xl transition-all relative"
-              title="Quote & Cart"
+              title="Quote Cart"
             >
               <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}>
                 <path strokeLinecap="round" strokeLinejoin="round" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
               </svg>
-              <span className="absolute top-1 right-1 bg-[#277a4e] text-white text-[9px] font-bold rounded-full w-4 h-4 flex items-center justify-center">
-                0
-              </span>
+              {count > 0 && (
+                <span className="absolute top-1 right-1 bg-[#277a4e] text-white text-[9px] font-bold rounded-full w-4 h-4 flex items-center justify-center">
+                  {count > 9 ? "9+" : count}
+                </span>
+              )}
             </Link>
 
             {/* User Profile Avatar / Contact */}
             <Link
-              href="/contact"
+              href="/dashboard"
               className="flex items-center gap-2 p-1.5 hover:bg-gray-50 rounded-xl transition-all border border-gray-100"
             >
               <div className="w-7 h-7 rounded-full bg-[#123524] text-white font-bold text-xs flex items-center justify-center font-poppins">
