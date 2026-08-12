@@ -34,7 +34,11 @@ export default async function CustomCosmeticPackagingPage() {
 
   try {
     // 1. Fetch WooCommerce categories to get real IDs & counts
-    const allWcCats = await getCategories({ per_page: 100 }).catch(() => []);
+    const allWcCats = await getCategories({ per_page: 100 }).catch((e) => {
+      console.error("getCategories failed:", e);
+      return [];
+    });
+
     const parentCat = allWcCats.find(
       (c) => c.name.toLowerCase() === "custom cosmetic packaging" || c.id === 644
     );
@@ -43,12 +47,10 @@ export default async function CustomCosmeticPackagingPage() {
       const subCats = allWcCats.filter((c) => c.parent === parentCat.id);
 
       if (subCats.length > 0) {
-        // Build subcategory list with real WC data
         const wcSubCatList: IndustryCategory[] = [
           { id: "all", name: "All Products", slug: "all", description: "All Custom Cosmetic Packaging" },
         ];
 
-        // Maintain specific order requested
         const desiredOrder = [
           "best sellers",
           "product boxes",
@@ -71,7 +73,6 @@ export default async function CustomCosmeticPackagingPage() {
           }
         });
 
-        // Add any remaining subcategories not in desired order list
         subCats.forEach((sc) => {
           if (!wcSubCatList.some((c) => c.id === sc.id)) {
             wcSubCatList.push({
@@ -88,39 +89,30 @@ export default async function CustomCosmeticPackagingPage() {
       }
     }
 
-    // 2. Fetch products for all category IDs (parent 644 & subcategories) in parallel
-    const catIdsToFetch = Array.from(
-      new Set([
-        644,
-        ...categories.map((c) => c.id).filter((id) => typeof id === "number") as number[],
-      ])
-    );
-
-    const productBatches = await Promise.all(
-      catIdsToFetch.map((catId) => getProducts({ category: catId, per_page: 100 }).catch(() => []))
-    );
-
-    const productMap = new Map();
-    productBatches.flat().forEach((p) => {
-      if (p && p.id && !productMap.has(p.id)) {
-        productMap.set(p.id, p);
-      }
+    // 2. Fetch products for parent category 644 (which includes all subcategories)
+    let rawProducts = await getProducts({ category: 644, per_page: 100 }).catch((e) => {
+      console.error("getProducts for 644 failed:", e);
+      return [];
     });
 
-    const rawProducts = Array.from(productMap.values());
+    // Fallback: If category 644 returns 0 products, try fetching all products
+    if (!rawProducts || rawProducts.length === 0) {
+      const allProds = await getProducts({ per_page: 100 }).catch(() => []);
+      rawProducts = allProds.filter((p) =>
+        p.categories?.some((c) => c.id === 644 || c.name.toLowerCase().includes("cosmetic"))
+      );
+    }
 
     // 3. Map products to IndustryProduct
     dynamicProducts = rawProducts.map((p) => {
       const parsed = parseWCProductMeta(p);
 
-      // Find primary subcategory name for card pill
       const subCatMatch = categories.find((c) =>
         c.id !== "all" && parsed.categories?.some((pc) => pc.id === c.id || pc.slug === c.slug)
       );
 
       const categoryName = subCatMatch ? subCatMatch.name : (parsed.categories?.[0]?.name || "Cosmetic Packaging");
 
-      // Image selection fallback
       let img = parsed.images?.[0]?.src || "/product_packaging.png";
       const nameLower = parsed.name.toLowerCase();
       if (!parsed.images || parsed.images.length === 0) {

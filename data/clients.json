@@ -6,5 +6,13 @@
     "passHash": "$2b$10$9C5PMpjvP0h9LmMUQrq0duqKdtgXB6e/mEcwshePcK1iZgf18xPpG",
     "wcCustomerId": 3,
     "createdAt": "2026-08-09T21:26:43.160Z"
+  },
+  "hasankhalid_work@yahoo.com": {
+    "email": "hasankhalid_work@yahoo.com",
+    "name": "Hassan ",
+    "company": "Iqbal Comforts",
+    "passHash": "$2b$10$n4EIPmSvUNNvyW.rw/BvzuthsfEigTrK8cjXcQ.iRRO4NLS0d2Cqy",
+    "wcCustomerId": 4,
+    "createdAt": "2026-08-12T18:39:00.070Z"
   }
 }

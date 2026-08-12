@@ -8,16 +8,22 @@ import type {
 
 // ─── Config ──────────────────────────────────────────────────────────
 
-const BASE_URL = process.env.NEXT_PUBLIC_WC_URL!;
-const CONSUMER_KEY = process.env.WC_CONSUMER_KEY!;
-const CONSUMER_SECRET = process.env.WC_CONSUMER_SECRET!;
+const BASE_URL = (
+  process.env.NEXT_PUBLIC_WC_URL || "https://purple-manatee-256891.hostingersite.com"
+).replace(/\/$/, "");
+
+const CONSUMER_KEY =
+  process.env.WC_CONSUMER_KEY || "ck_862f4228314615430415451f1d591c887ca2b4ff";
+
+const CONSUMER_SECRET =
+  process.env.WC_CONSUMER_SECRET || "cs_59d29edc3695f437573e0711134b79275e7e7af2";
 
 const WC_API = `${BASE_URL}/wp-json/wc/v3`;
 
 // ─── Helpers ─────────────────────────────────────────────────────────
 
 function buildUrl(endpoint: string, params: Record<string, unknown> = {}): string {
-  const url = new URL(`${WC_API}/${endpoint}`);
+  const url = new URL(`${WC_API}/${endpoint.replace(/^\//, "")}`);
   url.searchParams.set("consumer_key", CONSUMER_KEY);
   url.searchParams.set("consumer_secret", CONSUMER_SECRET);
 
@@ -32,10 +38,18 @@ function buildUrl(endpoint: string, params: Record<string, unknown> = {}): strin
 
 async function fetchWC<T>(endpoint: string, params: Record<string, unknown> = {}, options?: { noCache?: boolean }): Promise<T> {
   const url = buildUrl(endpoint, params);
+  const auth = typeof Buffer !== "undefined"
+    ? Buffer.from(`${CONSUMER_KEY}:${CONSUMER_SECRET}`).toString("base64")
+    : btoa(`${CONSUMER_KEY}:${CONSUMER_SECRET}`);
 
   const res = await fetch(url, {
     cache: "no-store",
     next: { revalidate: 0 },
+    headers: {
+      Authorization: `Basic ${auth}`,
+      "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+      "Accept": "application/json",
+    },
   });
 
   if (!res.ok) {

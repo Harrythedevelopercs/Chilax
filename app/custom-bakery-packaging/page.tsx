@@ -91,26 +91,19 @@ export default async function CustomBakeryPackagingPage() {
       }
     }
 
-    // 2. Fetch products for all category IDs (parent 651 & subcategories) in parallel
-    const catIdsToFetch = Array.from(
-      new Set([
-        651,
-        ...categories.map((c) => c.id).filter((id) => typeof id === "number") as number[],
-      ])
-    );
-
-    const productBatches = await Promise.all(
-      catIdsToFetch.map((catId) => getProducts({ category: catId, per_page: 100 }).catch(() => []))
-    );
-
-    const productMap = new Map();
-    productBatches.flat().forEach((p) => {
-      if (p && p.id && !productMap.has(p.id)) {
-        productMap.set(p.id, p);
-      }
+    // 2. Fetch products for parent category 651 (which includes all subcategories)
+    let rawProducts = await getProducts({ category: 651, per_page: 100 }).catch((e) => {
+      console.error("getProducts for 651 failed:", e);
+      return [];
     });
 
-    const rawProducts = Array.from(productMap.values());
+    // Fallback: If category 651 returns 0 products, try fetching all products
+    if (!rawProducts || rawProducts.length === 0) {
+      const allProds = await getProducts({ per_page: 100 }).catch(() => []);
+      rawProducts = allProds.filter((p) =>
+        p.categories?.some((c) => c.id === 651 || c.name.toLowerCase().includes("bakery") || c.name.toLowerCase().includes("cake"))
+      );
+    }
 
     // 3. Map products to IndustryProduct
     dynamicProducts = rawProducts.map((p) => {

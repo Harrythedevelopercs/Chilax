@@ -99,26 +99,19 @@ export default async function CustomCandlePackagingPage() {
       }
     }
 
-    // 2. Fetch products for parent (656) & subcategories in parallel
-    const catIdsToFetch = Array.from(
-      new Set([
-        656,
-        ...categories.map((c) => c.id).filter((id) => typeof id === "number") as number[],
-      ])
-    );
-
-    const productBatches = await Promise.all(
-      catIdsToFetch.map((catId) => getProducts({ category: catId, per_page: 100 }).catch(() => []))
-    );
-
-    const productMap = new Map();
-    productBatches.flat().forEach((p) => {
-      if (p && p.id && !productMap.has(p.id)) {
-        productMap.set(p.id, p);
-      }
+    // 2. Fetch products for parent category 656 (which includes all subcategories)
+    let rawProducts = await getProducts({ category: 656, per_page: 100 }).catch((e) => {
+      console.error("getProducts for 656 failed:", e);
+      return [];
     });
 
-    const rawProducts = Array.from(productMap.values());
+    // Fallback: If category 656 returns 0 products, try fetching all products
+    if (!rawProducts || rawProducts.length === 0) {
+      const allProds = await getProducts({ per_page: 100 }).catch(() => []);
+      rawProducts = allProds.filter((p) =>
+        p.categories?.some((c) => c.id === 656 || c.name.toLowerCase().includes("candle"))
+      );
+    }
 
     // 3. Map products to IndustryProduct
     dynamicProducts = rawProducts.map((p) => {
