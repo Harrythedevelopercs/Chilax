@@ -22,10 +22,13 @@ const WC_API = `${BASE_URL}/wp-json/wc/v3`;
 
 // ─── Helpers ─────────────────────────────────────────────────────────
 
-function buildUrl(endpoint: string, params: Record<string, unknown> = {}): string {
+function buildUrl(endpoint: string, params: Record<string, unknown> = {}, includeAuthInUrl: boolean = false): string {
   const url = new URL(`${WC_API}/${endpoint.replace(/^\//, "")}`);
-  url.searchParams.set("consumer_key", CONSUMER_KEY);
-  url.searchParams.set("consumer_secret", CONSUMER_SECRET);
+  
+  if (includeAuthInUrl) {
+    url.searchParams.set("consumer_key", CONSUMER_KEY);
+    url.searchParams.set("consumer_secret", CONSUMER_SECRET);
+  }
 
   Object.entries(params).forEach(([key, value]) => {
     if (value !== undefined && value !== null) {
@@ -37,16 +40,36 @@ function buildUrl(endpoint: string, params: Record<string, unknown> = {}): strin
 }
 
 async function fetchWC<T>(endpoint: string, params: Record<string, unknown> = {}, options?: { noCache?: boolean }): Promise<T> {
-  const url = buildUrl(endpoint, params);
   const auth = typeof Buffer !== "undefined"
     ? Buffer.from(`${CONSUMER_KEY}:${CONSUMER_SECRET}`).toString("base64")
     : btoa(`${CONSUMER_KEY}:${CONSUMER_SECRET}`);
 
-  const res = await fetch(url, {
+  // Attempt 1: Standard HTTPS with Basic Authorization Header ONLY (cleanest & safest for Hostinger WAF)
+  try {
+    const cleanUrl = buildUrl(endpoint, params, false);
+    const res = await fetch(cleanUrl, {
+      cache: "no-store",
+      next: { revalidate: 0 },
+      headers: {
+        Authorization: `Basic ${auth}`,
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+        "Accept": "application/json",
+      },
+    });
+
+    if (res.ok) {
+      return await res.json();
+    }
+  } catch (err) {
+    console.warn(`Basic Auth Header fetch failed for ${endpoint}, trying query params fallback:`, err);
+  }
+
+  // Attempt 2: Fallback with URL Query Parameters ONLY (for hosts where Basic Header is stripped by Nginx proxy)
+  const urlWithAuth = buildUrl(endpoint, params, true);
+  const res = await fetch(urlWithAuth, {
     cache: "no-store",
     next: { revalidate: 0 },
     headers: {
-      Authorization: `Basic ${auth}`,
       "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
       "Accept": "application/json",
     },
