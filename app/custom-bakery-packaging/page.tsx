@@ -11,6 +11,8 @@ import type { IndustryCategory } from "../components/SingleIndustryCategoriesSec
 
 import BakeryShowcaseBanner from "../components/BakeryShowcaseBanner";
 
+import { FALLBACK_BAKERY_PRODUCTS } from "@/lib/fallbackProducts";
+
 export const metadata: Metadata = {
   title: "Custom Bakery & Cake Packaging | Cake Boxes, Bags & Labels - Parcela®",
   description: "Explore custom bakery and cake packaging solutions including Best Sellers, Product Boxes, Food-Safe Bags, and Custom Labels crafted for bakeries & pastry shops.",
@@ -142,6 +144,11 @@ export default async function CustomBakeryPackagingPage() {
 
   } catch (error) {
     console.error("Error loading WooCommerce bakery packaging data:", error);
+  }
+
+  // Guaranteed fallback if API fails or returns empty on serverless production
+  if (!dynamicProducts || dynamicProducts.length === 0) {
+    dynamicProducts = FALLBACK_BAKERY_PRODUCTS;
   }
 
   return (
