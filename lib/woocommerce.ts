@@ -5,6 +5,7 @@ import type {
   WCProduct,
   WCProductParams,
 } from "./types";
+import { getGraphQLCategories, getGraphQLProducts } from "./graphql";
 
 // ─── Config ──────────────────────────────────────────────────────────
 
@@ -85,9 +86,20 @@ async function fetchWC<T>(endpoint: string, params: Record<string, unknown> = {}
 // ─── Categories ──────────────────────────────────────────────────────
 
 /**
- * Fetch all product categories (handles pagination automatically).
+ * Fetch all product categories (prefers GraphQL when available, falls back to REST API).
  */
 export async function getCategories(params?: WCCategoryParams): Promise<WCCategory[]> {
+  try {
+    // 1. Prefer WPGraphQL if enabled
+    const gqlCats = await getGraphQLCategories();
+    if (gqlCats && gqlCats.length > 0) {
+      return gqlCats;
+    }
+  } catch (gqlErr) {
+    // WPGraphQL plugin not enabled or failed, falling back to REST API
+  }
+
+  // 2. REST API Fallback
   const allCategories: WCCategory[] = [];
   let page = 1;
   const perPage = params?.per_page ?? 100;
@@ -170,9 +182,27 @@ export async function getCategoryBySlug(slug: string): Promise<WCCategory | null
 // ─── Products ────────────────────────────────────────────────────────
 
 /**
- * Fetch products with optional filters.
+ * Fetch products with optional filters (prefers GraphQL when available).
  */
 export async function getProducts(params?: WCProductParams): Promise<WCProduct[]> {
+  try {
+    let catSlug: string | undefined = undefined;
+
+    // If searching or category specified, resolve category slug if possible
+    if (params?.category) {
+      const allCats = await getCategories();
+      const matched = allCats.find((c) => c.id === params.category);
+      if (matched) catSlug = matched.slug;
+    }
+
+    const gqlProds = await getGraphQLProducts(catSlug, params?.per_page ?? 100);
+    if (gqlProds && gqlProds.length > 0) {
+      return gqlProds;
+    }
+  } catch (gqlErr) {
+    // WPGraphQL not enabled or failed, fallback to REST API
+  }
+
   return fetchWC<WCProduct[]>("products", {
     per_page: 20,
     ...params,
