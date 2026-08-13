@@ -6,7 +6,6 @@ import SingleIndustryProductsSection, { IndustryProduct } from "../../components
 import Footer from "../../components/Footer";
 import { getWPIndustries, getCategories, getProducts, parseWCProductMeta } from "@/lib/woocommerce";
 import type { WCProduct } from "@/lib/types";
-import { FALLBACK_COSMETIC_PRODUCTS, FALLBACK_CANDLE_PRODUCTS, FALLBACK_BAKERY_PRODUCTS } from "@/lib/fallbackProducts";
 
 interface PageProps {
   params: Promise<{ slug: string }>;
@@ -254,19 +253,8 @@ export default async function SingleIndustryPage({ params }: PageProps) {
       dynamicProducts = Array.from(productMap.values());
     }
 
-    if (isCosmeticSlug && dynamicProducts.length === 0) {
-      dynamicProducts = FALLBACK_COSMETIC_PRODUCTS;
-    } else if (isBakerySlug && dynamicProducts.length === 0) {
-      dynamicProducts = FALLBACK_BAKERY_PRODUCTS;
-    } else if (slug.includes("candle") && dynamicProducts.length === 0) {
-      dynamicProducts = FALLBACK_CANDLE_PRODUCTS;
-    }
-
   } catch (error) {
     console.error("Error fetching industry term/categories/products in page:", error);
-    if (slug.includes("cosmetic")) dynamicProducts = FALLBACK_COSMETIC_PRODUCTS;
-    else if (slug.includes("bakery") || slug.includes("cake")) dynamicProducts = FALLBACK_BAKERY_PRODUCTS;
-    else if (slug.includes("candle")) dynamicProducts = FALLBACK_CANDLE_PRODUCTS;
   }
 
   return (

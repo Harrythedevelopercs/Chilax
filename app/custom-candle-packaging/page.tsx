@@ -11,8 +11,6 @@ import type { IndustryCategory } from "../components/SingleIndustryCategoriesSec
 
 import CandleShowcaseBanner from "../components/CandleShowcaseBanner";
 
-import { FALLBACK_CANDLE_PRODUCTS } from "@/lib/fallbackProducts";
-
 export const metadata: Metadata = {
   title: "Custom Candle Packaging | Candle Boxes, Mailers, Inserts & Labels - Parcela®",
   description: "Explore custom candle packaging solutions including Best Sellers, Product Boxes, Luxury Rigid Boxes, Shipping Mailers, Foam Inserts, Bags, Packing Paper, and Heat Resistant Labels.",
@@ -150,11 +148,6 @@ export default async function CustomCandlePackagingPage() {
 
   } catch (error) {
     console.error("Error loading WooCommerce candle packaging data:", error);
-  }
-
-  // Guaranteed fallback if API fails or returns empty on serverless production
-  if (!dynamicProducts || dynamicProducts.length === 0) {
-    dynamicProducts = FALLBACK_CANDLE_PRODUCTS;
   }
 
   return (

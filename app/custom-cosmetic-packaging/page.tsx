@@ -11,8 +11,6 @@ import type { IndustryCategory } from "../components/SingleIndustryCategoriesSec
 
 import CosmeticsShowcaseBanner from "../components/CosmeticsShowcaseBanner";
 
-import { FALLBACK_COSMETIC_PRODUCTS } from "@/lib/fallbackProducts";
-
 export const metadata: Metadata = {
   title: "Custom Cosmetic Packaging | Best Sellers, Boxes & Labels - Parcela®",
   description: "Explore custom cosmetic packaging solutions including Best Sellers, Product Boxes, Luxury Boxes, Mailers, Inserts, and Labels crafted for premium cosmetics.",
@@ -148,11 +146,6 @@ export default async function CustomCosmeticPackagingPage() {
 
   } catch (error) {
     console.error("Error loading WooCommerce cosmetic packaging data:", error);
-  }
-
-  // Guaranteed fallback if API fails or returns empty on serverless production
-  if (!dynamicProducts || dynamicProducts.length === 0) {
-    dynamicProducts = FALLBACK_COSMETIC_PRODUCTS;
   }
 
   return (
