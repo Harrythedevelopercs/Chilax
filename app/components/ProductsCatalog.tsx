@@ -48,6 +48,16 @@ export default function ProductsCatalog() {
           comingSoon: false,
         },
         {
+          id: "jewelry-packaging",
+          slug: "custom-jewelry-packaging",
+          name: "Custom Jewelry Packaging",
+          count: 28,
+          description: "Luxury rigid drawer boxes, velvet drawstring pouches, anti-tarnish foam inserts & tamper-proof shipping mailers.",
+          image: "/jewelry/jewelry_luxury_rigid.png",
+          href: "/custom-jewelry-packaging",
+          comingSoon: false,
+        },
+        {
           id: "tuck-end-boxes",
           slug: "tuck-end-boxes",
           name: "Tuck End Boxes",

@@ -1,0 +1,165 @@
+"use client";
+
+import Image from "next/image";
+import Link from "next/link";
+
+const jewelryHighlights = [
+  {
+    title: "Luxury Rigid Jewelry Boxes",
+    subtitle: "Drawer Slide & Magnetic Closure",
+    image: "/jewelry/jewelry_luxury_rigid.png",
+    tag: "Luxury Finish",
+    description: "Custom velvet-lined rigid drawer boxes, 2-piece lift-off lids, and magnetic gift sets with gold/silver foil stamping.",
+  },
+  {
+    title: "Velvet & Microfiber Pouches",
+    subtitle: "Drawstring Bags & Envelopes",
+    image: "/jewelry/jewelry_pouches_bags.png",
+    tag: "Velvet Soft",
+    description: "Ultra-soft debossed microfiber pouches and satin ribbon drawstring bags for rings, pendants, and delicate accessories.",
+  },
+  {
+    title: "Custom Inserts & Display Cards",
+    subtitle: "Velvet Foam & Earring Cards",
+    image: "/jewelry/jewelry_inserts_cards.png",
+    tag: "Scratch Proof",
+    description: "Precision slotted EVA foam, anti-tarnish velvet pads, and embossed earring/necklace hanging cards.",
+  },
+  {
+    title: "Tamper-Proof Shipping Mailers",
+    subtitle: "E-Commerce Transit Boxes",
+    image: "/jewelry/jewelry_shipping_boxes.png",
+    tag: "Secure Transit",
+    description: "Heavy-duty corrugated transit mailers with discreet outer branding and tamper-evident security tape.",
+  },
+];
+
+export default function JewelryShowcaseBanner() {
+  return (
+    <section className="bg-gradient-to-b from-white via-[#fcfaf7] to-[#f8f9fb] py-12 sm:py-16 border-b border-gray-200/60 font-inter">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+        
+        {/* Banner Section Header */}
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-10">
+          <div className="max-w-2xl">
+            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-extrabold uppercase tracking-wider bg-[#277a4e]/10 text-[#277a4e] mb-3">
+              <span className="w-2 h-2 rounded-full bg-[#277a4e] animate-pulse"></span>
+              JEWELRY & ACCESSORIES RANGE
+            </span>
+            <h2 className="font-poppins text-2xl sm:text-3xl md:text-4xl font-extrabold text-[#0f172a] tracking-tight leading-tight">
+              Packaging Crafted Exclusively for Fine Jewelry & Luxury Accessories
+            </h2>
+            <p className="text-gray-600 text-sm sm:text-base mt-2 leading-relaxed">
+              Explore bespoke jewelry boxes, velvet pouches, anti-tarnish inserts, and secure shipping packaging engineered to elevate your luxury jewelry brand.
+            </p>
+          </div>
+
+          <Link
+            href="/contact"
+            className="inline-flex items-center justify-center px-6 py-3 bg-[#277a4e] hover:bg-[#1d5338] text-white font-bold text-sm rounded-xl transition-all shadow-md shadow-[#277a4e]/20 hover:shadow-lg whitespace-nowrap self-start md:self-auto"
+          >
+            Get Custom Dieline & Quote
+            <svg className="w-4 h-4 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+            </svg>
+          </Link>
+        </div>
+
+        {/* 4-Card Feature Banner Grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          {jewelryHighlights.map((item, idx) => (
+            <div
+              key={idx}
+              className="group relative flex flex-col bg-white border border-gray-200/90 hover:border-[#277a4e] rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1.5"
+            >
+              {/* Image Container */}
+              <div className="relative w-full h-48 bg-gray-50 overflow-hidden">
+                <Image
+                  src={item.image}
+                  alt={item.title}
+                  fill
+                  className="object-cover group-hover:scale-108 transition-transform duration-500 ease-out"
+                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+                />
+                
+                {/* Overlay Badge */}
+                <div className="absolute top-3 left-3 z-10">
+                  <span className="px-2.5 py-1 rounded-md text-[10px] font-extrabold uppercase tracking-wide bg-[#0f172a]/85 text-white backdrop-blur-xs shadow-xs">
+                    {item.tag}
+                  </span>
+                </div>
+              </div>
+
+              {/* Card Body */}
+              <div className="p-5 flex flex-col flex-grow justify-between bg-white">
+                <div>
+                  <span className="text-[11px] font-bold text-[#277a4e] uppercase tracking-wider block mb-1">
+                    {item.subtitle}
+                  </span>
+                  <h3 className="font-poppins text-base font-bold text-[#0f172a] group-hover:text-[#277a4e] transition-colors leading-snug mb-2">
+                    {item.title}
+                  </h3>
+                  <p className="text-xs text-gray-500 leading-relaxed">
+                    {item.description}
+                  </p>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* Feature Highlights Strip */}
+        <div className="mt-10 grid grid-cols-2 md:grid-cols-4 gap-4 p-4 sm:p-6 bg-white rounded-2xl border border-gray-200/80 shadow-2xs">
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 rounded-xl bg-[#eaf6f0] flex items-center justify-center text-[#277a4e]">
+              <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" />
+              </svg>
+            </div>
+            <div>
+              <h4 className="text-xs font-bold text-[#0f172a]">Fast Turnaround</h4>
+              <p className="text-[11px] text-gray-500">7-9 business days lead time</p>
+            </div>
+          </div>
+
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 rounded-xl bg-[#eaf6f0] flex items-center justify-center text-[#277a4e]">
+              <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+              </svg>
+            </div>
+            <div>
+              <h4 className="text-xs font-bold text-[#0f172a]">Low MOQ (100 Units)</h4>
+              <p className="text-[11px] text-gray-500">Ideal for boutique jewelers & brands</p>
+            </div>
+          </div>
+
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 rounded-xl bg-[#eaf6f0] flex items-center justify-center text-[#277a4e]">
+              <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+              </svg>
+            </div>
+            <div>
+              <h4 className="text-xs font-bold text-[#0f172a]">Free 3D Mockup & Dieline</h4>
+              <p className="text-[11px] text-gray-500">Full pre-production verification</p>
+            </div>
+          </div>
+
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 rounded-xl bg-[#eaf6f0] flex items-center justify-center text-[#277a4e]">
+              <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" stroke="currentColor" fill="none" />
+              </svg>
+            </div>
+            <div>
+              <h4 className="text-xs font-bold text-[#0f172a]">Anti-Tarnish & Luxury Lined</h4>
+              <p className="text-[11px] text-gray-500">Premium velvet, satin & foam</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+  );
+}
