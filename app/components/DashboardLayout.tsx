@@ -123,7 +123,7 @@ export default function DashboardLayout({ user, children }: DashboardLayoutProps
                   Have questions about custom dielines, print specs, or shipping?
                 </p>
                 <a
-                  href="mailto:harrykennedy.cs@gmail.com"
+                  href="mailto:hello@parcela.studio"
                   className="mt-2.5 inline-flex items-center text-[11px] font-bold text-[#277a4e] hover:underline"
                 >
                   Email Sales Team →

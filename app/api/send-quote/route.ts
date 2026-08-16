@@ -131,7 +131,7 @@ export async function POST(req: NextRequest) {
 
     await transporter.sendMail({
       from: `"Parcela® Website" <${process.env.SMTP_USER}>`,
-      to: process.env.SALES_EMAIL || process.env.SMTP_USER,
+      to: process.env.SALES_EMAIL || "hello@parcela.studio",
       replyTo: email,
       subject: `🛒 New Quote Request from ${fullName}${company ? ` — ${company}` : ""} (${items.length} product${items.length > 1 ? "s" : ""})`,
       html,

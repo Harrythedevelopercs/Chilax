@@ -350,7 +350,7 @@ export default function OrderDetailPage({ params }: { params: Promise<{ id: stri
 
               <div className="pt-2 border-t border-gray-100">
                 <a
-                  href={`mailto:harrykennedy.cs@gmail.com?subject=Inquiry regarding Quote %23${order.number || order.id}`}
+                  href={`mailto:hello@parcela.studio?subject=Inquiry regarding Quote %23${order.number || order.id}`}
                   className="w-full flex items-center justify-center gap-2 font-poppins bg-[#277a4e] hover:bg-[#1d5338] text-white py-3 rounded-xl text-xs font-bold transition-all shadow-sm"
                 >
                   <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>

@@ -179,7 +179,7 @@ function LoginForm() {
                 Your portal credentials were emailed to you after submitting a quote request.
                 <br />
                 <span className="text-[#277a4e] font-bold">Need help?</span> Contact{" "}
-                <a href={`mailto:${process.env.NEXT_PUBLIC_SALES_EMAIL || "sales@parcela.co"}`} className="text-[#277a4e] font-bold hover:underline">
+                <a href={`mailto:${process.env.NEXT_PUBLIC_SALES_EMAIL || "hello@parcela.studio"}`} className="text-[#277a4e] font-bold hover:underline">
                   our sales team
                 </a>
               </p>

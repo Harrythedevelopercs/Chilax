@@ -157,7 +157,7 @@ export default async function CustomJewelryPackagingPage() {
           title="Custom Jewelry & Accessories Packaging"
           badge="PREMIUM JEWELRY MANUFACTURING"
           description="Elevate your jewelry brand with bespoke rigid gift boxes, soft velvet drawstring pouches, anti-tarnish foam inserts, earring display cards, and tamper-proof mailers."
-          videoSrc="/candle.mp4"
+          videoSrc="/jewelry.mp4"
         />
 
         {/* Showcase Banner showcasing Jewelry Packaging Range */}

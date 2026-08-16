@@ -83,7 +83,7 @@ export async function POST(req: NextRequest) {
 
             <p style="margin:0;color:#94a3b8;font-size:11px;text-align:center;">
               Please save your password. For security, we recommend changing it after first login.<br>
-              Questions? Reply to this email or contact <a href="mailto:${process.env.SMTP_USER}" style="color:#277a4e;">${process.env.SMTP_USER}</a>
+              Questions? Reply to this email or contact <a href="mailto:${process.env.SALES_EMAIL || "hello@parcela.studio"}" style="color:#277a4e;">${process.env.SALES_EMAIL || "hello@parcela.studio"}</a>
             </p>
           </div>
         </div>
