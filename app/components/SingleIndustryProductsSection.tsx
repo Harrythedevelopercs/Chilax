@@ -145,8 +145,8 @@ export default function SingleIndustryProductsSection({
           </div>
         </div>
 
-        {/* Category Filter Pills (Horizontal Tabs) */}
-        <div className="flex items-center gap-2 overflow-x-auto pb-4 mb-8 no-scrollbar">
+        {/* Category Filter Pills (Multi-Row Flex Wrap) */}
+        <div className="flex flex-wrap items-center gap-2 sm:gap-2.5 mb-8">
           {categories.map((cat) => {
             const count = allProducts.filter((p) => productMatchesCategory(p, cat)).length;
 
@@ -154,7 +154,7 @@ export default function SingleIndustryProductsSection({
               <button
                 key={cat.id}
                 onClick={() => setSelectedCategory(cat.slug)}
-                className={`px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold whitespace-nowrap transition-all duration-200 cursor-pointer flex items-center gap-2 ${
+                className={`px-3.5 py-2 sm:px-4 sm:py-2.5 rounded-xl text-xs sm:text-sm font-bold transition-all duration-200 cursor-pointer flex items-center gap-2 ${
                   selectedCategory === cat.slug
                     ? "bg-[#277a4e] text-white shadow-md shadow-[#277a4e]/20"
                     : "bg-white text-gray-600 hover:bg-gray-50 border border-gray-200 hover:border-[#277a4e]/50"

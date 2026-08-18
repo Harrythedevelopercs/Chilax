@@ -257,7 +257,7 @@ const allIndustriesData: IndustryItem[] = [
   {
     id: "restaurant",
     name: "Custom Restaurant Packaging",
-    href: "/industries/custom-restaurant-packaging",
+    href: "/custom-restaurant-packaging",
     icon: (
       <svg viewBox="0 0 24 24" fill="none" className="w-7 h-7" stroke="currentColor" strokeWidth={1.6} strokeLinecap="round" strokeLinejoin="round">
         <path d="M3 21h18M3 10h18M5 10V6a1 1 0 011-1h12a1 1 0 011 1v4M9 14h6v7H9z" />

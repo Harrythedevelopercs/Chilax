@@ -21,7 +21,7 @@ const services = [
       "In-depth brand & product analysis",
       "Custom recommendations & cost estimates",
     ],
-    image: "/manufacturing_team.png",
+    image: "/packaging_consultation.jpg",
     stat: { value: "10K+", label: "Brands Consulted" },
   },
   {

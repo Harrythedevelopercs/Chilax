@@ -17,7 +17,7 @@ const bottomIndustries = [
   },
   {
     label: "Restaurant Packaging",
-    href: "/industries/custom-restaurant-packaging",
+    href: "/custom-restaurant-packaging",
     icon: (
       <svg className="w-4 h-4 text-gray-500 group-hover:text-[#277a4e] transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}>
         <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
@@ -48,7 +48,7 @@ const bottomIndustries = [
   },
   {
     label: "Food & Beverage",
-    href: "/industries/custom-food-beverage",
+    href: "/custom-restaurant-packaging",
     icon: (
       <svg className="w-4 h-4 text-gray-500 group-hover:text-[#277a4e] transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}>
         <path strokeLinecap="round" strokeLinejoin="round" d="M3 11l19-9-9 19-2-8-8-2z" />
